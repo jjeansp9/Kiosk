@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -33,22 +34,32 @@ public class MainActivity extends AppCompatActivity {
 
     void clickedCoffe(){
         Toast.makeText(this, "커피 메뉴로 이동", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(intent);
     }
 
     void clickedParfait(){
         Toast.makeText(this, "파르페 메뉴로 이동", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(intent);
     }
 
     void clickedMilkTea(){
         Toast.makeText(this, "밀크티 메뉴로 이동", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(intent);
     }
 
     void clickedDessert(){
         Toast.makeText(this, "디저트 메뉴로 이동", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(intent);
     }
 
     void clickedDrink(){
         Toast.makeText(this, "음료 메뉴로 이동", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        startActivity(intent);
     }
 
 
