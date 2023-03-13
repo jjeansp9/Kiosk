@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public class HomeActivity extends AppCompatActivity {
     ActivityHomeBinding binding;
 
     Boolean[] result= {false,false,false,false,false};
+
+    BottomSheetDialog bottomSheetDialog;
 
     int categoryNum;
 
@@ -69,6 +72,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.tabMilkTea.setOnClickListener(v -> clickedMilkTea());
         binding.tabDessert.setOnClickListener(v -> clickedDessert());
         binding.tabDrink.setOnClickListener(v -> clickedDrink());
+        binding.buy.setOnClickListener(v-> clickedBuy());
     }
 
     void clickedCoffee(){
@@ -130,6 +134,11 @@ public class HomeActivity extends AppCompatActivity {
         }
         for(int i=0; i<fragments.size(); i++){if (fragments.get(i)!=null){ tran.hide(fragments.get(i)); }}
         tran.show(fragments.get(4)).commit();
+    }
+
+    void clickedBuy(){
+        Intent intent= new Intent(HomeActivity.this, MyOrderActivity.class);
+        startActivity(intent);
     }
 }
 
