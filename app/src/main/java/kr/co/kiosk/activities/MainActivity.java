@@ -24,7 +24,31 @@ public class MainActivity extends AppCompatActivity {
         binding= ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.category1.setOnClickListener(v-> Toast.makeText(this, "카테고리 클릭", Toast.LENGTH_SHORT).show());
+        binding.category1.setOnClickListener(v-> clickedCoffe());
+        binding.category2.setOnClickListener(v-> clickedParfait());
+        binding.category3.setOnClickListener(v-> clickedMilkTea());
+        binding.category4.setOnClickListener(v-> clickedDessert());
+        binding.category5.setOnClickListener(v-> clickedDrink());
+    }
+
+    void clickedCoffe(){
+        Toast.makeText(this, "커피 메뉴로 이동", Toast.LENGTH_SHORT).show();
+    }
+
+    void clickedParfait(){
+        Toast.makeText(this, "파르페 메뉴로 이동", Toast.LENGTH_SHORT).show();
+    }
+
+    void clickedMilkTea(){
+        Toast.makeText(this, "밀크티 메뉴로 이동", Toast.LENGTH_SHORT).show();
+    }
+
+    void clickedDessert(){
+        Toast.makeText(this, "디저트 메뉴로 이동", Toast.LENGTH_SHORT).show();
+    }
+
+    void clickedDrink(){
+        Toast.makeText(this, "음료 메뉴로 이동", Toast.LENGTH_SHORT).show();
     }
 
 
