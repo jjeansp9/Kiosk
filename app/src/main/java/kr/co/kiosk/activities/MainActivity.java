@@ -18,6 +18,7 @@ import kr.co.kiosk.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
+    int[] category={0,1,2,3,4};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,30 +36,35 @@ public class MainActivity extends AppCompatActivity {
     void clickedCoffe(){
         Toast.makeText(this, "커피 메뉴로 이동", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        intent.putExtra("category", category[0]);
         startActivity(intent);
     }
 
     void clickedParfait(){
         Toast.makeText(this, "파르페 메뉴로 이동", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        intent.putExtra("category", category[1]);
         startActivity(intent);
     }
 
     void clickedMilkTea(){
         Toast.makeText(this, "밀크티 메뉴로 이동", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        intent.putExtra("category", category[2]);
         startActivity(intent);
     }
 
     void clickedDessert(){
         Toast.makeText(this, "디저트 메뉴로 이동", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        intent.putExtra("category", category[3]);
         startActivity(intent);
     }
 
     void clickedDrink(){
         Toast.makeText(this, "음료 메뉴로 이동", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+        intent.putExtra("category", category[4]);
         startActivity(intent);
     }
 
