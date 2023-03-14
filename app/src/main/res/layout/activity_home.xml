@@ -170,9 +170,12 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler"
+                    android:id="@+id/recycler_select"
                     android:layout_width="600dp"
-                    android:layout_height="370dp"/>
+                    android:layout_height="370dp"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"
+                    android:scrollbars="vertical"/>
 
                 <LinearLayout
                     android:layout_width="600dp"

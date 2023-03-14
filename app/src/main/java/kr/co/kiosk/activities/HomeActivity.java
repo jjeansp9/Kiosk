@@ -27,10 +27,10 @@ public class HomeActivity extends AppCompatActivity {
 
     ActivityHomeBinding binding;
 
+    // 프래그먼트가 이미 add된 경우 또 add하는 상황을 방지하기 위한 변수
     Boolean[] result= {false,false,false,false,false};
 
-    BottomSheetDialog bottomSheetDialog;
-
+    // 클릭한 카테고리에 따라 해당 화면을 보여주기 위한 변수
     int categoryNum;
 
     ArrayList<Fragment> fragments= new ArrayList<>();
@@ -57,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
 
     void createBNV(){
 
+        // 5개의 카테고리 fragment 생성
         fragments.add(0, new CoffeeFragment());
         fragments.add(1, new ParfaitFragment());
         fragments.add(2, new MilkTeaFragment());

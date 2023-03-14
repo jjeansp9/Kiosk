@@ -12,13 +12,19 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import kr.co.kiosk.R;
+import kr.co.kiosk.adapters.RecyclerMenuAdapter;
 import kr.co.kiosk.databinding.ActivityMainBinding;
+import kr.co.kiosk.model.Menu;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     int[] category={0,1,2,3,4};
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
