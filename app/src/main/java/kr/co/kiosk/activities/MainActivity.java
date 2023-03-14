@@ -2,14 +2,22 @@ package kr.co.kiosk.activities;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -35,7 +43,9 @@ public class MainActivity extends AppCompatActivity {
         binding.category3.setOnClickListener(v-> clickedMilkTea());
         binding.category4.setOnClickListener(v-> clickedDessert());
         binding.category5.setOnClickListener(v-> clickedDrink());
-        binding.category6.setOnClickListener(v-> clickedSettings());
+        binding.settings.setOnClickListener(v-> clickedSettings());
+
+        checkPermission(); // 외부저장소 권한요청
     }
 
     void clickedCoffe(){
@@ -74,9 +84,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void clickedSettings(){
-        Toast.makeText(this, "관리자 설정으로 이동", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(MainActivity.this, SettingMenuActivity.class);
-        startActivity(intent);
+
+        LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LinearLayout loginLayout = (LinearLayout) vi.inflate(R.layout.dialog_login, null);
+
+        final EditText pw= (EditText) loginLayout.findViewById(R.id.pw);
+
+        // 비밀번호 :1233 [ 잘못 입력한 경우 관리자설정으로 갈 수 없음 ]
+        new AlertDialog.Builder(this).setTitle("Login").setView(loginLayout).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                if (pw.getText().toString().equals("1233")){
+
+                    Toast.makeText(MainActivity.this, "관리자 설정으로 이동", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(MainActivity.this, SettingMenuActivity.class);
+                    startActivity(intent);
+
+                }else{ Toast.makeText(MainActivity.this, "비밀번호가 틀립니다.", Toast.LENGTH_SHORT).show(); }
+            }
+        }).show();
+
+
+    }
+
+    // 외부저장소 권한요청
+    void checkPermission(){
+        String[] permissions= new String[]{
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_MEDIA_LOCATION};
+        if (checkSelfPermission(permissions[0]) == PackageManager.PERMISSION_DENIED){
+            requestPermissions(permissions, 100);
+        }
     }
 
 

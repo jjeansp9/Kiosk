@@ -2,7 +2,9 @@ package kr.co.kiosk.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
@@ -25,5 +27,6 @@ public class IntroActivity extends AppCompatActivity {
                 finish();
             }
         }, 3000);
+
     }
 }
