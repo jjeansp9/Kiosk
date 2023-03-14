@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void clickedSettings(){
-        Toast.makeText(this, "음료 메뉴로 이동", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "관리자 설정으로 이동", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, SettingMenuActivity.class);
         startActivity(intent);
     }
