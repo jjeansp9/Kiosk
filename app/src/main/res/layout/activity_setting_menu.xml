@@ -86,6 +86,7 @@
 
 
     <LinearLayout
+        android:id="@+id/layout_menu_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -99,14 +100,36 @@
             android:text="메뉴이름"
             android:textSize="36sp"/>
         <EditText
+            android:id="@+id/et_menu_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="24"
-            android:inputType="text"/>
-
+            android:ems="16"
+            android:inputType="text"
+            android:textSize="28sp"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/layout_menu_name"
+        android:layout_marginTop="40dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="메뉴가격"
+            android:textSize="36sp"/>
+        <EditText
+            android:id="@+id/et_menu_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="16"
+            android:inputType="number"
+            android:textSize="28sp"/>
+
+    </LinearLayout>
 
 
     <LinearLayout

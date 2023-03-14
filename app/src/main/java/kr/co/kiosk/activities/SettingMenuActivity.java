@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+
+import java.text.DecimalFormat;
 
 import kr.co.kiosk.R;
 import kr.co.kiosk.databinding.ActivitySettingMenuBinding;
@@ -13,6 +17,28 @@ public class SettingMenuActivity extends AppCompatActivity {
     ActivitySettingMenuBinding binding;
     int select= 0;
 
+    DecimalFormat myFormatter= new DecimalFormat("###,###");
+    String result= "";
+
+//    TextWatcher watcher= new TextWatcher() {
+//        @Override
+//        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//        }
+//
+//        @Override
+//        public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+//            result= myFormatter.format(Double.parseDouble(s.toString().replaceAll(",","")));
+//            binding.etMenuPrice.setText(result);
+//            binding.etMenuPrice.setSelection(result.length());
+//        }
+//
+//        @Override
+//        public void afterTextChanged(Editable editable) {
+//
+//        }
+//    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +46,8 @@ public class SettingMenuActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         binding.coffee.setOnClickListener(v-> clickedCoffee());
+
+        //binding.etMenuPrice.addTextChangedListener(watcher);
 
     }
 
