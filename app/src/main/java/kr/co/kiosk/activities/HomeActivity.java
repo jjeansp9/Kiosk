@@ -16,12 +16,14 @@ import com.google.android.material.navigation.NavigationBarView;
 import java.util.ArrayList;
 
 import kr.co.kiosk.R;
+import kr.co.kiosk.adapters.RecyclerPriceListAdapter;
 import kr.co.kiosk.databinding.ActivityHomeBinding;
 import kr.co.kiosk.fragments.CoffeeFragment;
 import kr.co.kiosk.fragments.DessertFragment;
 import kr.co.kiosk.fragments.DrinkFragment;
 import kr.co.kiosk.fragments.MilkTeaFragment;
 import kr.co.kiosk.fragments.ParfaitFragment;
+import kr.co.kiosk.model.Price;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -33,6 +35,9 @@ public class HomeActivity extends AppCompatActivity {
     // 클릭한 카테고리에 따라 해당 화면을 보여주기 위한 변수
     int categoryNum;
 
+    RecyclerPriceListAdapter priceListAdapter;
+    ArrayList<Price> priceListItems= new ArrayList<>();
+
     ArrayList<Fragment> fragments= new ArrayList<>();
     FragmentManager fragmentManager= null;
 
@@ -41,6 +46,13 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding= ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        priceListAdapter= new RecyclerPriceListAdapter(this, priceListItems);
+        binding.recyclerSelect.setAdapter(priceListAdapter);
+
+        for (int i=0; i<10; i++){
+            priceListItems.add(new Price("아메리카노", "2", "6,000"));
+        }
 
         categoryNum= getIntent().getIntExtra("category", categoryNum);
 

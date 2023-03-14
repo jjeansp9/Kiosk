@@ -24,6 +24,17 @@ public class RecyclerMenuAdapter extends RecyclerView.Adapter<RecyclerMenuAdapte
         this.items = items;
     }
 
+
+    public interface OnItemClickListener{ void onImageClick(View view, int position); }
+
+    private OnItemClickListener itemClickListener;
+
+    public void setItemClickListener(OnItemClickListener onItemClickListener){
+        this.itemClickListener= onItemClickListener;
+    }
+
+
+
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +49,11 @@ public class RecyclerMenuAdapter extends RecyclerView.Adapter<RecyclerMenuAdapte
 
         holder.binding.image.setImageResource(item.menuImage);
         holder.binding.name.setText(item.menuName);
+        holder.binding.price.setText(item.menuPrice);
+
+        holder.binding.image.setOnClickListener(view -> itemClickListener.onImageClick(holder.binding.image,position));
+
+
 
         // 이미지연결 - DB안에는 이미지의 경로 주소만 있음. 즉, 서버컴퓨터 도메인주소가 없음.
 //        String imgUrl= "http://jspstudio.dothome.co.kr/05Retrofit/" + item.file;

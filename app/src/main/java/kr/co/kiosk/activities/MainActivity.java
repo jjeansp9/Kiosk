@@ -24,8 +24,6 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     int[] category={0,1,2,3,4};
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         binding.category3.setOnClickListener(v-> clickedMilkTea());
         binding.category4.setOnClickListener(v-> clickedDessert());
         binding.category5.setOnClickListener(v-> clickedDrink());
+        binding.category6.setOnClickListener(v-> clickedSettings());
     }
 
     void clickedCoffe(){
@@ -71,6 +70,12 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "음료 메뉴로 이동", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
         intent.putExtra("category", category[4]);
+        startActivity(intent);
+    }
+
+    void clickedSettings(){
+        Toast.makeText(this, "음료 메뉴로 이동", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(MainActivity.this, SettingMenuActivity.class);
         startActivity(intent);
     }
 

@@ -7,16 +7,39 @@
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="240dp"
         android:scaleType="centerCrop"
         android:src="@drawable/coffee_01"/>
 
     <TextView
         android:id="@+id/name"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="에스프레소"
+        android:layout_margin="8dp"
         android:layout_below="@+id/image"
-        android:textSize="36sp"/>
+        android:textSize="30sp"/>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image"
+        android:layout_toRightOf="@id/name"
+        android:textSize="30sp"
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="30dp"
+        android:text="₩"/>
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image"
+        android:textSize="30sp"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/text"
+        android:layout_margin="8dp"
+        android:text="3,000"/>
 
 </RelativeLayout>

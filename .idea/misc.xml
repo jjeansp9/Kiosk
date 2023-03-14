@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/drawable/bg_box.xml" value="0.1945" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/drawable/bg_box_black.xml" value="0.26" />
+        <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/drawable/bg_box_number.xml" value="0.1935" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/drawable/bg_message.xml" value="0.1945" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/drawable/ic_baseline_add_comment_24.xml" value="0.315" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.315" />
@@ -26,7 +27,8 @@
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/fragment_drink.xml" value="0.17838541666666666" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/fragment_milk_tea.xml" value="0.15" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/fragment_parfait.xml" value="0.15" />
-        <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/recycler_menu_item.xml" value="0.13" />
+        <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/recycler_menu_item.xml" value="0.18" />
+        <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/recycler_price_item.xml" value="0.16" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/menu/bnv.xml" value="0.30945945945945946" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/menu/bnv_chat.xml" value="0.17432432432432432" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/menu/popup_community.xml" value="0.30945945945945946" />

@@ -204,6 +204,38 @@
                 android:textSize="14sp" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/category6"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_below="@id/category1"
+            android:layout_margin="16dp"
+            android:layout_toRightOf="@id/category5"
+            android:background="@drawable/bg_box"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="53dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_baseline_settings_24" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_box_black"
+                android:paddingLeft="30dp"
+                android:paddingTop="4dp"
+                android:paddingRight="30dp"
+                android:paddingBottom="4dp"
+                android:text="관리자 설정"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
     </RelativeLayout>
 
 
