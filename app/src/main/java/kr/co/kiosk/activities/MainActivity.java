@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     int[] category={0,1,2,3,4};
 
+    String password= "1233";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
-                if (pw.getText().toString().equals("1233")){
+                if (pw.getText().toString().equals(password)){
 
                     Toast.makeText(MainActivity.this, "관리자 설정으로 이동", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, SettingMenuActivity.class);
