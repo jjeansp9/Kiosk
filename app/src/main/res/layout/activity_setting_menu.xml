@@ -6,6 +6,154 @@
     android:layout_height="match_parent"
     tools:context=".activities.SettingMenuActivity">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="메뉴 등록하기"
+        android:layout_centerHorizontal="true"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="70dp"/>
 
+    <LinearLayout
+        android:id="@+id/layout_category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/title"
+        android:layout_marginTop="100dp">
+
+        <TextView
+            android:id="@+id/coffee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="커피"
+            android:textColor="@color/white"
+            android:background="#8A8A8A"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_margin="12dp"
+            android:textSize="36sp"/>
+        <TextView
+            android:id="@+id/parfait"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="파르페"
+            android:textColor="@color/white"
+            android:background="#8A8A8A"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_margin="12dp"
+            android:textSize="36sp"/>
+        <TextView
+            android:id="@+id/milk_tea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="밀크티"
+            android:textColor="@color/white"
+            android:background="#8A8A8A"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_margin="12dp"
+            android:textSize="36sp"/>
+        <TextView
+            android:id="@+id/dessert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="디저트"
+            android:textColor="@color/white"
+            android:background="#8A8A8A"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_margin="12dp"
+            android:textSize="36sp"/>
+        <TextView
+            android:id="@+id/drink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="드링크"
+            android:textColor="@color/white"
+            android:background="#8A8A8A"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_margin="12dp"
+            android:textSize="36sp"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/layout_category"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="메뉴이름"
+            android:textSize="36sp"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="24"
+            android:inputType="text"/>
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:id="@+id/btn_insert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#979797"
+            android:textSize="30sp"
+            android:layout_margin="16dp"
+            android:text="추가하기"/>
+
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#979797"
+            android:textSize="30sp"
+            android:layout_toRightOf="@id/btn_insert"
+            android:layout_margin="16dp"
+            android:text="삭제하기"/>
+
+        <Button
+            android:id="@+id/btn_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#979797"
+            android:textSize="30sp"
+            android:layout_toRightOf="@id/btn_delete"
+            android:layout_margin="16dp"
+            android:text="수정하기"/>
+
+        <Button
+            android:id="@+id/btn_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#979797"
+            android:textSize="30sp"
+            android:layout_toRightOf="@id/btn_update"
+            android:layout_margin="16dp"
+            android:text="목록보기"/>
+
+    </LinearLayout>
 
 </RelativeLayout>
