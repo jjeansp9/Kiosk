@@ -72,7 +72,7 @@ public class SettingMenuActivity extends AppCompatActivity {
     }
 
     // 클릭한 카테고리 이름을 얻어와서 해당 이름의 [ .db 파일 ] 생성
-    int clickedCategory(String categoryName, int i){
+    public int clickedCategory(String categoryName, int i){
 
         if (categoryName.equals("커피")) i = 0;
         else if (categoryName.equals("파르페")) i =1;

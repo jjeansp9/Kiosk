@@ -10,6 +10,8 @@ import android.util.Log;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
+import kr.co.kiosk.activities.SettingMenuActivity;
+
 public class MenuDBHelper extends SQLiteOpenHelper{
 
     SQLiteDatabase db= getWritableDatabase();
@@ -19,6 +21,7 @@ public class MenuDBHelper extends SQLiteOpenHelper{
 
     // 테이블 명
     public static final String TABLE_NAME = "test_coffee";
+    public int categoryNum;
 
     // 테이블 항목
     public static final String COL_1 = "id";
@@ -33,7 +36,6 @@ public class MenuDBHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
         // 테이블(test_coffee) 생성 [ 메뉴이름, 메뉴가격, 메뉴이미지 ]
         db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price TEXT, image TEXT)");
     }
