@@ -74,7 +74,7 @@
             android:id="@+id/drink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="드링크"
+            android:text="음료"
             android:textColor="@color/white"
             android:background="#8A8A8A"
             android:paddingLeft="20dp"
@@ -83,7 +83,6 @@
             android:textSize="36sp"/>
 
     </LinearLayout>
-
 
     <LinearLayout
         android:id="@+id/layout_menu_name"

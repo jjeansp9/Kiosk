@@ -13,5 +13,11 @@
         app:spanCount="2"
         android:scrollbars="horizontal"/>
 
+    <ImageView
+        android:id="@+id/coffee"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/coffee_02"/>
+
 
 </RelativeLayout>

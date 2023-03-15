@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -13,16 +14,21 @@ public class MenuDBHelper extends SQLiteOpenHelper{
 
     SQLiteDatabase db= getWritableDatabase();
 
-    public static final String DATABASE_NAME = "test_menu.db"; // 데이터베이스 명
-    public static final String TABLE_NAME = "test_coffee"; // 테이블 명
+    // 데이터베이스 명
+    public static final String[] DATABASE_NAME = {"coffee_test_01.db", "parfait_test_01.db","milk_tea_test_01.db","dessert_test_01.db","drink_test_01.db"};
+
+    // 테이블 명
+    public static final String TABLE_NAME = "test_coffee";
 
     // 테이블 항목
-    public static final String COL_1 = "name";
-    public static final String COL_2 = "price";
-    public static final String COL_3 = "image";
+    public static final String COL_1 = "id";
+    public static final String COL_2 = "name";
+    public static final String COL_3 = "price";
+    public static final String COL_4 = "image";
 
-    public MenuDBHelper(@Nullable Context context) {
-        super(context, DATABASE_NAME, null, 1);
+    public MenuDBHelper(@Nullable Context context, int i) {
+        super(context, DATABASE_NAME[i], null, 1);
+        Log.d("dbName", DATABASE_NAME[i]);
     }
 
     @Override
@@ -40,7 +46,14 @@ public class MenuDBHelper extends SQLiteOpenHelper{
 
     // 데이터 추가하기
     public void insertData(String name, String price, String image){
-        db.execSQL("INSERT INTO " + TABLE_NAME + "(name, price, image) VALUES('" + name + "' , '" + price + "' , '" + image + "')");
+        ContentValues contentValues= new ContentValues();
+        contentValues.put(COL_2, name);
+        contentValues.put(COL_3, price);
+        contentValues.put(COL_4, image);
+
+        db.insert(TABLE_NAME, null, contentValues);
+
+        //db.execSQL("INSERT INTO " + TABLE_NAME + "(name, price, image) VALUES('" + name + "' , '" + price + "' , '" + image + "')");
     }
 
     // 데이터 수정하기

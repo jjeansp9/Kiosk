@@ -1,6 +1,8 @@
 package kr.co.kiosk.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,9 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
+import java.io.File;
 import java.util.ArrayList;
 
 import kr.co.kiosk.R;
@@ -47,9 +52,10 @@ public class RecyclerMenuAdapter extends RecyclerView.Adapter<RecyclerMenuAdapte
 
         Menu item= items.get(position);
 
-        holder.binding.image.setImageResource(item.menuImage);
         holder.binding.name.setText(item.menuName);
         holder.binding.price.setText(item.menuPrice);
+
+        Glide.with(context).load(item.menuImage).into(holder.binding.image);
 
         holder.binding.image.setOnClickListener(view -> itemClickListener.onImageClick(holder.binding.image,position));
 
@@ -75,7 +81,7 @@ public class RecyclerMenuAdapter extends RecyclerView.Adapter<RecyclerMenuAdapte
             binding= RecyclerMenuItemBinding.bind(itemView);
         }
     }
-
 }
+
 
 

@@ -1,8 +1,8 @@
 package kr.co.kiosk.fragments;
 
+
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -24,6 +26,7 @@ import kr.co.kiosk.model.MenuDBHelper;
 public class CoffeeFragment extends Fragment {
 
     FragmentCoffeeBinding binding;
+
     RecyclerMenuAdapter menuAdapter;
 
     ArrayList<Menu> menuItems= new ArrayList<>();
@@ -44,13 +47,7 @@ public class CoffeeFragment extends Fragment {
         menuAdapter= new RecyclerMenuAdapter(getActivity(), menuItems);
         binding.recyclerMenu.setAdapter(menuAdapter);
 
-        dbHelper = new MenuDBHelper(getActivity());
-
-        for (int i=0; i<20; i++){
-            menuItems.add(new Menu("에스프레소","3,000", R.drawable.coffee_01));
-            menuItems.add(new Menu("커피","4,000", R.drawable.coffee_02));
-        }
-
+        dbHelper = new MenuDBHelper(getActivity(), 0);
 
         ClickedMenu(); // 카페 메뉴아이템마다 클릭할 때 동작
         clickedListMenu();
@@ -76,27 +73,18 @@ public class CoffeeFragment extends Fragment {
 
     // 등록한 메뉴 모두 보여주기
     void clickedListMenu(){
+
         Cursor cursor= dbHelper.getDataAll();
+        StringBuffer buffer= new StringBuffer();
 
-        if (cursor.getCount() == 0) showDialog("error", "데이터가 없습니다.");
-        else{
+        while (cursor.moveToNext()){
+            buffer.append("id : " + cursor.getString(0)+"\n");
+            buffer.append("name : " + cursor.getString(1)+"\n");
+            buffer.append("price : " + cursor.getString(2)+"\n");
+            buffer.append("image : " + cursor.getString(3)+"\n\n");
 
-            StringBuffer buffer= new StringBuffer();
-            while (cursor.moveToNext()){
-                buffer.append("id : " + cursor.getString(0)+"\n");
-                buffer.append("name : " + cursor.getString(1)+"\n");
-                buffer.append("price : " + cursor.getString(2)+"\n");
-                buffer.append("image : " + cursor.getString(3)+"\n\n");
-            }
-            showDialog("메뉴", buffer.toString());
+            menuItems.add(new Menu(cursor.getString(1), cursor.getString(2), cursor.getString(3)));
         }
-    }
+    } // clickedListMenu()
 
-    public void showDialog(String title, String Message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(Message);
-        builder.show();
-    }
 }

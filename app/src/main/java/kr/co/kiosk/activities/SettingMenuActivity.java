@@ -24,6 +24,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.tabs.TabLayout;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -36,7 +37,6 @@ import kr.co.kiosk.model.MenuDBHelper;
 public class SettingMenuActivity extends AppCompatActivity {
 
     ActivitySettingMenuBinding binding;
-    int select= 0;
     Uri uri;
 
     // 숫자 천단위에 [,]를 찍기위한 변수
@@ -44,6 +44,7 @@ public class SettingMenuActivity extends AppCompatActivity {
     String result= "";
 
     MenuDBHelper dbHelper;
+    int categoryNum= 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +52,15 @@ public class SettingMenuActivity extends AppCompatActivity {
         binding= ActivitySettingMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        dbHelper = new MenuDBHelper(this);
+        dbHelper = new MenuDBHelper(this, categoryNum);
 
-        binding.coffee.setOnClickListener(v-> clickedCoffee()); // 등록할 메뉴의 카테고리 선택
+        // 등록할 메뉴의 카테고리 선택
+        binding.coffee.setOnClickListener(v->clickedCategory("커피", categoryNum));
+        binding.parfait.setOnClickListener(v->clickedCategory("파르페", categoryNum));
+        binding.milkTea.setOnClickListener(v->clickedCategory("밀크티", categoryNum));
+        binding.dessert.setOnClickListener(v->clickedCategory("디저트", categoryNum));
+        binding.drink.setOnClickListener(v->clickedCategory("음료", categoryNum));
+
         binding.imgMenuImage.setOnClickListener(v-> clickedImageSelect()); // 메뉴이미지 선택해서 디바이스 사진첩에 접근 후 사진 선택
         binding.etMenuPrice.addTextChangedListener(commaAddForNumber()); // 메뉴가격에 숫자입력할 때 천단위마다 [,] 표시
 
@@ -62,18 +69,24 @@ public class SettingMenuActivity extends AppCompatActivity {
         binding.btnUpdate.setOnClickListener(v-> clickedUpdate());
         binding.btnDelete.setOnClickListener(v-> clickedDelete());
         binding.btnListMenu.setOnClickListener(v-> clickedListMenu());
-
-
     }
 
-    void clickedCoffee(){
-        if (select % 2==0){binding.coffee.setBackgroundColor(Color.parseColor("#000000"));
-        }else{ binding.coffee.setBackgroundColor(Color.parseColor("#8A8A8A")); }
-        select++;
+    // 클릭한 카테고리 이름을 얻어와서 해당 이름의 [ .db 파일 ] 생성
+    int clickedCategory(String categoryName, int i){
+
+        if (categoryName.equals("커피")) i = 0;
+        else if (categoryName.equals("파르페")) i =1;
+        else if (categoryName.equals("밀크티")) i =2;
+        else if (categoryName.equals("디저트")) i =3;
+        else if (categoryName.equals("음료")) i =4;
+        Log.d("CATEGORY", i+"");
+
+        dbHelper = new MenuDBHelper(this, i);
+        return i;
     }
 
     void clickedImageSelect(){
-        Intent intent= new Intent(Intent.ACTION_PICK);
+        Intent intent= new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("image/*");
         startActivityResult.launch(intent);
     }
@@ -124,9 +137,6 @@ public class SettingMenuActivity extends AppCompatActivity {
         String price= binding.etMenuPrice.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
         String image= String.valueOf(uri); // 사진첩에서 가져온 사진의 uri경로를 문자열로 메뉴이미지에 대입
 
-        Log.d("insertConfirm", name+","+ price.getClass().getName()+","+ image.getClass().getName());
-        Log.d("insertConfirm", name+","+ price+","+ image);
-
         // 메뉴이름란에 글자가 없는경우
         if (name.replace(" ", "").equals("")) Toast.makeText(this, "메뉴 이름을 입력해주세요", Toast.LENGTH_SHORT).show();
 
@@ -171,6 +181,8 @@ public class SettingMenuActivity extends AppCompatActivity {
                 buffer.append("name : " + cursor.getString(1)+"\n");
                 buffer.append("price : " + cursor.getString(2)+"\n");
                 buffer.append("image : " + cursor.getString(3)+"\n\n");
+
+                Log.d("uri", cursor.getString(3));
             }
             showDialog("메뉴", buffer.toString());
         }
