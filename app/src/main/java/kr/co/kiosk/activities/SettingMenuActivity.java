@@ -1,12 +1,17 @@
 package kr.co.kiosk.activities;
 
+import static kr.co.kiosk.model.MenuDBHelper.TABLE_NAME;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
@@ -16,6 +21,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -25,6 +31,7 @@ import java.text.DecimalFormat;
 
 import kr.co.kiosk.R;
 import kr.co.kiosk.databinding.ActivitySettingMenuBinding;
+import kr.co.kiosk.model.MenuDBHelper;
 
 public class SettingMenuActivity extends AppCompatActivity {
 
@@ -32,14 +39,19 @@ public class SettingMenuActivity extends AppCompatActivity {
     int select= 0;
     Uri uri;
 
+    // 숫자 천단위에 [,]를 찍기위한 변수
     DecimalFormat myFormatter= new DecimalFormat("###,###");
     String result= "";
+
+    MenuDBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding= ActivitySettingMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        dbHelper = new MenuDBHelper(this);
 
         binding.coffee.setOnClickListener(v-> clickedCoffee()); // 등록할 메뉴의 카테고리 선택
         binding.imgMenuImage.setOnClickListener(v-> clickedImageSelect()); // 메뉴이미지 선택해서 디바이스 사진첩에 접근 후 사진 선택
@@ -108,6 +120,32 @@ public class SettingMenuActivity extends AppCompatActivity {
     // 메뉴데이터 테이블에 추가 [ 메뉴이름, 메뉴가격, 메뉴이미지 ]
     void clickedInsert(){
 
+        String name= binding.etMenuName.getText().toString(); // EditText에 입력한 문자열을 메뉴이름에 대입
+        String price= binding.etMenuPrice.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
+        String image= String.valueOf(uri); // 사진첩에서 가져온 사진의 uri경로를 문자열로 메뉴이미지에 대입
+
+        Log.d("insertConfirm", name+","+ price.getClass().getName()+","+ image.getClass().getName());
+        Log.d("insertConfirm", name+","+ price+","+ image);
+
+        // 메뉴이름란에 글자가 없는경우
+        if (name.replace(" ", "").equals("")) Toast.makeText(this, "메뉴 이름을 입력해주세요", Toast.LENGTH_SHORT).show();
+
+        // 메뉴가격란에 글자가 없는경우
+        else if (price.replace(" ", "").equals("")) Toast.makeText(this, "메뉴 가격을 입력해주세요", Toast.LENGTH_SHORT).show();
+
+        // 사진을 등록하지 않은경우
+        else if (uri==null) Toast.makeText(this, "사진을 등록해주세요", Toast.LENGTH_SHORT).show();
+
+        // 모두 입력한 경우 데이터베이스 테이블에 추가
+        else {
+            dbHelper.insertData(name, price, image);
+
+            binding.etMenuName.setText("");
+            binding.etMenuPrice.setText("");
+            binding.imgMenuImage.setImageResource(R.drawable.ic_upload_image);
+            Toast.makeText(this, "메뉴를 등록하였습니다.", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     // 메뉴데이터 수정 [ 메뉴이름, 메뉴가격, 메뉴이미지 ]
@@ -122,7 +160,28 @@ public class SettingMenuActivity extends AppCompatActivity {
 
     // 등록한 메뉴 모두 보여주기
     void clickedListMenu(){
+        Cursor cursor= dbHelper.getDataAll();
 
+        if (cursor.getCount() == 0) showDialog("error", "데이터가 없습니다.");
+        else{
+
+            StringBuffer buffer= new StringBuffer();
+            while (cursor.moveToNext()){
+                buffer.append("id : " + cursor.getString(0)+"\n");
+                buffer.append("name : " + cursor.getString(1)+"\n");
+                buffer.append("price : " + cursor.getString(2)+"\n");
+                buffer.append("image : " + cursor.getString(3)+"\n\n");
+            }
+            showDialog("메뉴", buffer.toString());
+        }
+    }
+
+    public void showDialog(String title, String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
 }
 

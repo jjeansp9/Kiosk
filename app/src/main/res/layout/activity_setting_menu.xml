@@ -135,11 +135,11 @@
         android:id="@+id/img_menu_image"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="200dp"
         android:layout_below="@id/layout_menu_price"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="200dp"
         android:background="@drawable/bg_upload_image"
-        android:src="@drawable/ic_upload_image"
-        android:layout_centerHorizontal="true"/>
+        android:src="@drawable/ic_upload_image" />
 
     <TextView
         android:layout_width="wrap_content"

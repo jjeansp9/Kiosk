@@ -7,13 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 
 public class MenuDBHelper extends SQLiteOpenHelper{
 
-    SQLiteDatabase db;
-    ContentValues contentValues = new ContentValues();
+    SQLiteDatabase db= getWritableDatabase();
 
-    public static final String DATABASE_NAME = "Test_menu.db"; // 데이터베이스 명
+    public static final String DATABASE_NAME = "test_menu.db"; // 데이터베이스 명
     public static final String TABLE_NAME = "test_coffee"; // 테이블 명
 
     // 테이블 항목
@@ -60,7 +60,6 @@ public class MenuDBHelper extends SQLiteOpenHelper{
 
         return cursor;
     }
-
 }
 
 
