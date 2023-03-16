@@ -65,22 +65,21 @@ public class CoffeeFragment extends Fragment {
             int num=1;
             int index=0;
 
-            ArrayList<Boolean> select= new ArrayList<>();
-
             // 메뉴 이미지를 클릭했을 때 반응
             @Override
             public void onImageClick(View view, int position) {
 
                 for (int i=0; i<menuItems.size(); i++){
-                    select.add(index, false);
+                    ((HomeActivity)HomeActivity.context_home).select.add(index, false);
                     index++;
                 }
 
-                if (select.get(position)== false){
+                if (((HomeActivity)HomeActivity.context_home).select.get(position)== false){
                     ((HomeActivity)HomeActivity.context_home).priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
-                    select.set(position, true);
-
+                    ((HomeActivity)HomeActivity.context_home).select.set(position, true);
                 }
+                ((HomeActivity)HomeActivity.context_home).priceListAdapter.notifyDataSetChanged();
+
             }
 
             // 메뉴 info 아이콘을 클릭했을 때 반응

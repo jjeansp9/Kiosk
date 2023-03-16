@@ -52,7 +52,7 @@ public class ParfaitFragment extends Fragment {
         menuAdapter= new RecyclerMenuAdapter(getActivity(), menuItems);
         binding.recyclerMenuParfait.setAdapter(menuAdapter);
 
-        dbHelper = new MenuDBHelper(getActivity(), 1);
+        dbHelper= new MenuDBHelper(getActivity(), 1);
 
         ClickedMenu(); // 카페 메뉴아이템마다 클릭할 때 동작
         clickedListMenu();
@@ -64,11 +64,10 @@ public class ParfaitFragment extends Fragment {
             int num=1;
             int index=0;
 
-
-
             // 메뉴 이미지를 클릭했을 때 반응
             @Override
             public void onImageClick(View view, int position) {
+
                 for (int i=0; i<menuItems.size(); i++){
                     ((HomeActivity)HomeActivity.context_home).select.add(index, false);
                     index++;
@@ -77,12 +76,9 @@ public class ParfaitFragment extends Fragment {
                 if (((HomeActivity)HomeActivity.context_home).select.get(position)== false){
                     ((HomeActivity)HomeActivity.context_home).priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
                     ((HomeActivity)HomeActivity.context_home).select.set(position, true);
-
-
                 }
-
-
                 ((HomeActivity)HomeActivity.context_home).priceListAdapter.notifyDataSetChanged();
+
 
             }
 

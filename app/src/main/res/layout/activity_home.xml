@@ -237,12 +237,12 @@
                 android:id="@+id/cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="취소"
-                android:layout_toRightOf="@id/select_menu"
                 android:layout_below="@id/buy"
-                android:textSize="36sp"
+                android:layout_toRightOf="@id/select_menu"
+                android:backgroundTint="#F45555"
                 android:padding="36dp"
-                android:backgroundTint="#F45555"/>
+                android:text="취소"
+                android:textSize="36sp" />
 
         </RelativeLayout>
 

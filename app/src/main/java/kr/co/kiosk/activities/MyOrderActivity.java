@@ -4,15 +4,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import kr.co.kiosk.R;
 import kr.co.kiosk.databinding.ActivityHomeBinding;
 import kr.co.kiosk.databinding.ActivityMyOrderBinding;
+import kr.co.kiosk.model.Price;
 
 public class MyOrderActivity extends AppCompatActivity {
 
     ActivityMyOrderBinding binding;
+
+    private ArrayList<Price> priceItems= new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +29,10 @@ public class MyOrderActivity extends AppCompatActivity {
         binding.home.setOnClickListener(v-> clickedHome());
         binding.buyNow.setOnClickListener(v-> clickedBuyNow());
         binding.buyCancel.setOnClickListener(v-> clickedBuyCancel());
+
+        Intent intent= getIntent();
+
+        priceItems= intent.getParcelableArrayListExtra("select_menu");
     }
 
     void clickedHome(){

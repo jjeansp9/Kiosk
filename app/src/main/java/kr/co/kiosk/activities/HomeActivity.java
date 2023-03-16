@@ -45,7 +45,8 @@ public class HomeActivity extends AppCompatActivity {
 
     ArrayList<Fragment> fragments= new ArrayList<>();
     FragmentManager fragmentManager= null;
-    MenuDBHelper dbHelper;
+
+    ArrayList<MenuDBHelper> dbHelper= new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,8 @@ public class HomeActivity extends AppCompatActivity {
         priceListAdapter= new RecyclerPriceListAdapter(this, priceListItems);
         binding.recyclerSelect.setAdapter(priceListAdapter);
 
-        dbHelper = new MenuDBHelper(this, 1);
+        dbHelper.add(new MenuDBHelper(this, 1));
+        dbHelper.add(new MenuDBHelper(this, 5));
 
         categoryNum= getIntent().getIntExtra("category", categoryNum);
 
@@ -66,8 +68,8 @@ public class HomeActivity extends AppCompatActivity {
 
         context_home= this;
 
-        clickedPlusOrMinus();
-        clickedListMenu();
+        clickedPlusOrMinus(); // [ + , - ] 버튼 눌렀을때 반응하는 메소드
+        clickedListMenu(); // db에 저장되어있는 데이터 불러오는 메소드
     }
 
     void clickedPlusOrMinus(){
@@ -91,11 +93,6 @@ public class HomeActivity extends AppCompatActivity {
                     num[position]-=1;
                     priceListItems.set(position, new Price(priceListItems.get(position).menuName, num[position]+"", priceListItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
                     priceListAdapter.notifyDataSetChanged();
-                }else {
-                    priceListItems.remove(position);
-                    select.set(position, false);
-                    priceListAdapter.notifyDataSetChanged();
-
                 }
             }
         });
@@ -125,6 +122,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.tabDessert.setOnClickListener(v -> clickedDessert());
         binding.tabDrink.setOnClickListener(v -> clickedDrink());
         binding.buy.setOnClickListener(v-> clickedBuy());
+        binding.cancel.setOnClickListener(v-> clickedCancel());
     }
 
     void clickedCoffee(){
@@ -188,14 +186,28 @@ public class HomeActivity extends AppCompatActivity {
         tran.show(fragments.get(4)).commit();
     }
 
+    // 주문하기 버튼 클릭했을 때
     void clickedBuy(){
         Intent intent= new Intent(HomeActivity.this, MyOrderActivity.class);
+
+        intent.putExtra("select_menu", priceListItems);
         startActivity(intent);
+    }
+
+    // 취소하기 버튼 클릭했을 때
+    void clickedCancel(){
+
+        for (int i=0; i<= priceListItems.size(); i++){
+            select.set(i, false);
+        }
+
+        priceListItems.clear();
+        priceListAdapter.notifyDataSetChanged();
     }
 
     int[] clickedListMenu(){
 
-        Cursor cursor= dbHelper.getDataAll();
+        Cursor cursor= dbHelper.get(0).getDataAll();
         StringBuffer buffer= new StringBuffer();
 
         while (cursor.moveToNext()){
