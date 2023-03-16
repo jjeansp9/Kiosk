@@ -135,6 +135,7 @@ public class SettingMenuActivity extends AppCompatActivity {
 
         String name= binding.etMenuName.getText().toString(); // EditText에 입력한 문자열을 메뉴이름에 대입
         String price= binding.etMenuPrice.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
+        String info= binding.etMenuInfo.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
         String image= String.valueOf(uri); // 사진첩에서 가져온 사진의 uri경로를 문자열로 메뉴이미지에 대입
 
         // 메뉴이름란에 글자가 없는경우
@@ -148,10 +149,11 @@ public class SettingMenuActivity extends AppCompatActivity {
 
         // 모두 입력한 경우 데이터베이스 테이블에 추가
         else {
-            dbHelper.insertData(name, price, image);
+            dbHelper.insertData(name, price, image, info);
 
             binding.etMenuName.setText("");
             binding.etMenuPrice.setText("");
+            binding.etMenuInfo.setText("");
             binding.imgMenuImage.setImageResource(R.drawable.ic_upload_image);
             Toast.makeText(this, "메뉴를 등록하였습니다.", Toast.LENGTH_SHORT).show();
         }
@@ -181,6 +183,7 @@ public class SettingMenuActivity extends AppCompatActivity {
                 buffer.append("name : " + cursor.getString(1)+"\n");
                 buffer.append("price : " + cursor.getString(2)+"\n");
                 buffer.append("image : " + cursor.getString(3)+"\n\n");
+                buffer.append("info : " + cursor.getString(4)+"\n\n");
 
                 Log.d("uri", cursor.getString(3));
             }

@@ -17,7 +17,7 @@ public class MenuDBHelper extends SQLiteOpenHelper{
     SQLiteDatabase db= getWritableDatabase();
 
     // 데이터베이스 명
-    public static final String[] DATABASE_NAME = {"coffee_test_01.db", "parfait_test_01.db","milk_tea_test_01.db","dessert_test_01.db","drink_test_01.db"};
+    public static final String[] DATABASE_NAME = {"coffee_test_02.db", "parfait_test_02.db","milk_tea_test_02.db","dessert_test_02.db","drink_test_02.db"};
 
     // 테이블 명
     public static final String TABLE_NAME = "test_coffee";
@@ -28,6 +28,7 @@ public class MenuDBHelper extends SQLiteOpenHelper{
     public static final String COL_2 = "name";
     public static final String COL_3 = "price";
     public static final String COL_4 = "image";
+    public static final String COL_5 = "info";
 
     public MenuDBHelper(@Nullable Context context, int i) {
         super(context, DATABASE_NAME[i], null, 1);
@@ -37,7 +38,7 @@ public class MenuDBHelper extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         // 테이블(test_coffee) 생성 [ 메뉴이름, 메뉴가격, 메뉴이미지 ]
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price TEXT, image TEXT)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price TEXT, image TEXT, info TEXT)");
     }
 
     @Override
@@ -47,11 +48,12 @@ public class MenuDBHelper extends SQLiteOpenHelper{
     }
 
     // 데이터 추가하기
-    public void insertData(String name, String price, String image){
+    public void insertData(String name, String price, String image, String info){
         ContentValues contentValues= new ContentValues();
         contentValues.put(COL_2, name);
         contentValues.put(COL_3, price);
         contentValues.put(COL_4, image);
+        contentValues.put(COL_5, info);
 
         db.insert(TABLE_NAME, null, contentValues);
 
@@ -59,8 +61,8 @@ public class MenuDBHelper extends SQLiteOpenHelper{
     }
 
     // 데이터 수정하기
-    public void updateData(String name, String price, String image){
-        db.execSQL("UPDATE " + TABLE_NAME + " SET name='"+name+"', price='"+price+"', image='"+image+"'");
+    public void updateData(String name, String price, String image, String info){
+        db.execSQL("UPDATE " + TABLE_NAME + " SET name='"+name+"', price='"+price+"', image='"+image+"', info='"+info+"'");
     }
 
     // 데이터 삭제하기

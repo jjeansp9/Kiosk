@@ -130,6 +130,29 @@
             android:textSize="28sp"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/layout_menu_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/layout_menu_price"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="메뉴 가격"
+            android:textSize="36sp"/>
+        <EditText
+            android:id="@+id/et_menu_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="16"
+            android:inputType="text"
+            android:textSize="28sp"/>
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/img_menu_image"
         android:layout_width="200dp"

@@ -29,8 +29,10 @@ public class RecyclerMenuAdapter extends RecyclerView.Adapter<RecyclerMenuAdapte
         this.items = items;
     }
 
-
-    public interface OnItemClickListener{ void onImageClick(View view, int position); }
+    public interface OnItemClickListener{
+        void onImageClick(View view, int position);
+        void onInfoClick(View view, int position);
+    }
 
     private OnItemClickListener itemClickListener;
 
@@ -56,8 +58,10 @@ public class RecyclerMenuAdapter extends RecyclerView.Adapter<RecyclerMenuAdapte
         holder.binding.price.setText(item.menuPrice);
 
         Glide.with(context).load(item.menuImage).into(holder.binding.image);
+        Glide.with(context).load(item.menuInfo).into(holder.binding.info);
 
         holder.binding.image.setOnClickListener(view -> itemClickListener.onImageClick(holder.binding.image,position));
+        holder.binding.info.setOnClickListener(view -> itemClickListener.onInfoClick(holder.binding.info,position));
 
 
 

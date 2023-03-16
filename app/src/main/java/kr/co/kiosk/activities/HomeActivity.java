@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,6 +34,7 @@ import kr.co.kiosk.model.Price;
 public class HomeActivity extends AppCompatActivity {
 
     ActivityHomeBinding binding;
+    public static Context context_home;
 
     // 프래그먼트가 이미 add된 경우 또 add하는 상황을 방지하기 위한 변수
     Boolean[] result= {false,false,false,false,false};
@@ -40,8 +42,8 @@ public class HomeActivity extends AppCompatActivity {
     // 클릭한 카테고리에 따라 해당 화면을 보여주기 위한 변수
     int categoryNum;
 
-    RecyclerPriceListAdapter priceListAdapter;
-    ArrayList<Price> priceListItems= new ArrayList<>();
+    public RecyclerPriceListAdapter priceListAdapter;
+    public ArrayList<Price> priceListItems= new ArrayList<>();
 
     ArrayList<Fragment> fragments= new ArrayList<>();
     FragmentManager fragmentManager= null;
@@ -65,6 +67,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.home.setOnClickListener(v-> clickedHome());
         createBNV();
 
+        context_home= this;
     }
 
     void clickedHome(){

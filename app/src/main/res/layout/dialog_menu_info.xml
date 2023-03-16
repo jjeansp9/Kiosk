@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="wrap_content"
+        android:layout_height="500dp"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/menu_img"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/coffee_02"/>
+        <TextView
+            android:id="@+id/menu_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="커피 이름"
+            android:layout_below="@id/menu_img"
+            android:textSize="36sp"
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:layout_toRightOf="@id/layout1"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/menu_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="카페 음료에 대해 정보를 소개하는 글"
+            android:textSize="28sp"/>
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>
