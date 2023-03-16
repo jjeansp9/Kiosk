@@ -141,10 +141,10 @@
         android:layout_below="@id/select_menu"
         android:layout_alignParentRight="true"
         android:layout_marginTop="30dp"
+        android:layout_marginRight="16dp"
         android:backgroundTint="#50C6EA"
         android:padding="36dp"
-        android:layout_marginRight="16dp"
-        android:text="주문"
+        android:text="결제"
         android:textSize="36sp" />
 
     <Button
