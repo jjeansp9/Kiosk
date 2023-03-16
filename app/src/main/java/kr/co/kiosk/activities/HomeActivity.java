@@ -197,7 +197,7 @@ public class HomeActivity extends AppCompatActivity {
     // 취소하기 버튼 클릭했을 때
     void clickedCancel(){
 
-        for (int i=0; i<= priceListItems.size(); i++){
+        for (int i=0; i< priceListItems.size(); i++){
             select.set(i, false);
         }
 
