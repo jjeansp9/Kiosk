@@ -45,6 +45,7 @@ public class RecyclerMenuAdapter extends RecyclerView.Adapter<RecyclerMenuAdapte
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View itemView= LayoutInflater.from(context).inflate(R.layout.recycler_menu_item, parent, false);
         return new VH(itemView);
     }

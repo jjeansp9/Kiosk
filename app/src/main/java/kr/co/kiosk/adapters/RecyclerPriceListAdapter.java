@@ -24,6 +24,17 @@ public class RecyclerPriceListAdapter extends RecyclerView.Adapter<RecyclerPrice
         this.items = items;
     }
 
+    public interface OnItemClickListener{
+        void onAddClick(View view, int position);
+        void onSubTractClick(View view, int position);
+    }
+
+    private OnItemClickListener itemClickListener;
+
+    public void setItemClickListener(OnItemClickListener onItemClickListener){
+        this.itemClickListener= onItemClickListener;
+    }
+
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +49,9 @@ public class RecyclerPriceListAdapter extends RecyclerView.Adapter<RecyclerPrice
         holder.binding.tvMenuName.setText(item.menuName);
         holder.binding.tvMenuPrice.setText(item.menuPrice);
         holder.binding.tvMenuNumber.setText(item.menuNumber);
+
+        holder.binding.add.setOnClickListener(view -> itemClickListener.onAddClick(holder.binding.add,position));
+        holder.binding.subtract.setOnClickListener(view -> itemClickListener.onSubTractClick(holder.binding.subtract, position));
     }
 
     @Override

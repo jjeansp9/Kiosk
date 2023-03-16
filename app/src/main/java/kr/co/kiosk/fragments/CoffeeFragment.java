@@ -4,17 +4,16 @@ package kr.co.kiosk.fragments;
 import android.app.Dialog;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
@@ -25,7 +24,6 @@ import kr.co.kiosk.R;
 import kr.co.kiosk.activities.HomeActivity;
 import kr.co.kiosk.adapters.RecyclerMenuAdapter;
 import kr.co.kiosk.databinding.FragmentCoffeeBinding;
-import kr.co.kiosk.databinding.RecyclerMenuItemBinding;
 import kr.co.kiosk.model.Menu;
 import kr.co.kiosk.model.MenuDBHelper;
 import kr.co.kiosk.model.Price;
@@ -53,7 +51,7 @@ public class CoffeeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         menuAdapter= new RecyclerMenuAdapter(getActivity(), menuItems);
-        binding.recyclerMenu.setAdapter(menuAdapter);
+        binding.recyclerMenuCoffee.setAdapter(menuAdapter);
 
         dbHelper = new MenuDBHelper(getActivity(), 0);
 
@@ -65,12 +63,24 @@ public class CoffeeFragment extends Fragment {
         menuAdapter.setItemClickListener(new RecyclerMenuAdapter.OnItemClickListener() {
 
             int num=1;
+            int index=0;
+
+            ArrayList<Boolean> select= new ArrayList<>();
+
             // 메뉴 이미지를 클릭했을 때 반응
             @Override
             public void onImageClick(View view, int position) {
 
-                ((HomeActivity)HomeActivity.context_home).priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice));
-                ((HomeActivity)HomeActivity.context_home).priceListAdapter.notifyDataSetChanged();
+                for (int i=0; i<menuItems.size(); i++){
+                    select.add(index, false);
+                    index++;
+                }
+
+                if (select.get(position)== false){
+                    ((HomeActivity)HomeActivity.context_home).priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
+                    select.set(position, true);
+
+                }
             }
 
             // 메뉴 info 아이콘을 클릭했을 때 반응
@@ -116,7 +126,6 @@ public class CoffeeFragment extends Fragment {
 
             menuItems.add(new Menu(cursor.getString(1), cursor.getString(2), cursor.getString(3), R.drawable.ic_baseline_info_24));
             menuInfo.add(new Menu(cursor.getString(1), cursor.getString(4), cursor.getString(3), R.drawable.ic_baseline_info_24));
-            ((HomeActivity)HomeActivity.context_home).priceListItems.add(new Price(cursor.getString(1), cursor.getString(0), cursor.getString(2)));
         }
     } // clickedListMenu()
 
