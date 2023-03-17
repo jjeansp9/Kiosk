@@ -38,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
 
     // 클릭한 카테고리에 따라 해당 화면을 보여주기 위한 변수
     int categoryNum;
-    int[] num;
+    private int[] num;
 
     public RecyclerPriceListAdapter priceListAdapter;
     public static ArrayList<Price> priceListItems= new ArrayList<>();
@@ -188,10 +188,15 @@ public class HomeActivity extends AppCompatActivity {
 
     // 주문하기 버튼 클릭했을 때
     void clickedBuy(){
-        Intent intent= new Intent(HomeActivity.this, MyOrderActivity.class);
 
-        intent.putExtra("select_menu", priceListItems);
-        startActivity(intent);
+        if(priceListItems.size() == 0){
+            Toast.makeText(this, "메뉴를 선택해주세요.", Toast.LENGTH_SHORT).show();
+        }else{
+            Intent intent= new Intent(HomeActivity.this, MyOrderActivity.class);
+            intent.putExtra("select_menu", priceListItems);
+            startActivity(intent);
+        }
+
     }
 
     // 취소하기 버튼 클릭했을 때

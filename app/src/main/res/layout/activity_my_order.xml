@@ -68,7 +68,9 @@
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="370dp"
-            android:padding="16dp"/>
+            android:padding="16dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:orientation="vertical"/>
 
         <TextView
             android:id="@+id/confirm"
@@ -80,6 +82,7 @@
             android:textSize="24sp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"/>
 
     </LinearLayout>

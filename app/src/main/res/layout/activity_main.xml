@@ -22,7 +22,7 @@
         android:layout_height="120dp"
         android:src="@drawable/ic_baseline_image_24"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"/>
+        android:layout_marginTop="180dp"/>
 
     <LinearLayout
         android:id="@+id/bg_message"
@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/bg_message"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp">
+        android:layout_marginTop="150dp">
 
         <LinearLayout
             android:id="@+id/category1"
@@ -68,17 +68,17 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="55dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_baseline_local_cafe_24" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/bg_box_black"
                 android:paddingLeft="30dp"
                 android:paddingTop="4dp"
@@ -86,7 +86,7 @@
                 android:paddingBottom="4dp"
                 android:text="커피"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -99,17 +99,17 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_baseline_wine_bar_24" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/bg_box_black"
                 android:paddingLeft="30dp"
                 android:paddingTop="4dp"
@@ -117,7 +117,7 @@
                 android:paddingBottom="4dp"
                 android:text="파르페"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -130,17 +130,17 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_baseline_emoji_food_beverage_24" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/bg_box_black"
                 android:paddingLeft="30dp"
                 android:paddingTop="4dp"
@@ -148,7 +148,7 @@
                 android:paddingBottom="4dp"
                 android:text="밀크티"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -161,17 +161,17 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_baseline_fastfood_24" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/bg_box_black"
                 android:paddingLeft="30dp"
                 android:paddingTop="4dp"
@@ -179,7 +179,7 @@
                 android:paddingBottom="4dp"
                 android:text="디저트"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -193,17 +193,17 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="53dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
                 android:src="@drawable/ic_baseline_local_drink_24" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/bg_box_black"
                 android:paddingLeft="30dp"
                 android:paddingTop="4dp"
@@ -211,7 +211,7 @@
                 android:paddingBottom="4dp"
                 android:text="음료"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
     </RelativeLayout>
