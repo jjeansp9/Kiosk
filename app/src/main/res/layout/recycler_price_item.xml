@@ -29,7 +29,7 @@
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@id/add"
         android:background="@drawable/bg_box_number"
-        android:elevation="12dp"
+        android:elevation="6dp"
         android:gravity="center"
         android:text="1"
         android:textColor="@color/black"

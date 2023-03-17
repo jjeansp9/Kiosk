@@ -58,6 +58,9 @@ public class CoffeeFragment extends Fragment {
 
         dbHelper = new MenuDBHelper(getActivity(), 0);
 
+        // 오른쪽 화살표 클릭시 오른쪽으로 스크롤
+        binding.right.setOnClickListener(v->binding.recyclerMenuCoffee.smoothScrollToPosition(menuItems.size()));
+
         ClickedMenu(); // 카페 메뉴아이템마다 클릭할 때 동작
         clickedListMenu();
     }

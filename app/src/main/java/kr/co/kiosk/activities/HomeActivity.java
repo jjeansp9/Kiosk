@@ -84,6 +84,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 priceListItems.set(position, new Price(priceListItems.get(position).menuName, num[position]+"", priceListItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
                 priceListAdapter.notifyDataSetChanged();
+                binding.resultPrice.setText(resultPrice(priceListItems.get(position).menuPrice));
             }
 
             // 선택한 메뉴 항목에 [-] 버튼을 눌렀을 때
@@ -181,6 +182,17 @@ public class HomeActivity extends AppCompatActivity {
         Log.d("numberLen", num.length+"");
         return num;
     } // clickedListMenu()
+
+    private String resultPrice(String price){
+
+        String s= price.replaceAll(",","");
+        int num = Integer.parseInt(s);
+
+        num+=num;
+
+        String result= num+"";
+        return result;
+    }
 }
 
 

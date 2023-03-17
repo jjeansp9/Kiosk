@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.HomeActivity">
+    tools:context=".activities.HomeActivity"
+    android:background="#EFEFEF">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -40,14 +41,16 @@
             android:layout_below="@id/bar"
             app:itemIconSize="30dp"
             app:itemIconTint="@color/nav_item"
-            app:itemTextColor="@color/nav_item">
+            app:itemTextColor="@color/nav_item"
+            android:background="#EFEFEF">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:weightSum="5"
                 android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="#EFEFEF">
 
                 <TextView
                     android:id="@+id/tab_coffee"
@@ -137,7 +140,7 @@
         <RelativeLayout
             android:id="@+id/buy_page"
             android:layout_width="wrap_content"
-            android:layout_height="500dp"
+            android:layout_height="400dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true">
 
@@ -145,24 +148,27 @@
                 android:id="@+id/select_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/white">
 
                 <LinearLayout
                     android:layout_width="620dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="#000000">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
-
-                        android:paddingTop="16dp"
-                        android:paddingBottom="16dp"
                         android:paddingLeft="12dp"
+                        android:paddingTop="12dp"
                         android:paddingRight="16dp"
+                        android:paddingBottom="12dp"
                         android:text="메뉴"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="30sp"
                         android:textStyle="bold" />
 
@@ -170,9 +176,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:padding="16dp"
+                        android:padding="12dp"
                         android:text="금액"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:textSize="30sp"
                         android:textStyle="bold" />
 
@@ -181,7 +187,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_select"
                     android:layout_width="match_parent"
-                    android:layout_height="370dp"
+                    android:layout_height="260dp"
                     android:orientation="vertical"
                     android:scrollbars="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
@@ -219,6 +225,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/result_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="9,000"
@@ -237,14 +244,14 @@
                 android:id="@+id/buy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@id/cancel"
                 android:layout_marginLeft="16dp"
                 android:layout_toRightOf="@id/select_menu"
                 android:backgroundTint="#50C6EA"
-                android:paddingBottom="60dp"
-                android:paddingTop="60dp"
-                android:paddingRight="36dp"
                 android:paddingLeft="36dp"
-                android:layout_above="@id/cancel"
+                android:paddingTop="65dp"
+                android:paddingRight="36dp"
+                android:paddingBottom="65dp"
                 android:text="주문"
                 android:textSize="36sp" />
 
@@ -252,17 +259,17 @@
                 android:id="@+id/cancel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_marginLeft="16dp"
+                android:layout_marginBottom="10dp"
                 android:layout_toRightOf="@id/select_menu"
                 android:backgroundTint="#F45555"
-                android:layout_alignParentBottom="true"
-                android:paddingBottom="60dp"
-                android:paddingTop="60dp"
-                android:paddingRight="36dp"
                 android:paddingLeft="36dp"
+                android:paddingTop="65dp"
+                android:paddingRight="36dp"
+                android:paddingBottom="65dp"
                 android:text="취소"
-                android:textSize="36sp"
-                android:layout_marginBottom="10dp"/>
+                android:textSize="36sp" />
 
         </RelativeLayout>
 
