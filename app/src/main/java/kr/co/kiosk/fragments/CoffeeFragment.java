@@ -53,10 +53,17 @@ public class CoffeeFragment extends Fragment {
         menuAdapter= new RecyclerMenuAdapter(getActivity(), menuItems);
         binding.recyclerMenuCoffee.setAdapter(menuAdapter);
 
+        binding.right.setOnClickListener(v->clickedRight());
+
+
         dbHelper = new MenuDBHelper(getActivity(), 0);
 
         ClickedMenu(); // 카페 메뉴아이템마다 클릭할 때 동작
         clickedListMenu();
+    }
+
+    void clickedRight(){
+        binding.recyclerMenuCoffee.scrollToPosition(0);
     }
 
     void ClickedMenu(){

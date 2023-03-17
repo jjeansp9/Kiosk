@@ -97,14 +97,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="메뉴 이름"
-            android:textSize="36sp"/>
+            android:textSize="36sp"
+            android:layout_marginRight="24dp"
+            android:maxLength="20"
+            android:layout_gravity="center_vertical"/>
         <EditText
             android:id="@+id/et_menu_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="16"
             android:inputType="text"
-            android:textSize="28sp"/>
+            android:textSize="24sp"
+            android:hint="등록할 메뉴의 이름을 입력하세요"
+            android:background="@drawable/bg_box_number"
+            android:padding="12dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -120,14 +126,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="메뉴 가격"
-            android:textSize="36sp"/>
+            android:textSize="36sp"
+            android:layout_marginRight="24dp"
+            android:layout_gravity="center_vertical"/>
         <EditText
             android:id="@+id/et_menu_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="16"
+            android:maxLength="16"
             android:inputType="number"
-            android:textSize="28sp"/>
+            android:textSize="24sp"
+            android:hint="등록할 메뉴의 가격을 입력하세요"
+            android:background="@drawable/bg_box_number"
+            android:padding="12dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -142,15 +154,22 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="메뉴 가격"
-            android:textSize="36sp"/>
+            android:text="메뉴 정보"
+            android:textSize="36sp"
+            android:layout_marginRight="24dp"/>
         <EditText
             android:id="@+id/et_menu_info"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="180dp"
             android:ems="16"
-            android:inputType="text"
-            android:textSize="28sp"/>
+            android:gravity="top|left"
+            android:inputType="textMultiLine"
+            android:textSize="24sp"
+            android:maxLines="6"
+            android:maxLength="50"
+            android:hint="등록할 메뉴에 대한 소개글을 작성하세요"
+            android:background="@drawable/bg_box_number"
+            android:padding="12dp"/>
     </LinearLayout>
 
     <ImageView
@@ -159,7 +178,7 @@
         android:layout_height="200dp"
         android:layout_below="@id/layout_menu_price"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="300dp"
         android:background="@drawable/bg_upload_image"
         android:src="@drawable/ic_upload_image" />
 

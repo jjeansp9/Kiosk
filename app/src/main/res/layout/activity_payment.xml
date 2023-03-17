@@ -41,7 +41,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="카드를 가드 투입구에 넣어주세요."
+            android:text="카드를 카드 투입구에 넣어주세요."
             android:textSize="26sp"
             android:textStyle="bold"
             android:paddingLeft="16dp"
@@ -60,14 +60,14 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+        android:layout_marginTop="500dp">
 
         <ImageView
             android:id="@+id/tablet_small"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="200dp"
             android:layout_marginLeft="200dp"
+            android:layout_marginTop="200dp"
             android:src="@drawable/ic_baseline_tablet_android_24" />
 
         <ImageView
@@ -75,16 +75,16 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_marginTop="210dp"
-            android:src="@drawable/ic_baseline_keyboard_double_arrow_right_24"
-            android:layout_toRightOf="@id/tablet_small"/>
+            android:layout_toRightOf="@id/tablet_small"
+            android:src="@drawable/ic_baseline_keyboard_double_arrow_right_24" />
 
         <ImageView
             android:id="@+id/tablet_grand"
             android:layout_width="500dp"
             android:layout_height="400dp"
+            android:layout_alignParentRight="true"
             android:scaleType="fitXY"
-            android:src="@drawable/ic_baseline_smartphone_24"
-            android:layout_alignParentRight="true"/>
+            android:src="@drawable/ic_baseline_smartphone_24" />
 
         <ImageView
             android:id="@+id/up"
@@ -98,9 +98,9 @@
             android:id="@+id/card"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/ic_baseline_credit_card_24"
             android:layout_below="@id/up"
-            android:layout_marginLeft="500dp"/>
+            android:layout_marginLeft="500dp"
+            android:src="@drawable/ic_baseline_credit_card_24" />
 
     </RelativeLayout>
 

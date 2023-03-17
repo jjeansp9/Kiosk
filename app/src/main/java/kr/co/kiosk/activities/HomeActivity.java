@@ -57,6 +57,7 @@ public class HomeActivity extends AppCompatActivity {
         priceListAdapter= new RecyclerPriceListAdapter(this, priceListItems);
         binding.recyclerSelect.setAdapter(priceListAdapter);
 
+        dbHelper.add(new MenuDBHelper(this, 0));
         dbHelper.add(new MenuDBHelper(this, 1));
         dbHelper.add(new MenuDBHelper(this, 5));
 
@@ -116,74 +117,27 @@ public class HomeActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().add(R.id.fragment_container, fragments.get(categoryNum)).commit();
         result[categoryNum] = true;
 
-        binding.tabCoffee.setOnClickListener(v -> clickedCoffee());
-        binding.tabParfait.setOnClickListener(v -> clickedParfait());
-        binding.tabMilkTea.setOnClickListener(v -> clickedMilkTea());
-        binding.tabDessert.setOnClickListener(v -> clickedDessert());
-        binding.tabDrink.setOnClickListener(v -> clickedDrink());
+        binding.tabCoffee.setOnClickListener(v -> clickedFragment(0));
+        binding.tabParfait.setOnClickListener(v -> clickedFragment(1));
+        binding.tabMilkTea.setOnClickListener(v -> clickedFragment(2));
+        binding.tabDessert.setOnClickListener(v -> clickedFragment(3));
+        binding.tabDrink.setOnClickListener(v -> clickedFragment(4));
         binding.buy.setOnClickListener(v-> clickedBuy());
         binding.cancel.setOnClickListener(v-> clickedCancel());
     }
 
-    void clickedCoffee(){
-
+    // 클릭한 카테고리 값을 얻어와서 값에 해당하는 카테고리 탭 열기
+    void clickedFragment(int num){
         FragmentTransaction tran= fragmentManager.beginTransaction();
 
-        Toast.makeText(this, "click Coffee", Toast.LENGTH_SHORT).show();
-        if (!result[0]){
-            tran.add(R.id.fragment_container, fragments.get(0));
-            result[0] = true;
+        if (!result[num]){
+            tran.add(R.id.fragment_container, fragments.get(num));
+            result[num] = true;
         }
-        for(int i=0; i<fragments.size(); i++){if (fragments.get(i)!=null){ tran.hide(fragments.get(i)); }}
-        tran.show(fragments.get(0)).commit();
-    }
-
-    void clickedParfait(){
-        FragmentTransaction tran= fragmentManager.beginTransaction();
-
-        Toast.makeText(this, "click Parfait", Toast.LENGTH_SHORT).show();
-        if (!result[1]){
-            tran.add(R.id.fragment_container, fragments.get(1));
-            result[1] = true;
+        for (int i=0; i<fragments.size(); i++){
+            if (fragments.get(i)!=null){ tran.hide(fragments.get(i)); }
         }
-        for(int i=0; i<fragments.size(); i++){if (fragments.get(i)!=null){ tran.hide(fragments.get(i)); }}
-        tran.show(fragments.get(1)).commit();
-    }
-
-    void clickedMilkTea(){
-        FragmentTransaction tran= fragmentManager.beginTransaction();
-
-        Toast.makeText(this, "click Coffee", Toast.LENGTH_SHORT).show();
-        if (!result[2]){
-            tran.add(R.id.fragment_container, fragments.get(2));
-            result[2] = true;
-        }
-        for(int i=0; i<fragments.size(); i++){if (fragments.get(i)!=null){ tran.hide(fragments.get(i)); }}
-        tran.show(fragments.get(2)).commit();
-    }
-
-    void clickedDessert(){
-        FragmentTransaction tran= fragmentManager.beginTransaction();
-
-        Toast.makeText(this, "click Dessert", Toast.LENGTH_SHORT).show();
-        if (!result[3]){
-            tran.add(R.id.fragment_container, fragments.get(3));
-            result[3] = true;
-        }
-        for(int i=0; i<fragments.size(); i++){if (fragments.get(i)!=null){ tran.hide(fragments.get(i)); }}
-        tran.show(fragments.get(3)).commit();
-    }
-
-    void clickedDrink(){
-        FragmentTransaction tran= fragmentManager.beginTransaction();
-
-        Toast.makeText(this, "click drink", Toast.LENGTH_SHORT).show();
-        if (!result[4]){
-            tran.add(R.id.fragment_container, fragments.get(4));
-            result[4] = true;
-        }
-        for(int i=0; i<fragments.size(); i++){if (fragments.get(i)!=null){ tran.hide(fragments.get(i)); }}
-        tran.show(fragments.get(4)).commit();
+        tran.show(fragments.get(num)).commit();
     }
 
     // 주문하기 버튼 클릭했을 때

@@ -16,75 +16,83 @@
         android:layout_marginBottom="16dp">
 
         <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/ic_baseline_image_24" />
 
         <ImageView
             android:id="@+id/home"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_baseline_home_24" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/text1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="감사합니다."
-        android:textSize="80sp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="220dp"
-        android:textColor="#ACACAC"/>
-    <TextView
-        android:id="@+id/text2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="주문 접수가 완료되었습니다."
-        android:layout_centerHorizontal="true"
-        android:layout_below="@id/text1"
-        android:textSize="36sp"
-        android:layout_marginTop="12dp"
-        android:textColor="@color/black"/>
-    <TextView
-        android:id="@+id/text3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#C5C5C5"
-        android:layout_centerHorizontal="true"
-        android:text="주문목록에서 해당 주문 정보를 확인할 수 있습니다."
-        android:layout_below="@id/text2"
-        android:layout_marginTop="40dp"
-        android:textSize="28sp"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
-
-        <Button
-            android:id="@+id/btn_confirm"
+        <TextView
+            android:id="@+id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="주문확인"
-            android:backgroundTint="#606060"
-            android:layout_marginRight="50dp"
-            android:textSize="28sp"
-            android:paddingTop="50dp"
-            android:paddingBottom="50dp"/>
+            android:layout_centerHorizontal="true"
+            android:text="감사합니다."
+            android:textColor="#ACACAC"
+            android:textSize="80sp" />
 
-        <Button
-            android:id="@+id/btn_go_back"
+        <TextView
+            android:id="@+id/text2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="돌아가기"
-            android:backgroundTint="#606060"
-            android:textSize="28sp"
-            android:paddingTop="50dp"
-            android:paddingBottom="50dp"/>
+            android:layout_below="@id/text1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:text="주문 접수가 완료되었습니다."
+            android:textColor="@color/black"
+            android:textSize="36sp" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="주문목록에서 해당 주문 정보를 확인할 수 있습니다."
+            android:textColor="#C5C5C5"
+            android:textSize="28sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <Button
+                android:id="@+id/btn_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:backgroundTint="#606060"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:text="주문확인"
+                android:textSize="28sp" />
+
+            <Button
+                android:id="@+id/btn_go_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#606060"
+                android:paddingTop="50dp"
+                android:paddingBottom="50dp"
+                android:text="돌아가기"
+                android:textSize="28sp" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

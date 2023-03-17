@@ -42,49 +42,23 @@ public class MainActivity extends AppCompatActivity {
         binding= ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.category1.setOnClickListener(v-> clickedCoffe());
-        binding.category2.setOnClickListener(v-> clickedParfait());
-        binding.category3.setOnClickListener(v-> clickedMilkTea());
-        binding.category4.setOnClickListener(v-> clickedDessert());
-        binding.category5.setOnClickListener(v-> clickedDrink());
+        binding.category1.setOnClickListener(v-> clickedCategory("커피 메뉴로 이동", 0));
+        binding.category2.setOnClickListener(v-> clickedCategory("파르페 메뉴로 이동", 1));
+        binding.category3.setOnClickListener(v-> clickedCategory("밀크티 메뉴로 이동", 2));
+        binding.category4.setOnClickListener(v-> clickedCategory("디저트 메뉴로 이동", 3));
+        binding.category5.setOnClickListener(v-> clickedCategory("음료 메뉴로 이동", 4));
         binding.settings.setOnClickListener(v-> clickedSettings());
 
         checkPermission(); // 외부저장소 권한요청
         //verifyStoragePermissions(this);
     }
 
-    void clickedCoffe(){
-        Toast.makeText(this, "커피 메뉴로 이동", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-        intent.putExtra("category", category[0]);
-        startActivity(intent);
-    }
+    // 클릭한 카테고리 값을 얻어와서 값에 해당하는 카테고리로 이동
+    private void clickedCategory(String msg, int num){
 
-    void clickedParfait(){
-        Toast.makeText(this, "파르페 메뉴로 이동", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-        intent.putExtra("category", category[1]);
-        startActivity(intent);
-    }
-
-    void clickedMilkTea(){
-        Toast.makeText(this, "밀크티 메뉴로 이동", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-        intent.putExtra("category", category[2]);
-        startActivity(intent);
-    }
-
-    void clickedDessert(){
-        Toast.makeText(this, "디저트 메뉴로 이동", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-        intent.putExtra("category", category[3]);
-        startActivity(intent);
-    }
-
-    void clickedDrink(){
-        Toast.makeText(this, "음료 메뉴로 이동", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-        intent.putExtra("category", category[4]);
+        intent.putExtra("category", category[num]);
         startActivity(intent);
     }
 
@@ -96,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText pw= loginLayout.findViewById(R.id.pw);
 
         // 비밀번호 :1233 [ 잘못 입력한 경우 관리자설정으로 갈 수 없음 ]
-        new AlertDialog.Builder(this).setTitle("Login").setView(loginLayout).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        new AlertDialog.Builder(this).setView(loginLayout).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -107,6 +81,11 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
 
                 }else{ Toast.makeText(MainActivity.this, "비밀번호가 틀립니다.", Toast.LENGTH_SHORT).show(); }
+            }
+        }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
             }
         }).show();
 

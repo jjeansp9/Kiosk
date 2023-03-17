@@ -11,20 +11,17 @@
         android:id="@+id/bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp">
 
         <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/ic_baseline_image_24" />
 
         <ImageView
             android:id="@+id/home"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_baseline_home_24" />
 
@@ -35,7 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/bar"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="50dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,6 +48,7 @@
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 android:padding="16dp"
+                android:layout_marginLeft="8dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -67,7 +66,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
-            android:layout_height="370dp"
+            android:layout_height="500dp"
             android:padding="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"/>
@@ -92,7 +91,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/select_menu"
         android:layout_gravity="bottom"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="70dp"
         android:orientation="horizontal">
 
         <TextView
@@ -113,7 +112,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-
             android:gravity="center">
 
             <TextView
@@ -143,7 +141,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/select_menu"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="70dp"
         android:layout_marginRight="16dp"
         android:backgroundTint="#50C6EA"
         android:padding="36dp"
@@ -156,9 +154,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/buy_now"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
         android:backgroundTint="#F45555"
         android:padding="36dp"
-        android:layout_marginRight="16dp"
         android:text="취소"
         android:textSize="36sp" />
 

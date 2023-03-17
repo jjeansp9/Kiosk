@@ -17,7 +17,7 @@ public class MenuDBHelper extends SQLiteOpenHelper{
     SQLiteDatabase db= getWritableDatabase();
 
     // 데이터베이스 명
-    public static final String[] DATABASE_NAME = {"coffee_test_02.db", "parfait_test_02.db","milk_tea_test_02.db","dessert_test_02.db","drink_test_02.db", "my_order_test_02.db"};
+    public static final String[] DATABASE_NAME = {"coffee_test_03.db", "parfait_test_03.db","milk_tea_test_03.db","dessert_test_03.db","drink_test_03.db", "my_order_test_03.db"};
 
     // 테이블 명
     public static final String TABLE_NAME = "test_coffee";

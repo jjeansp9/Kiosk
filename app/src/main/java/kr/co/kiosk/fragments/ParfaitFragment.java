@@ -54,6 +54,9 @@ public class ParfaitFragment extends Fragment {
 
         dbHelper= new MenuDBHelper(getActivity(), 1);
 
+        // 오른쪽 화살표 클릭시 오른쪽으로 스크롤
+        binding.right.setOnClickListener(v->binding.recyclerMenuParfait.smoothScrollToPosition(menuItems.size()));
+
         ClickedMenu(); // 카페 메뉴아이템마다 클릭할 때 동작
         clickedListMenu();
     }
@@ -78,8 +81,6 @@ public class ParfaitFragment extends Fragment {
                     ((HomeActivity)HomeActivity.context_home).select.set(position, true);
                 }
                 ((HomeActivity)HomeActivity.context_home).priceListAdapter.notifyDataSetChanged();
-
-
             }
 
             // 메뉴 info 아이콘을 클릭했을 때 반응
