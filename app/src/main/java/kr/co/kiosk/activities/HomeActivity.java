@@ -54,7 +54,7 @@ public class HomeActivity extends AppCompatActivity {
         binding= ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        categoryNum= getIntent().getIntExtra("category", categoryNum);
+
 
         priceListAdapter= new RecyclerPriceListAdapter(this, priceListItems);
         binding.recyclerSelect.setAdapter(priceListAdapter);
@@ -62,6 +62,8 @@ public class HomeActivity extends AppCompatActivity {
         dbHelper.add(new MenuDBHelper(this, 0));
         dbHelper.add(new MenuDBHelper(this, 1));
         dbHelper.add(new MenuDBHelper(this, 5));
+
+        categoryNum= getIntent().getIntExtra("category", categoryNum);
 
         // 홈화면 버튼 클릭시 메인화면으로 이동
         binding.home.setOnClickListener(v-> clickedHome());
@@ -179,7 +181,7 @@ public class HomeActivity extends AppCompatActivity {
 
             num= new int[cursor.getString(1).length()];
         }
-        Log.d("numberLen", num.length+"");
+
         return num;
     } // clickedListMenu()
 
