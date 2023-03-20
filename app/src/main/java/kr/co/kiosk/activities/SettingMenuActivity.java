@@ -32,6 +32,7 @@ import java.text.DecimalFormat;
 
 import kr.co.kiosk.R;
 import kr.co.kiosk.databinding.ActivitySettingMenuBinding;
+import kr.co.kiosk.model.Menu;
 import kr.co.kiosk.model.MenuDBHelper;
 
 public class SettingMenuActivity extends AppCompatActivity {
@@ -135,8 +136,8 @@ public class SettingMenuActivity extends AppCompatActivity {
 
         String name= binding.etMenuName.getText().toString(); // EditText에 입력한 문자열을 메뉴이름에 대입
         String price= binding.etMenuPrice.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
-        String info= binding.etMenuInfo.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
         String image= String.valueOf(uri); // 사진첩에서 가져온 사진의 uri경로를 문자열로 메뉴이미지에 대입
+        String info= binding.etMenuInfo.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
 
         // 메뉴이름란에 글자가 없는경우
         if (name.replace(" ", "").equals("")) Toast.makeText(this, "메뉴 이름을 입력해주세요", Toast.LENGTH_SHORT).show();
@@ -151,10 +152,7 @@ public class SettingMenuActivity extends AppCompatActivity {
         else {
             dbHelper.insertData(name, price, image, info);
 
-            binding.etMenuName.setText("");
-            binding.etMenuPrice.setText("");
-            binding.etMenuInfo.setText("");
-            binding.imgMenuImage.setImageResource(R.drawable.ic_upload_image);
+            setMenuInfo();
             Toast.makeText(this, "메뉴를 등록하였습니다.", Toast.LENGTH_SHORT).show();
         }
 
@@ -164,10 +162,12 @@ public class SettingMenuActivity extends AppCompatActivity {
     void clickedUpdate(){
         String name= binding.etMenuName.getText().toString(); //
         String price= binding.etMenuPrice.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
-        String info= binding.etMenuInfo.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
         String image= String.valueOf(uri); // 사진첩에서 가져온 사진의 uri경로를 문자열로 메뉴이미지에 대입
+        String info= binding.etMenuInfo.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
 
-        dbHelper.updateData(name, price, info, image);
+        dbHelper.updateData(name, price, image, info);
+
+        setMenuInfo();
         Toast.makeText(this, name+"의 메뉴를 수정하였습니다..", Toast.LENGTH_SHORT).show();
     }
 
@@ -206,6 +206,13 @@ public class SettingMenuActivity extends AppCompatActivity {
         builder.setTitle(title);
         builder.setMessage(Message);
         builder.show();
+    }
+
+    void setMenuInfo(){
+        binding.etMenuName.setText("");
+        binding.etMenuPrice.setText("");
+        binding.etMenuInfo.setText("");
+        binding.imgMenuImage.setImageResource(R.drawable.ic_upload_image);
     }
 }
 

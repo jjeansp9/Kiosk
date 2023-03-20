@@ -62,7 +62,15 @@ public class MenuDBHelper extends SQLiteOpenHelper{
 
     // 데이터 수정하기
     public void updateData(String name, String price, String image, String info){
-        db.execSQL("UPDATE " + TABLE_NAME + " SET price='"+price+"', image='"+image+"', info='"+info+"' WHERE name= ?", new String[]{name} );
+        ContentValues contentValues= new ContentValues();
+        contentValues.put(COL_2, name);
+        contentValues.put(COL_3, price);
+        contentValues.put(COL_4, image);
+        contentValues.put(COL_5, info);
+
+        db.update(TABLE_NAME, contentValues, "name = ?", new String[] {name});
+
+        //db.execSQL("UPDATE " + TABLE_NAME + " SET price='"+price+"', image='"+image+"', info='"+info+"' WHERE name= '"+name+"'" );
     }
 
     // 데이터 삭제하기
