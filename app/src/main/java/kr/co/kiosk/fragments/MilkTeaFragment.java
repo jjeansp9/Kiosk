@@ -1,6 +1,7 @@
 package kr.co.kiosk.fragments;
 
 import android.app.Dialog;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,8 +33,7 @@ public class MilkTeaFragment extends Fragment {
     RecyclerMenuAdapter menuAdapter;
 
     ArrayList<Menu> menuItems= new ArrayList<>();
-
-    CoffeeFragment coffeeFragment= new CoffeeFragment();
+    ArrayList<Menu> menuInfo= new ArrayList<>();
 
     MenuDBHelper dbHelper;
 
@@ -56,58 +56,77 @@ public class MilkTeaFragment extends Fragment {
         // 오른쪽 화살표 클릭시 오른쪽으로 스크롤
         binding.right.setOnClickListener(v->binding.recyclerMenuMilkTea.smoothScrollToPosition(menuItems.size()));
 
-        if (menuItems !=null){
-            coffeeFragment.ClickedMenu(); // 카페 메뉴아이템마다 클릭할 때 동작
-            coffeeFragment.clickedListMenu(); // 등록한 메뉴 모두 보여주기
-        }
+        clickedMenu();
+        clickedListMenu();
 
+        for (int i=0; i<10; i++){
+            menuItems.add(new Menu("밀크티", "5,500", "", R.drawable.ic_baseline_info_24));
+        }
     }
 
-//    void ClickedMenu(){
-//        menuAdapter.setItemClickListener(new RecyclerMenuAdapter.OnItemClickListener() {
-//
-//            int num=1;
-//            int index=0;
-//
-//            // 메뉴 이미지를 클릭했을 때 반응
-//            @Override
-//            public void onImageClick(View view, int position) {
-//
-//                for (int i=0; i<menuItems.size(); i++){
-//                    ((HomeActivity)HomeActivity.context_home).select.add(index, false);
-//                    index++;
-//                }
-//
-//                if (((HomeActivity)HomeActivity.context_home).select.get(position)== false){
-//                    ((HomeActivity)HomeActivity.context_home).priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
-//                    ((HomeActivity)HomeActivity.context_home).select.set(position, true);
-//                }
-//                ((HomeActivity)HomeActivity.context_home).priceListAdapter.notifyDataSetChanged();
-//            }
-//
-//            // 메뉴 info 아이콘을 클릭했을 때 반응
-//            @Override
-//            public void onInfoClick(View view, int position) {
-//
-//                Dialog dialog= new Dialog(getActivity());
-//                dialog.setContentView(R.layout.dialog_menu_info);
-//
-//                // 다이얼로그 사이즈조절
-//                WindowManager.LayoutParams params= dialog.getWindow().getAttributes();
-//                params.width= WindowManager.LayoutParams.MATCH_PARENT;
-//                params.height= WindowManager.LayoutParams.WRAP_CONTENT;
-//
-//                ImageView image= dialog.findViewById(R.id.menu_img);
-//                TextView name= dialog.findViewById(R.id.menu_name);
-//                TextView info= dialog.findViewById(R.id.menu_info);
-//
-//                // 다이얼로그 텍스트,이미지 설정
-//                name.setText(menuItems.get(position).menuName);
-//                info.setText(menuInfo.get(position).menuPrice);
-//                Glide.with(getActivity()).load(menuItems.get(position).menuImage).into(image);
-//
-//                dialog.show();
-//            }
-//        });
-//    }
+    void clickedMenu(){
+        menuAdapter.setItemClickListener(new RecyclerMenuAdapter.OnItemClickListener() {
+
+            int num=1;
+            int index=0;
+
+            // 메뉴 이미지를 클릭했을 때 반응
+            @Override
+            public void onImageClick(View view, int position) {
+
+                for (int i=0; i<menuItems.size(); i++){
+                    ((HomeActivity)HomeActivity.context_home).selectMilkTea.add(index, false);
+                    index++;
+                }
+
+                if (((HomeActivity)HomeActivity.context_home).selectMilkTea.get(position)== false){
+                    ((HomeActivity)HomeActivity.context_home).priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
+                    ((HomeActivity)HomeActivity.context_home).selectMilkTea.set(position, true);
+                }
+                ((HomeActivity)HomeActivity.context_home).priceListAdapter.notifyDataSetChanged();
+            }
+
+            // 메뉴 info 아이콘을 클릭했을 때 반응
+            @Override
+            public void onInfoClick(View view, int position) {
+
+                Dialog dialog= new Dialog(getActivity());
+                dialog.setContentView(R.layout.dialog_menu_info);
+
+                // 다이얼로그 사이즈조절
+                WindowManager.LayoutParams params= dialog.getWindow().getAttributes();
+                params.width= WindowManager.LayoutParams.MATCH_PARENT;
+                params.height= WindowManager.LayoutParams.WRAP_CONTENT;
+
+                ImageView image= dialog.findViewById(R.id.menu_img);
+                TextView name= dialog.findViewById(R.id.menu_name);
+                TextView info= dialog.findViewById(R.id.menu_info);
+
+                // 다이얼로그 텍스트,이미지 설정
+                name.setText(menuItems.get(position).menuName);
+                info.setText(menuInfo.get(position).menuPrice);
+                Glide.with(getActivity()).load(menuItems.get(position).menuImage).into(image);
+
+                dialog.show();
+            }
+        });
+    }
+
+    // 등록한 메뉴 모두 보여주기
+    void clickedListMenu(){
+
+        Cursor cursor= dbHelper.getDataAll();
+        StringBuffer buffer= new StringBuffer();
+
+        while (cursor.moveToNext()){
+            buffer.append("id : " + cursor.getString(0)+"\n");
+            buffer.append("name : " + cursor.getString(1)+"\n");
+            buffer.append("price : " + cursor.getString(2)+"\n");
+            buffer.append("image : " + cursor.getString(3)+"\n\n");
+            buffer.append("info : " + cursor.getString(4)+"\n\n");
+
+            menuItems.add(new Menu(cursor.getString(1), cursor.getString(2), cursor.getString(3), R.drawable.ic_baseline_info_24));
+            menuInfo.add(new Menu(cursor.getString(1), cursor.getString(4), cursor.getString(3), R.drawable.ic_baseline_info_24));
+        }
+    } // clickedListMenu()
 }

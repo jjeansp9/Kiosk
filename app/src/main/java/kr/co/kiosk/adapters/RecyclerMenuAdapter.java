@@ -61,7 +61,7 @@ public class RecyclerMenuAdapter extends RecyclerView.Adapter<RecyclerMenuAdapte
         Glide.with(context).load(item.menuImage).into(holder.binding.image);
         Glide.with(context).load(item.menuInfo).into(holder.binding.info);
 
-        holder.binding.image.setOnClickListener(view -> itemClickListener.onImageClick(holder.binding.image,position));
+        holder.binding.box.setOnClickListener(view -> itemClickListener.onImageClick(holder.binding.box,position));
         holder.binding.info.setOnClickListener(view -> itemClickListener.onInfoClick(holder.binding.info,position));
 
 

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.MainActivity"
+    android:background="#EFEFEF">
 
     <ImageView
         android:id="@+id/settings"
@@ -51,170 +52,215 @@
 
     </LinearLayout>
 
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/bg_message"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="150dp">
+        android:layout_marginTop="120dp">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:id="@+id/category1"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="@drawable/bg_box"
-            android:orientation="vertical">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            android:elevation="16dp"
+            android:layout_margin="8dp">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_local_cafe_24" />
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bg_box_black"
-                android:paddingLeft="30dp"
-                android:paddingTop="4dp"
-                android:paddingRight="30dp"
-                android:paddingBottom="4dp"
-                android:text="커피"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:src="@drawable/coffee_01" />
 
-        <LinearLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="30dp"
+                    android:paddingBottom="4dp"
+                    android:background="@drawable/bg_box_black"
+                    android:text="커피"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/category2"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/category1"
-            android:background="@drawable/bg_box"
-            android:orientation="vertical">
+            app:cardCornerRadius="8dp"
+            android:elevation="16dp"
+            android:layout_margin="8dp">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="16dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_wine_bar_24" />
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bg_box_black"
-                android:paddingLeft="30dp"
-                android:paddingTop="4dp"
-                android:paddingRight="30dp"
-                android:paddingBottom="4dp"
-                android:text="파르페"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/parfait_01" />
 
-        <LinearLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_box_black"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="30dp"
+                    android:paddingBottom="4dp"
+                    android:text="파르페"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/category3"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_margin="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_toRightOf="@id/category2"
-            android:background="@drawable/bg_box"
-            android:orientation="vertical">
+            app:cardCornerRadius="8dp"
+            android:elevation="16dp"
+            android:layout_margin="8dp">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="16dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_emoji_food_beverage_24" />
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bg_box_black"
-                android:paddingLeft="30dp"
-                android:paddingTop="4dp"
-                android:paddingRight="30dp"
-                android:paddingBottom="4dp"
-                android:text="밀크티"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/milk_tea_01" />
 
-        <LinearLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_box_black"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="30dp"
+                    android:paddingBottom="4dp"
+                    android:text="밀크티"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/category4"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/category1"
-            android:layout_margin="16dp"
-            android:background="@drawable/bg_box"
-            android:orientation="vertical">
+            app:cardCornerRadius="8dp"
+            android:elevation="16dp"
+            android:layout_margin="8dp">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="16dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_fastfood_24" />
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bg_box_black"
-                android:paddingLeft="30dp"
-                android:paddingTop="4dp"
-                android:paddingRight="30dp"
-                android:paddingBottom="4dp"
-                android:text="디저트"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/dessert_01" />
 
-        <LinearLayout
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_box_black"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="30dp"
+                    android:paddingBottom="4dp"
+                    android:text="디저트"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/category5"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/category1"
-            android:layout_margin="16dp"
             android:layout_toRightOf="@id/category4"
-            android:background="@drawable/bg_box"
-            android:orientation="vertical">
+            app:cardCornerRadius="8dp"
+            android:elevation="16dp"
+            android:layout_margin="8dp">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="16dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_baseline_local_drink_24" />
+            <LinearLayout
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_margin="16dp"
+                android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/bg_box_black"
-                android:paddingLeft="30dp"
-                android:paddingTop="4dp"
-                android:paddingRight="30dp"
-                android:paddingBottom="4dp"
-                android:text="음료"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/drink_01" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_box_black"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="4dp"
+                    android:paddingRight="30dp"
+                    android:paddingBottom="4dp"
+                    android:text="음료"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
 
     </RelativeLayout>
 

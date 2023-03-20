@@ -31,7 +31,14 @@ public class HomeActivity extends AppCompatActivity {
     ActivityHomeBinding binding;
 
     public static Context context_home;
-    public ArrayList<Boolean> select= new ArrayList<>();
+
+    public ArrayList<ArrayList<Boolean>> selectList= new ArrayList<>();
+
+    public ArrayList<Boolean> selectCoffee= new ArrayList<>();
+    public ArrayList<Boolean> selectParfait= new ArrayList<>();
+    public ArrayList<Boolean> selectMilkTea= new ArrayList<>();
+    public ArrayList<Boolean> selectDessert= new ArrayList<>();
+    public ArrayList<Boolean> selectDrink= new ArrayList<>();
 
     // 프래그먼트가 이미 add된 경우 또 add하는 상황을 방지하기 위한 변수
     Boolean[] result= {false,false,false,false,false};
@@ -54,6 +61,15 @@ public class HomeActivity extends AppCompatActivity {
         binding= ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        selectList.add(0, selectCoffee);
+        selectList.add(1, selectParfait);
+        selectList.add(2, selectMilkTea);
+        selectList.add(3, selectDessert);
+        selectList.add(4, selectDrink);
+
+        selectList.get(0).add(0, false);
+
+        Log.d("Coffee", selectList.get(0).get(0)+"");
 
 
         priceListAdapter= new RecyclerPriceListAdapter(this, priceListItems);
@@ -75,6 +91,7 @@ public class HomeActivity extends AppCompatActivity {
         clickedListMenu(); // db에 저장되어있는 데이터 불러오는 메소드
     }
 
+    // [ + , - ] 버튼 눌렀을때 반응하는 메소드
     void clickedPlusOrMinus(){
         priceListAdapter.setItemClickListener(new RecyclerPriceListAdapter.OnItemClickListener() {
 
@@ -84,9 +101,9 @@ public class HomeActivity extends AppCompatActivity {
 
                 num[position]+=1;
 
-                priceListItems.set(position, new Price(priceListItems.get(position).menuName, num[position]+"", priceListItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
+                priceListItems.set(position, new Price(priceListItems.get(position).menuName, num[position]+"", resultPrice(priceListItems.get(position).menuPrice), R.drawable.plus, R.drawable.minus));
                 priceListAdapter.notifyDataSetChanged();
-                binding.resultPrice.setText(resultPrice(priceListItems.get(position).menuPrice));
+
             }
 
             // 선택한 메뉴 항목에 [-] 버튼을 눌렀을 때
@@ -102,6 +119,25 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    private String resultPrice(String price){
+
+        String s= price.replaceAll(",","");
+
+        int add=0;
+        int num = Integer.parseInt(s)+add;
+        Log.d("values", num+"num");
+
+        if (add==0){
+            add= num;
+        }
+        Log.d("values", add+"add");
+
+        String result= num+"";
+        Log.d("values", result+"result");
+        return result;
+    }
+
+    // 홈버튼 클릭
     void clickedHome(){
         Intent intent= new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -159,7 +195,11 @@ public class HomeActivity extends AppCompatActivity {
     void clickedCancel(){
 
         for (int i=0; i< priceListItems.size(); i++){
-            select.set(i, false);
+            selectList.get(i).set(i, false);
+            selectParfait.set(i, false);
+            selectMilkTea.set(i, false);
+            selectDessert.set(i, false);
+            selectDrink.set(i, false);
         }
 
         priceListItems.clear();
@@ -183,17 +223,6 @@ public class HomeActivity extends AppCompatActivity {
 
         return num;
     } // clickedListMenu()
-
-    private String resultPrice(String price){
-
-        String s= price.replaceAll(",","");
-        int num = Integer.parseInt(s);
-
-        num+=num;
-
-        String result= num+"";
-        return result;
-    }
 }
 
 

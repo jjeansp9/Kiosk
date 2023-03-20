@@ -35,6 +35,7 @@ public class ParfaitFragment extends Fragment {
     RecyclerMenuAdapter menuAdapter;
 
     ArrayList<Menu> menuItems= new ArrayList<>();
+    // 메뉴 info 아이콘 클릭할때 다이얼로그를 보여주기 위한 변수
     ArrayList<Menu> menuInfo= new ArrayList<>();
 
     MenuDBHelper dbHelper;
@@ -58,11 +59,11 @@ public class ParfaitFragment extends Fragment {
         // 오른쪽 화살표 클릭시 오른쪽으로 스크롤
         binding.right.setOnClickListener(v->binding.recyclerMenuParfait.smoothScrollToPosition(menuItems.size()));
 
-        ClickedMenu(); // 카페 메뉴아이템마다 클릭할 때 동작
+        clickedMenu(); // 카페 메뉴아이템마다 클릭할 때 동작
         clickedListMenu();
     }
 
-    void ClickedMenu(){
+    void clickedMenu(){
         menuAdapter.setItemClickListener(new RecyclerMenuAdapter.OnItemClickListener() {
 
             int num=1;
@@ -73,13 +74,13 @@ public class ParfaitFragment extends Fragment {
             public void onImageClick(View view, int position) {
 
                 for (int i=0; i<menuItems.size(); i++){
-                    ((HomeActivity)HomeActivity.context_home).select.add(index, false);
+                    ((HomeActivity)HomeActivity.context_home).selectList.get(1).add(index, false);
                     index++;
                 }
 
-                if (((HomeActivity)HomeActivity.context_home).select.get(position)== false){
+                if (((HomeActivity)HomeActivity.context_home).selectList.get(1).get(position)== false){
                     ((HomeActivity)HomeActivity.context_home).priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
-                    ((HomeActivity)HomeActivity.context_home).select.set(position, true);
+                    ((HomeActivity)HomeActivity.context_home).selectList.get(1).set(position, true);
                 }
                 ((HomeActivity)HomeActivity.context_home).priceListAdapter.notifyDataSetChanged();
             }
