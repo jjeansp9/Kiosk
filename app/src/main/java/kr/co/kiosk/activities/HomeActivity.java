@@ -153,7 +153,6 @@ public class HomeActivity extends AppCompatActivity {
             intent.putExtra("select_menu", priceListItems);
             startActivity(intent);
         }
-
     }
 
     // 취소하기 버튼 클릭했을 때

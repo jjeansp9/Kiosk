@@ -162,12 +162,21 @@ public class SettingMenuActivity extends AppCompatActivity {
 
     // 메뉴데이터 수정 [ 메뉴이름, 메뉴가격, 메뉴이미지 ]
     void clickedUpdate(){
+        String name= binding.etMenuName.getText().toString(); //
+        String price= binding.etMenuPrice.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
+        String info= binding.etMenuInfo.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
+        String image= String.valueOf(uri); // 사진첩에서 가져온 사진의 uri경로를 문자열로 메뉴이미지에 대입
 
+        dbHelper.updateData(name, price, info, image);
+        Toast.makeText(this, name+"의 메뉴를 수정하였습니다..", Toast.LENGTH_SHORT).show();
     }
 
     // 해당 메뉴이름을 가진 데이터 항목 모두 삭제
     void clickedDelete(){
+        String name= binding.etMenuName.getText().toString();
+        dbHelper.deleteData(name);
 
+        Toast.makeText(this, name+"의 메뉴를 삭제하였습니다.", Toast.LENGTH_SHORT).show();
     }
 
     // 등록한 메뉴 모두 보여주기

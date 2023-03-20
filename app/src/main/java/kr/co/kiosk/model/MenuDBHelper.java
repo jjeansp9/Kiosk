@@ -62,13 +62,11 @@ public class MenuDBHelper extends SQLiteOpenHelper{
 
     // 데이터 수정하기
     public void updateData(String name, String price, String image, String info){
-        db.execSQL("UPDATE " + TABLE_NAME + " SET name='"+name+"', price='"+price+"', image='"+image+"', info='"+info+"'");
+        db.execSQL("UPDATE " + TABLE_NAME + " SET price='"+price+"', image='"+image+"', info='"+info+"' WHERE name= ?", new String[]{name} );
     }
 
     // 데이터 삭제하기
-    public void deleteData(){
-        db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE name=?");
-    }
+    public void deleteData(String name){ db.execSQL("DELETE FROM " + TABLE_NAME + " WHERE name=?", new String[]{name}); }
 
     // 모든 데이터 불러오기
     public Cursor getDataAll(){
