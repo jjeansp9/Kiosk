@@ -18,9 +18,9 @@ public class EndActivity extends AppCompatActivity {
         binding= ActivityEndBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.home.setOnClickListener(v->clickedHome());
-        binding.btnConfirm.setOnClickListener(v->clickedConfirm());
-        binding.btnGoBack.setOnClickListener(v->clickedGoBack());
+        binding.home.setOnClickListener(v->clickedHome()); // 홈버튼
+        binding.btnConfirm.setOnClickListener(v->clickedConfirm()); // 주문화인 버튼
+        binding.btnGoBack.setOnClickListener(v->clickedGoBack()); // 돌아가기 버튼
     }
 
     void clickedHome(){

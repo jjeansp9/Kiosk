@@ -33,6 +33,7 @@ public class ParfaitFragment extends Fragment {
 
     FragmentParfaitBinding binding;
     RecyclerMenuAdapter menuAdapter;
+
     ArrayList<Menu> menuItems= new ArrayList<>();
     ArrayList<Menu> menuInfo= new ArrayList<>();
 

@@ -23,7 +23,7 @@
             <ImageView
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:src="@drawable/ic_baseline_image_24" />
+                android:src="@drawable/logo_kiosk" />
 
             <ImageView
                 android:id="@+id/home"
@@ -168,6 +168,16 @@
                         android:paddingRight="16dp"
                         android:paddingBottom="12dp"
                         android:text="메뉴"
+                        android:textColor="@color/white"
+                        android:textSize="30sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:padding="12dp"
+                        android:text="수량"
                         android:textColor="@color/white"
                         android:textSize="30sp"
                         android:textStyle="bold" />

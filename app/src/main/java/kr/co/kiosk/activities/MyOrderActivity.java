@@ -45,15 +45,16 @@ public class MyOrderActivity extends AppCompatActivity {
         binding= ActivityMyOrderBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // 선택한 메뉴데이터들 가져오기
         Intent intent= getIntent();
         priceList= intent.getParcelableArrayListExtra("select_menu");
 
         priceListAdapter= new RecyclerPriceListAdapter(this, priceList);
         binding.recycler.setAdapter(priceListAdapter);
 
-        binding.home.setOnClickListener(v-> clickedHome());
-        binding.buyNow.setOnClickListener(v-> clickedBuyNow());
-        binding.buyCancel.setOnClickListener(v-> clickedBuyCancel());
+        binding.home.setOnClickListener(v-> clickedHome()); // 홈버튼 눌렀을 때
+        binding.buyNow.setOnClickListener(v-> clickedBuyNow()); // 결제버튼 눌렀을 때
+        binding.buyCancel.setOnClickListener(v-> clickedBuyCancel()); // 취소버튼 눌렀을 때
 
         num= new int[priceList.size()];
         clickedPlusOrMinus();
@@ -117,7 +118,8 @@ public class MyOrderActivity extends AppCompatActivity {
         finish();
     }
 
-
+    //    - 파일 경로 : /sdcard/Android/data/%Package%/cache/history/history.log
+    //    - 파일에 기록할 format : [yyyyMMdd HH:mm:ss][주문내역][결제금액]
     private void saveData() {
         // 외부메모리(SDcard, USB)가 있는가?
         String state= Environment.getExternalStorageState(); // 저장소 연결상태값 문자열 리턴함
@@ -179,9 +181,6 @@ public class MyOrderActivity extends AppCompatActivity {
     }
 
 
-//    - 파일 경로 : /sdcard/Android/data/%Package%/cache/history/history.log
-//
-//    - 파일에 기록할 format : [yyyyMMdd HH:mm:ss][주문내역][결제금액]
 
 
 }

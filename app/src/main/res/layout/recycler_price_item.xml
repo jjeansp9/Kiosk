@@ -8,10 +8,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="12dp"
         android:text="아메리카노"
-        android:textSize="32sp"
-        android:layout_marginLeft="8dp"/>
+        android:textSize="32sp" />
 
     <ImageView
         android:id="@+id/subtract"
@@ -41,7 +41,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_centerVertical="true"
-        android:layout_marginRight="30dp"
+        android:layout_marginRight="14dp"
         android:layout_toLeftOf="@id/layout"
         android:padding="16dp"
         android:src="@drawable/plus" />
@@ -53,7 +53,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:gravity="right"
-        android:layout_marginRight="8dp">
+        android:layout_marginRight="72dp">
 
         <TextView
             android:layout_width="wrap_content"
