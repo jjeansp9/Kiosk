@@ -33,7 +33,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public static Context context_home;
 
-    public ArrayList<ArrayList<Boolean>> selectList= new ArrayList<>();
+    public static ArrayList<ArrayList<Boolean>> selectList= new ArrayList<>();
 
     public ArrayList<Boolean> selectCoffee= new ArrayList<>();
     public ArrayList<Boolean> selectParfait= new ArrayList<>();
@@ -48,7 +48,9 @@ public class HomeActivity extends AppCompatActivity {
     int categoryNum;
     private int[] num;
 
-    public RecyclerPriceListAdapter priceListAdapter;
+    public static int oneTouch=0;
+
+    public static RecyclerPriceListAdapter priceListAdapter;
     public static ArrayList<Price> priceListItems= new ArrayList<>();
 
     ArrayList<Fragment> fragments= new ArrayList<>();
@@ -98,11 +100,15 @@ public class HomeActivity extends AppCompatActivity {
             // 선택한 메뉴 항목에 [+] 버튼을 눌렀을 때
             @Override
             public void onAddClick(View view, int position) {
+                try {
+                    num[position]+=1;
+                    Log.d("addTouch", "items.size() : "+priceListItems.size()+ ", position :" +position + ", num : " +num.length);
+                    priceListItems.set(position, new Price(priceListItems.get(position).menuName, num[position]+"", resultPrice(priceListItems.get(position).menuPrice), R.drawable.plus, R.drawable.minus));
+                    priceListAdapter.notifyDataSetChanged();
+                }catch (RuntimeException e){
+                    Log.d("exceptions", e.getMessage());
+                }
 
-                num[position]+=1;
-
-                priceListItems.set(position, new Price(priceListItems.get(position).menuName, num[position]+"", resultPrice(priceListItems.get(position).menuPrice), R.drawable.plus, R.drawable.minus));
-                priceListAdapter.notifyDataSetChanged();
 
             }
 
@@ -135,6 +141,7 @@ public class HomeActivity extends AppCompatActivity {
                         Log.d("touch1", tableIndex+"");
                     }
                     tableIndex= -1;
+                    num[position]=0;
                     priceListAdapter.notifyDataSetChanged();
                 }
             }
@@ -216,15 +223,20 @@ public class HomeActivity extends AppCompatActivity {
     // 취소하기 버튼 클릭했을 때
     void clickedCancel(){
 
-        for (int i=0; i< priceListItems.size(); i++){
-            selectList.get(i).set(i, false);
-            selectParfait.set(i, false);
-            selectMilkTea.set(i, false);
-            selectDessert.set(i, false);
-            selectDrink.set(i, false);
-        }
-
         priceListItems.clear();
+        selectList.get(0).clear();
+
+        selectList.add(0, selectCoffee);
+        selectList.add(1, selectParfait);
+        selectList.add(2, selectMilkTea);
+        selectList.add(3, selectDessert);
+        selectList.add(4, selectDrink);
+
+        HomeActivity.oneTouch= 0;
+        Log.d("selectSize", selectList.size()+"" + HomeActivity.oneTouch);
+
+        clickedListMenu();
+
         priceListAdapter.notifyDataSetChanged();
     }
 
@@ -233,6 +245,8 @@ public class HomeActivity extends AppCompatActivity {
         Cursor cursor= dbHelper.get(0).getDataAll();
         StringBuffer buffer= new StringBuffer();
 
+        int i=0;
+
         while (cursor.moveToNext()){
             buffer.append("id : " + cursor.getString(0)+"\n");
             buffer.append("name : " + cursor.getString(1)+"\n");
@@ -240,7 +254,9 @@ public class HomeActivity extends AppCompatActivity {
             buffer.append("image : " + cursor.getString(3)+"\n\n");
             buffer.append("info : " + cursor.getString(4)+"\n\n");
 
-            num= new int[cursor.getString(1).length()];
+            num= new int[i];
+            i++;
+            Log.d("numValuse", num.length+"");
         }
 
         return num;

@@ -74,15 +74,15 @@ public class ParfaitFragment extends Fragment {
             public void onImageClick(View view, int position) {
 
                 for (int i=0; i<menuItems.size(); i++){
-                    ((HomeActivity)HomeActivity.context_home).selectList.get(1).add(index, false);
+                    HomeActivity.selectList.get(1).add(index, false);
                     index++;
                 }
 
-                if (((HomeActivity)HomeActivity.context_home).selectList.get(1).get(position)== false){
-                    ((HomeActivity)HomeActivity.context_home).priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
-                    ((HomeActivity)HomeActivity.context_home).selectList.get(1).set(position, true);
+                if (!HomeActivity.selectList.get(1).get(position)){
+                    HomeActivity.priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
+                    HomeActivity.selectList.get(1).set(position, true);
                 }
-                ((HomeActivity)HomeActivity.context_home).priceListAdapter.notifyDataSetChanged();
+                HomeActivity.priceListAdapter.notifyDataSetChanged();
             }
 
             // 메뉴 info 아이콘을 클릭했을 때 반응

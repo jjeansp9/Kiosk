@@ -66,28 +66,26 @@ public class CoffeeFragment extends Fragment {
         menuAdapter.setItemClickListener(new RecyclerMenuAdapter.OnItemClickListener() {
 
             int num=1;
-            int index=0;
-            int oneTouch=0;
 
             // 메뉴 이미지를 클릭했을 때 반응
             @Override
             public void onImageClick(View view, int position) {
+                Log.d("Home", HomeActivity.oneTouch+"");
 
-                if (oneTouch==0){
+                if (HomeActivity.oneTouch ==0){
                     for (int i=0; i<menuItems.size(); i++){
-                        ((HomeActivity)HomeActivity.context_home).selectList.get(0).add(false);
-                        Log.d("boolean", index+"," + ((HomeActivity)HomeActivity.context_home).selectList.get(0).size());
-                        index++;
+                        HomeActivity.selectList.get(0).add(false);
+                        Log.d("menuItems", menuItems.size()+", "+HomeActivity.selectList.get(0).size());
                     }
-                    oneTouch=1;
+                    HomeActivity.oneTouch= 1;
                 }
 
-                if (((HomeActivity)HomeActivity.context_home).selectList.get(0).get(position)== false){
-                    ((HomeActivity)HomeActivity.context_home).priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
-                    ((HomeActivity)HomeActivity.context_home).selectList.get(0).set(position, true);
+                if (!HomeActivity.selectList.get(0).get(position)){
+                    HomeActivity.priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
+                    HomeActivity.selectList.get(0).set(position, true);
 
                 }
-                ((HomeActivity)HomeActivity.context_home).priceListAdapter.notifyDataSetChanged();
+                HomeActivity.priceListAdapter.notifyDataSetChanged();
 
             }
 
