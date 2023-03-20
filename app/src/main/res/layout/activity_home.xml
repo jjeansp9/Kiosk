@@ -135,7 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/buy_page"
-            android:layout_below="@+id/bnv" />
+            android:layout_below="@+id/bnv"/>
 
         <RelativeLayout
             android:id="@+id/buy_page"
@@ -149,9 +149,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:layout_marginTop="6dp">
 
                 <LinearLayout
                     android:layout_width="620dp"
@@ -259,9 +259,9 @@
                 android:layout_toRightOf="@id/select_menu"
                 android:backgroundTint="#50C6EA"
                 android:paddingLeft="36dp"
-                android:paddingTop="65dp"
+                android:paddingTop="69dp"
                 android:paddingRight="36dp"
-                android:paddingBottom="65dp"
+                android:paddingBottom="69dp"
                 android:text="주문"
                 android:textSize="36sp" />
 
@@ -275,9 +275,9 @@
                 android:layout_toRightOf="@id/select_menu"
                 android:backgroundTint="#F45555"
                 android:paddingLeft="36dp"
-                android:paddingTop="65dp"
+                android:paddingTop="69dp"
                 android:paddingRight="36dp"
-                android:paddingBottom="65dp"
+                android:paddingBottom="69dp"
                 android:text="취소"
                 android:textSize="36sp" />
 

@@ -23,6 +23,7 @@ import kr.co.kiosk.fragments.DessertFragment;
 import kr.co.kiosk.fragments.DrinkFragment;
 import kr.co.kiosk.fragments.MilkTeaFragment;
 import kr.co.kiosk.fragments.ParfaitFragment;
+import kr.co.kiosk.model.Menu;
 import kr.co.kiosk.model.MenuDBHelper;
 import kr.co.kiosk.model.Price;
 
@@ -67,10 +68,6 @@ public class HomeActivity extends AppCompatActivity {
         selectList.add(3, selectDessert);
         selectList.add(4, selectDrink);
 
-        selectList.get(0).add(0, false);
-
-        Log.d("Coffee", selectList.get(0).get(0)+"");
-
 
         priceListAdapter= new RecyclerPriceListAdapter(this, priceListItems);
         binding.recyclerSelect.setAdapter(priceListAdapter);
@@ -95,6 +92,9 @@ public class HomeActivity extends AppCompatActivity {
     void clickedPlusOrMinus(){
         priceListAdapter.setItemClickListener(new RecyclerPriceListAdapter.OnItemClickListener() {
 
+            int tableIndex=-1;
+
+
             // 선택한 메뉴 항목에 [+] 버튼을 눌렀을 때
             @Override
             public void onAddClick(View view, int position) {
@@ -113,6 +113,28 @@ public class HomeActivity extends AppCompatActivity {
                 if (num[position]>1){
                     num[position]-=1;
                     priceListItems.set(position, new Price(priceListItems.get(position).menuName, num[position]+"", priceListItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
+                    priceListAdapter.notifyDataSetChanged();
+
+                }else if (priceListItems.get(position).menuNumber.equals("1") && selectList.size() !=0){
+
+                    // 커피
+                    Cursor cursor= dbHelper.get(0).getDataAll();
+                    StringBuffer buffer= new StringBuffer();
+
+                    while (cursor.moveToNext()){
+                        buffer.append("name : " + cursor.getString(1)+"\n");
+
+                        tableIndex++;
+
+                        if (cursor.getString(1).equals(priceListItems.get(position).menuName)){
+                            Log.d("touch", "tableIndex : "+tableIndex+", menuName : " + priceListItems.get(position).menuName + ", sqlDB : " + cursor.getString(1) + ", position : "+ position);
+                            selectList.get(0).set(tableIndex, false);
+                            priceListItems.remove(position);
+                            break;
+                        }
+                        Log.d("touch1", tableIndex+"");
+                    }
+                    tableIndex= -1;
                     priceListAdapter.notifyDataSetChanged();
                 }
             }

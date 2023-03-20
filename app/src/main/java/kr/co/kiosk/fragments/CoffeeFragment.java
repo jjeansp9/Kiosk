@@ -67,19 +67,25 @@ public class CoffeeFragment extends Fragment {
 
             int num=1;
             int index=0;
+            int oneTouch=0;
 
             // 메뉴 이미지를 클릭했을 때 반응
             @Override
             public void onImageClick(View view, int position) {
 
-                for (int i=0; i<menuItems.size(); i++){
-                    ((HomeActivity)HomeActivity.context_home).selectList.get(0).add(index, false);
-                    index++;
+                if (oneTouch==0){
+                    for (int i=0; i<menuItems.size(); i++){
+                        ((HomeActivity)HomeActivity.context_home).selectList.get(0).add(false);
+                        Log.d("boolean", index+"," + ((HomeActivity)HomeActivity.context_home).selectList.get(0).size());
+                        index++;
+                    }
+                    oneTouch=1;
                 }
 
                 if (((HomeActivity)HomeActivity.context_home).selectList.get(0).get(position)== false){
                     ((HomeActivity)HomeActivity.context_home).priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
                     ((HomeActivity)HomeActivity.context_home).selectList.get(0).set(position, true);
+
                 }
                 ((HomeActivity)HomeActivity.context_home).priceListAdapter.notifyDataSetChanged();
 
