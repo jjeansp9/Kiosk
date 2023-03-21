@@ -17,7 +17,8 @@ public class MenuDBHelper extends SQLiteOpenHelper{
     SQLiteDatabase db= getWritableDatabase();
 
     // 데이터베이스 명
-    public static final String[] DATABASE_NAME = {"coffee_test_03.db", "parfait_test_03.db","milk_tea_test_03.db","dessert_test_03.db","drink_test_03.db", "my_order_test_03.db"};
+    //public static final String[] DATABASE_NAME = {"coffee_test_03.db", "parfait_test_03.db","milk_tea_test_03.db","dessert_test_03.db","drink_test_03.db", "my_order_test_03.db"};
+    public static final String DATABASE_NAME = "test_02";
 
     // 테이블 명
     public static final String TABLE_NAME = "test_coffee";
@@ -30,15 +31,15 @@ public class MenuDBHelper extends SQLiteOpenHelper{
     public static final String COL_4 = "image";
     public static final String COL_5 = "info";
 
-    public MenuDBHelper(@Nullable Context context, int i) {
-        super(context, DATABASE_NAME[i], null, 1);
+    public MenuDBHelper(@Nullable Context context) {
+        super(context, DATABASE_NAME, null, 1);
 
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         // 테이블(test_coffee) 생성 [ 메뉴이름, 메뉴가격, 메뉴이미지 ]
-        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price TEXT, image TEXT, info TEXT)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "(id INTEGER PRIMARY KEY AUTOINCREMENT, category TEXT, name TEXT, price TEXT, image TEXT, info TEXT)");
     }
 
     @Override
@@ -48,8 +49,9 @@ public class MenuDBHelper extends SQLiteOpenHelper{
     }
 
     // 데이터 추가하기
-    public void insertData(String name, String price, String image, String info){
+    public void insertData(String category, String name, String price, String image, String info){
         ContentValues contentValues= new ContentValues();
+        contentValues.put(COL_1, category);
         contentValues.put(COL_2, name);
         contentValues.put(COL_3, price);
         contentValues.put(COL_4, image);
@@ -61,8 +63,9 @@ public class MenuDBHelper extends SQLiteOpenHelper{
     }
 
     // 데이터 수정하기
-    public void updateData(String name, String price, String image, String info){
+    public void updateData(String category, String name, String price, String image, String info){
         ContentValues contentValues= new ContentValues();
+        contentValues.put(COL_1, category);
         contentValues.put(COL_2, name);
         contentValues.put(COL_3, price);
         contentValues.put(COL_4, image);

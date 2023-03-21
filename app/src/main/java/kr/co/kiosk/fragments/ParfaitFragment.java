@@ -57,7 +57,7 @@ public class ParfaitFragment extends Fragment {
         menuAdapter= new RecyclerMenuAdapter(getActivity(), menuItems);
         binding.recyclerMenuParfait.setAdapter(menuAdapter);
 
-        dbHelper= new MenuDBHelper(getActivity(), 1);
+        //dbHelper= new MenuDBHelper(getActivity(), 1);
 
         // 오른쪽 화살표 클릭시 오른쪽으로 스크롤
         binding.right.setOnClickListener(v->binding.recyclerMenuParfait.smoothScrollToPosition(menuItems.size()));

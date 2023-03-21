@@ -49,6 +49,7 @@ public class HomeActivity extends AppCompatActivity {
     // 클릭한 카테고리에 따라 해당 화면을 보여주기 위한 변수
     int categoryNum;
     public static int[] num;
+    int addValue = 0;
 
     public static int oneTouch;
 
@@ -58,7 +59,7 @@ public class HomeActivity extends AppCompatActivity {
     ArrayList<Fragment> fragments= new ArrayList<>();
     FragmentManager fragmentManager= null;
 
-    ArrayList<MenuDBHelper> dbHelper= new ArrayList<>();
+    MenuDBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,8 +77,8 @@ public class HomeActivity extends AppCompatActivity {
         priceListAdapter= new RecyclerPriceListAdapter(this, priceListItems);
         binding.recyclerSelect.setAdapter(priceListAdapter);
 
-        for (int i=0; i<MenuDBHelper.DATABASE_NAME.length; i++ ) dbHelper.add(new MenuDBHelper(this, i));
-
+        //for (int i=0; i<MenuDBHelper.DATABASE_NAME.length; i++ ) dbHelper.add(new MenuDBHelper(this, i));
+        dbHelper= new MenuDBHelper(this);
 
         categoryNum= getIntent().getIntExtra("category", categoryNum);
 
@@ -95,7 +96,7 @@ public class HomeActivity extends AppCompatActivity {
     void clickedPlusOrMinus(){
         priceListAdapter.setItemClickListener(new RecyclerPriceListAdapter.OnItemClickListener() {
 
-            int[] tableIndex={-1,-1,-1,-1,-1,};
+            int tableIndex=-1;
 
             // 선택한 메뉴 항목에 [+] 버튼을 눌렀을 때
             @Override
@@ -129,37 +130,30 @@ public class HomeActivity extends AppCompatActivity {
                 }else if (priceListItems.get(position).menuNumber.equals("1") && selectList.size() !=0){
 
                     try {
-                        Cursor[] cursor= {
-                                dbHelper.get(0).getDataAll(),
-                                dbHelper.get(1).getDataAll(),
-                                dbHelper.get(2).getDataAll(),
-                                dbHelper.get(3).getDataAll(),
-                                dbHelper.get(4).getDataAll()};
+                        Cursor cursor= dbHelper.getDataAll();
 
                         StringBuffer buffer= new StringBuffer();
 
-                        for (int i=0; i<cursor.length; i++){
-                            while (cursor[i].moveToNext()){
-                                buffer.append("name : " + cursor[i].getString(1)+"\n");
+                        while (cursor.moveToNext()){
+                            buffer.append("name : " + cursor.getString(0)+"\n");
 
-                                tableIndex[i]++;
+                            tableIndex++;
 
-                                if (cursor[i].getString(1).equals(priceListItems.get(position).menuName)){
+                            if (cursor.getString(0).equals("커피")){
 
-                                    Log.d("touch", "tableIndex["+i+"] : "+tableIndex[i]+", menuName : " + priceListItems.get(position).menuName + ", sqlDB : " + cursor[i].getString(1) + ", position : "+ position);
+                                Log.d("touch", "tableIndex : "+tableIndex+", menuName : " + priceListItems.get(position).menuName + ", sqlDB : " + cursor.getString(1) + ", position : "+ position);
 
-                                    selectList.get(i).set(tableIndex[i], false);
-                                    priceListItems.remove(position);
-                                    binding.resultPrice.setText(resultPrice());
+                                //selectList.get().set(tableIndex, false);
+                                priceListItems.remove(position);
+                                binding.resultPrice.setText(resultPrice());
 
-                                    priceListAdapter.notifyDataSetChanged();
-                                    break;
-                                }
-                                Log.d("touch1", tableIndex+"");
-                                tableIndex[i]= -1;
+                                priceListAdapter.notifyDataSetChanged();
+                                break;
                             }
-
+                            Log.d("touch1", tableIndex+"");
+                            tableIndex= -1;
                         }
+
                     }catch (Exception e){
                         Log.d("exception", e.getMessage());
                     }
@@ -175,15 +169,20 @@ public class HomeActivity extends AppCompatActivity {
 
         String result= "";
         String s= price.replaceAll(",","");
-        int value=0;
 
-        if (categoryNum==0) if (priceCategory.coffee.get(position).equals(0)) value= priceCategory.coffee.set(position, Integer.parseInt(s));
-        if (categoryNum==1) if (priceCategory.parfait.get(position).equals(0)) value= priceCategory.parfait.set(position, Integer.parseInt(s));
-        if (categoryNum==2) if (priceCategory.milkTea.get(position).equals(0)) value= priceCategory.milkTea.set(position, Integer.parseInt(s));
-        if (categoryNum==3) if (priceCategory.dessert.get(position).equals(0)) value= priceCategory.dessert.set(position, Integer.parseInt(s));
-        if (categoryNum==4) if (priceCategory.drink.get(position).equals(0)) value= priceCategory.drink.set(position, Integer.parseInt(s));
 
-        result= Integer.parseInt(s)+value+"";
+        if (addValue==0){
+            addValue= Integer.parseInt(s);
+        }
+
+
+//        if (categoryNum==0) if (priceCategory.coffee.get(position).equals(0)) value= priceCategory.coffee.set(position, Integer.parseInt(s));
+//        if (categoryNum==1) if (priceCategory.parfait.get(position).equals(0)) value= priceCategory.parfait.set(position, Integer.parseInt(s));
+//        if (categoryNum==2) if (priceCategory.milkTea.get(position).equals(0)) value= priceCategory.milkTea.set(position, Integer.parseInt(s));
+//        if (categoryNum==3) if (priceCategory.dessert.get(position).equals(0)) value= priceCategory.dessert.set(position, Integer.parseInt(s));
+//        if (categoryNum==4) if (priceCategory.drink.get(position).equals(0)) value= priceCategory.drink.set(position, Integer.parseInt(s));
+
+        result= Integer.parseInt(s)+addValue+"";
 
         // 천 단위마다 [,] 추가
         result= result.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
@@ -312,7 +311,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public int[] clickedListMenu(int category){
 
-        Cursor cursor= dbHelper.get(category).getDataAll();
+        Cursor cursor= dbHelper.getDataAll();
         StringBuffer buffer= new StringBuffer();
 
         Log.d("categoryStart", category+"");
@@ -320,6 +319,7 @@ public class HomeActivity extends AppCompatActivity {
         int i=0;
 
         while (cursor.moveToNext()){
+            buffer.append("category : " + cursor.getString(0)+"\n");
             buffer.append("name : " + cursor.getString(1)+"\n");
             buffer.append("price : " + cursor.getString(2)+"\n");
             buffer.append("image : " + cursor.getString(3)+"\n\n");
@@ -334,12 +334,12 @@ public class HomeActivity extends AppCompatActivity {
             num[j]= 1;
         }
 
-        if (category==0) for (int k=0; k<=num.length; k++) priceCategory.coffee.add(k, 0);
-        if (category==1) for (int k=0; k<=num.length; k++) priceCategory.parfait.add(k, 0);
-        if (category==2) for (int k=0; k<=num.length; k++) priceCategory.milkTea.add(k, 0);
-        if (category==3) for (int k=0; k<=num.length; k++) priceCategory.dessert.add(k, 0);
-        if (category==4) for (int k=0; k<=num.length; k++) priceCategory.drink.add(k, 0);
-        Log.d("parfaite", priceCategory.parfait.size()+"");
+//        if (category==0) for (int k=0; k<=num.length; k++) priceCategory.coffee.add(k, 0);
+//        if (category==1) for (int k=0; k<=num.length; k++) priceCategory.parfait.add(k, 0);
+//        if (category==2) for (int k=0; k<=num.length; k++) priceCategory.milkTea.add(k, 0);
+//        if (category==3) for (int k=0; k<=num.length; k++) priceCategory.dessert.add(k, 0);
+//        if (category==4) for (int k=0; k<=num.length; k++) priceCategory.drink.add(k, 0);
+//        Log.d("parfaite", priceCategory.parfait.size()+"");
 
 
 

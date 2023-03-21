@@ -59,7 +59,7 @@ public class MyOrderActivity extends AppCompatActivity {
         priceResult= intent.getStringExtra("price_result");
         binding.priceResult.setText(priceResult);
 
-        for (int i = 0; i< MenuDBHelper.DATABASE_NAME.length; i++ ) dbHelper.add(new MenuDBHelper(this, i));
+        //for (int i = 0; i< MenuDBHelper.DATABASE_NAME.length; i++ ) dbHelper.add(new MenuDBHelper(this, i));
         for (int i=0; i<priceList.size(); i++) priceCategory.coffee.add(i, 0);
 
         priceListAdapter= new RecyclerPriceListAdapter(this, priceList);

@@ -56,7 +56,7 @@ public class MilkTeaFragment extends Fragment {
         menuAdapter= new RecyclerMenuAdapter(getActivity(), menuItems);
         binding.recyclerMenuMilkTea.setAdapter(menuAdapter);
 
-        dbHelper= new MenuDBHelper(getActivity(), 2);
+        //dbHelper= new MenuDBHelper(getActivity(), 2);
 
         // 오른쪽 화살표 클릭시 오른쪽으로 스크롤
         binding.right.setOnClickListener(v->binding.recyclerMenuMilkTea.smoothScrollToPosition(menuItems.size()));

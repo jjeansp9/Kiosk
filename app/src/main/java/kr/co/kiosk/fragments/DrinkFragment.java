@@ -56,7 +56,7 @@ public class DrinkFragment extends Fragment {
         menuAdapter= new RecyclerMenuAdapter(getActivity(), menuItems);
         binding.recyclerMenuDrink.setAdapter(menuAdapter);
 
-        dbHelper= new MenuDBHelper(getActivity(), 4);
+        //dbHelper= new MenuDBHelper(getActivity(), 4);
 
         // 오른쪽 화살표 클릭시 오른쪽으로 스크롤
         binding.right.setOnClickListener(v->binding.recyclerMenuDrink.smoothScrollToPosition(menuItems.size()));

@@ -56,7 +56,7 @@ public class DessertFragment extends Fragment {
         menuAdapter= new RecyclerMenuAdapter(getActivity(), menuItems);
         binding.recyclerMenuDessert.setAdapter(menuAdapter);
 
-        dbHelper= new MenuDBHelper(getActivity(), 3);
+        //dbHelper= new MenuDBHelper(getActivity(), 3);
 
         binding.right.setOnClickListener(v->binding.recyclerMenuDessert.smoothScrollToPosition(menuItems.size()));
 

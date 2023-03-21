@@ -45,7 +45,7 @@ public class SettingMenuActivity extends AppCompatActivity {
     String result= "";
 
     MenuDBHelper dbHelper;
-    int categoryNum= 0;
+    String category= "커피";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +53,14 @@ public class SettingMenuActivity extends AppCompatActivity {
         binding= ActivitySettingMenuBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        dbHelper = new MenuDBHelper(this, categoryNum);
+        dbHelper = new MenuDBHelper(this);
 
         // 등록할 메뉴의 카테고리 선택
-        binding.coffee.setOnClickListener(v->clickedCategory("커피", categoryNum));
-        binding.parfait.setOnClickListener(v->clickedCategory("파르페", categoryNum));
-        binding.milkTea.setOnClickListener(v->clickedCategory("밀크티", categoryNum));
-        binding.dessert.setOnClickListener(v->clickedCategory("디저트", categoryNum));
-        binding.drink.setOnClickListener(v->clickedCategory("음료", categoryNum));
+        binding.coffee.setOnClickListener(v->clickedCategory("커피"));
+        binding.parfait.setOnClickListener(v->clickedCategory("파르페"));
+        binding.milkTea.setOnClickListener(v->clickedCategory("밀크티"));
+        binding.dessert.setOnClickListener(v->clickedCategory("디저트"));
+        binding.drink.setOnClickListener(v->clickedCategory("음료"));
 
         binding.imgMenuImage.setOnClickListener(v-> clickedImageSelect()); // 메뉴이미지 선택해서 디바이스 사진첩에 접근 후 사진 선택
         binding.etMenuPrice.addTextChangedListener(commaAddForNumber()); // 메뉴가격에 숫자입력할 때 천단위마다 [,] 표시
@@ -72,17 +72,9 @@ public class SettingMenuActivity extends AppCompatActivity {
         binding.btnListMenu.setOnClickListener(v-> clickedListMenu());
     }
 
-    // 클릭한 카테고리 이름을 얻어와서 해당 이름의 [ .db 파일 ] 생성
-    public void clickedCategory(String categoryName, int i){
-
-        if (categoryName.equals("커피")) i = 0;
-        else if (categoryName.equals("파르페")) i =1;
-        else if (categoryName.equals("밀크티")) i =2;
-        else if (categoryName.equals("디저트")) i =3;
-        else if (categoryName.equals("음료")) i =4;
-        Log.d("CATEGORY", i+"");
-
-        dbHelper = new MenuDBHelper(this, i);
+    // 클릭한 카테고리 문자를 얻어오는 메소드
+    public void clickedCategory(String categoryName){
+        category= categoryName;
     }
 
     void clickedImageSelect(){
@@ -139,22 +131,20 @@ public class SettingMenuActivity extends AppCompatActivity {
         String info= binding.etMenuInfo.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
 
         // 메뉴이름란에 글자가 없는경우
-        if (name.replace(" ", "").equals("")) Toast.makeText(this, "메뉴 이름을 입력해주세요", Toast.LENGTH_SHORT).show();
+        if (name.replace(" ", "").equals("")) Toast.makeText(this, " 메뉴 이름을 입력해주세요", Toast.LENGTH_SHORT).show();
 
         // 메뉴가격란에 글자가 없는경우
-        else if (price.replace(" ", "").equals("")) Toast.makeText(this, "메뉴 가격을 입력해주세요", Toast.LENGTH_SHORT).show();
+        else if (price.replace(" ", "").equals("")) Toast.makeText(this, " 메뉴 가격을 입력해주세요", Toast.LENGTH_SHORT).show();
 
         // 사진을 등록하지 않은경우
         else if (uri==null) Toast.makeText(this, "사진을 등록해주세요", Toast.LENGTH_SHORT).show();
 
         // 모두 입력한 경우 데이터베이스 테이블에 추가
         else {
-
-            dbHelper.insertData(name, price, image, info);
-
+            dbHelper.insertData(category, name, price, image, info);
 
             setMenuInfo();
-            Toast.makeText(this, "메뉴를 등록하였습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, name+" 메뉴를 등록하였습니다.", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -166,7 +156,7 @@ public class SettingMenuActivity extends AppCompatActivity {
         String image= String.valueOf(uri); // 사진첩에서 가져온 사진의 uri경로를 문자열로 메뉴이미지에 대입
         String info= binding.etMenuInfo.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
 
-        dbHelper.updateData(name, price, image, info);
+        dbHelper.updateData(category, name, price, image, info);
 
         setMenuInfo();
         Toast.makeText(this, name+"의 메뉴를 수정하였습니다..", Toast.LENGTH_SHORT).show();
@@ -190,12 +180,13 @@ public class SettingMenuActivity extends AppCompatActivity {
             StringBuffer buffer= new StringBuffer();
             while (cursor.moveToNext()){
                 buffer.append("id : " + cursor.getString(0)+"\n");
-                buffer.append("name : " + cursor.getString(1)+"\n");
-                buffer.append("price : " + cursor.getString(2)+"\n");
-                buffer.append("image : " + cursor.getString(3)+"\n\n");
-                buffer.append("info : " + cursor.getString(4)+"\n\n");
+                buffer.append("category : " + cursor.getString(1)+"\n");
+                buffer.append("name : " + cursor.getString(2)+"\n");
+                buffer.append("price : " + cursor.getString(3)+"\n\n");
+                buffer.append("image : " + cursor.getString(4)+"\n\n");
+                buffer.append("info : " + cursor.getString(5)+"\n\n");
 
-                Log.d("uri", cursor.getString(3));
+                Log.d("uri", cursor.getString(4));
             }
             showDialog("메뉴", buffer.toString());
         }

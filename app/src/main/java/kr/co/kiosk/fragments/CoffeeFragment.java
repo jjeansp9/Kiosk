@@ -56,7 +56,8 @@ public class CoffeeFragment extends Fragment {
         menuAdapter= new RecyclerMenuAdapter(getActivity(), menuItems);
         binding.recyclerMenuCoffee.setAdapter(menuAdapter);
 
-        dbHelper = new MenuDBHelper(getActivity(), 0);
+        //dbHelper = new MenuDBHelper(getActivity(), 0);
+        dbHelper= new MenuDBHelper(getActivity());
 
         // 오른쪽 화살표 클릭시 오른쪽으로 스크롤
         binding.right.setOnClickListener(v->binding.recyclerMenuCoffee.smoothScrollToPosition(menuItems.size()));
@@ -144,14 +145,16 @@ public class CoffeeFragment extends Fragment {
 
         while (cursor.moveToNext()){
             buffer.append("id : " + cursor.getString(0)+"\n");
-            buffer.append("name : " + cursor.getString(1)+"\n");
-            buffer.append("price : " + cursor.getString(2)+"\n");
-            buffer.append("image : " + cursor.getString(3)+"\n\n");
-            buffer.append("info : " + cursor.getString(4)+"\n\n");
+            buffer.append("category : " + cursor.getString(1)+"\n");
+            buffer.append("name : " + cursor.getString(2)+"\n");
+            buffer.append("price : " + cursor.getString(3)+"\n\n");
+            buffer.append("image : " + cursor.getString(4)+"\n\n");
+            buffer.append("info : " + cursor.getString(5)+"\n\n");
 
-            menuItems.add(new Menu(cursor.getString(1), cursor.getString(2), cursor.getString(3), R.drawable.ic_baseline_info_24));
-            menuInfo.add(new Menu(cursor.getString(1), cursor.getString(4), cursor.getString(3), R.drawable.ic_baseline_info_24));
+            menuItems.add(new Menu(cursor.getString(2), cursor.getString(3), cursor.getString(4), R.drawable.ic_baseline_info_24));
+            menuInfo.add(new Menu(cursor.getString(2), cursor.getString(3), cursor.getString(4), R.drawable.ic_baseline_info_24));
         }
+        Log.d("menuitems", menuItems.size()+","+dbHelper.getDatabaseName()+"," +dbHelper.getDataAll().getCount());
         for (int i=0; i<=menuItems.size(); i++){
             priceCategory.coffee.add(i, 0);
         }
