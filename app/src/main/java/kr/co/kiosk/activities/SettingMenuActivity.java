@@ -73,7 +73,7 @@ public class SettingMenuActivity extends AppCompatActivity {
     }
 
     // 클릭한 카테고리 이름을 얻어와서 해당 이름의 [ .db 파일 ] 생성
-    public int clickedCategory(String categoryName, int i){
+    public void clickedCategory(String categoryName, int i){
 
         if (categoryName.equals("커피")) i = 0;
         else if (categoryName.equals("파르페")) i =1;
@@ -83,7 +83,6 @@ public class SettingMenuActivity extends AppCompatActivity {
         Log.d("CATEGORY", i+"");
 
         dbHelper = new MenuDBHelper(this, i);
-        return i;
     }
 
     void clickedImageSelect(){
@@ -150,7 +149,9 @@ public class SettingMenuActivity extends AppCompatActivity {
 
         // 모두 입력한 경우 데이터베이스 테이블에 추가
         else {
+
             dbHelper.insertData(name, price, image, info);
+
 
             setMenuInfo();
             Toast.makeText(this, "메뉴를 등록하였습니다.", Toast.LENGTH_SHORT).show();

@@ -27,6 +27,7 @@ import kr.co.kiosk.databinding.FragmentCoffeeBinding;
 import kr.co.kiosk.model.Menu;
 import kr.co.kiosk.model.MenuDBHelper;
 import kr.co.kiosk.model.Price;
+import kr.co.kiosk.model.PriceCategory;
 
 public class CoffeeFragment extends Fragment {
 
@@ -34,10 +35,12 @@ public class CoffeeFragment extends Fragment {
 
     RecyclerMenuAdapter menuAdapter;
 
-    ArrayList<Menu> menuItems= new ArrayList<>();
+    public static ArrayList<Menu> menuItems= new ArrayList<>();
     ArrayList<Menu> menuInfo= new ArrayList<>();
+    PriceCategory priceCategory= new PriceCategory();
 
     MenuDBHelper dbHelper;
+    public static int oneTouch=0;
 
     @Nullable
     @Override
@@ -72,22 +75,23 @@ public class CoffeeFragment extends Fragment {
             public void onImageClick(View view, int position) {
                 Log.d("Home", HomeActivity.oneTouch+"");
 
-                if (HomeActivity.oneTouch ==0){
+                if (oneTouch ==0){
                     for (int i=0; i<menuItems.size(); i++){
                         HomeActivity.selectList.get(0).add(false);
                         Log.d("menuItems", menuItems.size()+", "+HomeActivity.selectList.get(0).size());
                     }
-                    HomeActivity.oneTouch= 1;
+                    oneTouch= 1;
                 }
 
                 if (!HomeActivity.selectList.get(0).get(position)){
                     HomeActivity.priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
                     HomeActivity.selectList.get(0).set(position, true);
 
+                    HomeActivity.binding.resultPrice.setText(resultPrice());
                 }
                 HomeActivity.priceListAdapter.notifyDataSetChanged();
-
             }
+
 
             // 메뉴 info 아이콘을 클릭했을 때 반응
             @Override
@@ -115,10 +119,25 @@ public class CoffeeFragment extends Fragment {
         });
     }
 
+    private String resultPrice(){
+
+        String result= "";
+
+        int num = 0;
+        for (int i=0; i<HomeActivity.priceListItems.size(); i++){
+            String s= HomeActivity.priceListItems.get(i).menuPrice.replaceAll(",","");
+            num+= Integer.parseInt(s);
+        }
+        result= num+"";
+        // 천 단위마다 [,] 추가
+        result= result.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
+
+        return result;
+    }
 
 
     // 등록한 메뉴 모두 보여주기
-    void clickedListMenu(){
+    private void clickedListMenu(){
 
         Cursor cursor= dbHelper.getDataAll();
         StringBuffer buffer= new StringBuffer();
@@ -133,6 +152,10 @@ public class CoffeeFragment extends Fragment {
             menuItems.add(new Menu(cursor.getString(1), cursor.getString(2), cursor.getString(3), R.drawable.ic_baseline_info_24));
             menuInfo.add(new Menu(cursor.getString(1), cursor.getString(4), cursor.getString(3), R.drawable.ic_baseline_info_24));
         }
+        for (int i=0; i<=menuItems.size(); i++){
+            priceCategory.coffee.add(i, 0);
+        }
+
     } // clickedListMenu()
 
 }

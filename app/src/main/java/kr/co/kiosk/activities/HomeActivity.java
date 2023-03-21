@@ -23,32 +23,34 @@ import kr.co.kiosk.fragments.DessertFragment;
 import kr.co.kiosk.fragments.DrinkFragment;
 import kr.co.kiosk.fragments.MilkTeaFragment;
 import kr.co.kiosk.fragments.ParfaitFragment;
-import kr.co.kiosk.model.Menu;
 import kr.co.kiosk.model.MenuDBHelper;
 import kr.co.kiosk.model.Price;
+import kr.co.kiosk.model.PriceCategory;
 
 public class HomeActivity extends AppCompatActivity {
 
-    ActivityHomeBinding binding;
+    public static ActivityHomeBinding binding;
 
     public static Context context_home;
 
+    // 이미 선택한 메뉴를 중복선택 하지않게 설정하는 변수
     public static ArrayList<ArrayList<Boolean>> selectList= new ArrayList<>();
+    public static ArrayList<Boolean> selectCoffee= new ArrayList<>();
+    public static ArrayList<Boolean> selectParfait= new ArrayList<>();
+    public static ArrayList<Boolean> selectMilkTea= new ArrayList<>();
+    public static ArrayList<Boolean> selectDessert= new ArrayList<>();
+    public static ArrayList<Boolean> selectDrink= new ArrayList<>();
 
-    public ArrayList<Boolean> selectCoffee= new ArrayList<>();
-    public ArrayList<Boolean> selectParfait= new ArrayList<>();
-    public ArrayList<Boolean> selectMilkTea= new ArrayList<>();
-    public ArrayList<Boolean> selectDessert= new ArrayList<>();
-    public ArrayList<Boolean> selectDrink= new ArrayList<>();
+    PriceCategory priceCategory= new PriceCategory();
 
     // 프래그먼트가 이미 add된 경우 또 add하는 상황을 방지하기 위한 변수
     Boolean[] result= {false,false,false,false,false};
 
     // 클릭한 카테고리에 따라 해당 화면을 보여주기 위한 변수
     int categoryNum;
-    private int[] num;
+    public static int[] num;
 
-    public static int oneTouch=0;
+    public static int oneTouch;
 
     public static RecyclerPriceListAdapter priceListAdapter;
     public static ArrayList<Price> priceListItems= new ArrayList<>();
@@ -64,52 +66,53 @@ public class HomeActivity extends AppCompatActivity {
         binding= ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // 이미 선택한 메뉴를 중복선택 하지않게 설정하는 변수
         selectList.add(0, selectCoffee);
         selectList.add(1, selectParfait);
         selectList.add(2, selectMilkTea);
         selectList.add(3, selectDessert);
         selectList.add(4, selectDrink);
 
-
         priceListAdapter= new RecyclerPriceListAdapter(this, priceListItems);
         binding.recyclerSelect.setAdapter(priceListAdapter);
 
-        dbHelper.add(new MenuDBHelper(this, 0));
-        dbHelper.add(new MenuDBHelper(this, 1));
-        dbHelper.add(new MenuDBHelper(this, 5));
+        for (int i=0; i<MenuDBHelper.DATABASE_NAME.length; i++ ) dbHelper.add(new MenuDBHelper(this, i));
+
 
         categoryNum= getIntent().getIntExtra("category", categoryNum);
 
         // 홈화면 버튼 클릭시 메인화면으로 이동
         binding.home.setOnClickListener(v-> clickedHome());
+        clickedListMenu(categoryNum);
         createBNV();
-
         context_home= this;
 
         clickedPlusOrMinus(); // [ + , - ] 버튼 눌렀을때 반응하는 메소드
-        clickedListMenu(); // db에 저장되어있는 데이터 불러오는 메소드
     }
+
 
     // [ + , - ] 버튼 눌렀을때 반응하는 메소드
     void clickedPlusOrMinus(){
         priceListAdapter.setItemClickListener(new RecyclerPriceListAdapter.OnItemClickListener() {
 
-            int tableIndex=-1;
-
+            int[] tableIndex={-1,-1,-1,-1,-1,};
 
             // 선택한 메뉴 항목에 [+] 버튼을 눌렀을 때
             @Override
             public void onAddClick(View view, int position) {
                 try {
-                    num[position]+=1;
-                    Log.d("addTouch", "items.size() : "+priceListItems.size()+ ", position :" +position + ", num : " +num.length);
-                    priceListItems.set(position, new Price(priceListItems.get(position).menuName, num[position]+"", resultPrice(priceListItems.get(position).menuPrice), R.drawable.plus, R.drawable.minus));
-                    priceListAdapter.notifyDataSetChanged();
+
+
+
                 }catch (RuntimeException e){
                     Log.d("exceptions", e.getMessage());
                 }
+                num[position]+=1;
+                Log.d("addTouch", "items.size() : "+priceListItems.size()+ ", position :" +position + ", num[position] : " +num[position]);
+                priceListItems.set(position, new Price(priceListItems.get(position).menuName, num[position]+"", addPrice(position , priceListItems.get(position).menuPrice), R.drawable.plus, R.drawable.minus));
+                binding.resultPrice.setText(resultPrice());
 
-
+                priceListAdapter.notifyDataSetChanged();
             }
 
             // 선택한 메뉴 항목에 [-] 버튼을 눌렀을 때
@@ -118,51 +121,110 @@ public class HomeActivity extends AppCompatActivity {
 
                 if (num[position]>1){
                     num[position]-=1;
-                    priceListItems.set(position, new Price(priceListItems.get(position).menuName, num[position]+"", priceListItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
+                    priceListItems.set(position, new Price(priceListItems.get(position).menuName, num[position]+"", subTractPrice(position , priceListItems.get(position).menuPrice), R.drawable.plus, R.drawable.minus));
+                    binding.resultPrice.setText(resultPrice());
+
                     priceListAdapter.notifyDataSetChanged();
 
                 }else if (priceListItems.get(position).menuNumber.equals("1") && selectList.size() !=0){
 
-                    // 커피
-                    Cursor cursor= dbHelper.get(0).getDataAll();
-                    StringBuffer buffer= new StringBuffer();
+                    try {
+                        Cursor[] cursor= {
+                                dbHelper.get(0).getDataAll(),
+                                dbHelper.get(1).getDataAll(),
+                                dbHelper.get(2).getDataAll(),
+                                dbHelper.get(3).getDataAll(),
+                                dbHelper.get(4).getDataAll()};
 
-                    while (cursor.moveToNext()){
-                        buffer.append("name : " + cursor.getString(1)+"\n");
+                        StringBuffer buffer= new StringBuffer();
 
-                        tableIndex++;
+                        for (int i=0; i<cursor.length; i++){
+                            while (cursor[i].moveToNext()){
+                                buffer.append("name : " + cursor[i].getString(1)+"\n");
 
-                        if (cursor.getString(1).equals(priceListItems.get(position).menuName)){
-                            Log.d("touch", "tableIndex : "+tableIndex+", menuName : " + priceListItems.get(position).menuName + ", sqlDB : " + cursor.getString(1) + ", position : "+ position);
-                            selectList.get(0).set(tableIndex, false);
-                            priceListItems.remove(position);
-                            break;
+                                tableIndex[i]++;
+
+                                if (cursor[i].getString(1).equals(priceListItems.get(position).menuName)){
+
+                                    Log.d("touch", "tableIndex["+i+"] : "+tableIndex[i]+", menuName : " + priceListItems.get(position).menuName + ", sqlDB : " + cursor[i].getString(1) + ", position : "+ position);
+
+                                    selectList.get(i).set(tableIndex[i], false);
+                                    priceListItems.remove(position);
+                                    binding.resultPrice.setText(resultPrice());
+
+                                    priceListAdapter.notifyDataSetChanged();
+                                    break;
+                                }
+                                Log.d("touch1", tableIndex+"");
+                                tableIndex[i]= -1;
+                            }
+
                         }
-                        Log.d("touch1", tableIndex+"");
+                    }catch (Exception e){
+                        Log.d("exception", e.getMessage());
                     }
-                    tableIndex= -1;
-                    num[position]=0;
-                    priceListAdapter.notifyDataSetChanged();
+
                 }
             }
         });
     }
 
-    private String resultPrice(String price){
 
+    // 메뉴 수량증가 할 때마다 금액 더하기
+    private String addPrice(int position, String price){
+
+        String result= "";
         String s= price.replaceAll(",","");
+        int value=0;
 
-        int add=0;
-        int num = Integer.parseInt(s)+add;
-        Log.d("values", num+"num");
+        if (categoryNum==0) if (priceCategory.coffee.get(position).equals(0)) value= priceCategory.coffee.set(position, Integer.parseInt(s));
+        if (categoryNum==1) if (priceCategory.parfait.get(position).equals(0)) value= priceCategory.parfait.set(position, Integer.parseInt(s));
+        if (categoryNum==2) if (priceCategory.milkTea.get(position).equals(0)) value= priceCategory.milkTea.set(position, Integer.parseInt(s));
+        if (categoryNum==3) if (priceCategory.dessert.get(position).equals(0)) value= priceCategory.dessert.set(position, Integer.parseInt(s));
+        if (categoryNum==4) if (priceCategory.drink.get(position).equals(0)) value= priceCategory.drink.set(position, Integer.parseInt(s));
 
-        if (add==0){
-            add= num;
+        result= Integer.parseInt(s)+value+"";
+
+        // 천 단위마다 [,] 추가
+        result= result.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
+
+        return result;
+    }
+
+    // 메뉴 수량감소 할 때마다 금액 빼기
+    public String subTractPrice(int position, String price){
+
+        String result= "";
+        String s= price.replaceAll(",","");
+        int value=0;
+
+        if (categoryNum==0) if (priceCategory.coffee.get(position).equals(0)) value= priceCategory.coffee.set(position, Integer.parseInt(s));
+        if (categoryNum==1) if (priceCategory.parfait.get(position).equals(0)) value= priceCategory.parfait.set(position, Integer.parseInt(s));
+        if (categoryNum==2) if (priceCategory.milkTea.get(position).equals(0)) value= priceCategory.milkTea.set(position, Integer.parseInt(s));
+        if (categoryNum==3) if (priceCategory.dessert.get(position).equals(0)) value= priceCategory.dessert.set(position, Integer.parseInt(s));
+        if (categoryNum==4) if (priceCategory.drink.get(position).equals(0)) value= priceCategory.drink.set(position, Integer.parseInt(s));
+
+        result= Integer.parseInt(s)-value+"";
+
+        // 천 단위마다 [,] 추가
+        result= result.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
+
+        return result;
+    }
+
+    public String resultPrice(){
+
+        String result= "";
+
+        int num = 0;
+        for (int i=0; i<priceListItems.size(); i++){
+            String s= priceListItems.get(i).menuPrice.replaceAll(",","");
+            num+= Integer.parseInt(s);
         }
-        Log.d("values", add+"add");
+        result= num+"";
+        // 천 단위마다 [,] 추가
+        result= result.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
 
-        String result= num+"";
-        Log.d("values", result+"result");
         return result;
     }
 
@@ -206,6 +268,8 @@ public class HomeActivity extends AppCompatActivity {
             if (fragments.get(i)!=null){ tran.hide(fragments.get(i)); }
         }
         tran.show(fragments.get(num)).commit();
+
+        clickedListMenu(num); // db에 저장되어있는 데이터를 불러오는 메소드
     }
 
     // 주문하기 버튼 클릭했을 때
@@ -216,6 +280,7 @@ public class HomeActivity extends AppCompatActivity {
         }else{
             Intent intent= new Intent(HomeActivity.this, MyOrderActivity.class);
             intent.putExtra("select_menu", priceListItems);
+            intent.putExtra("price_result", resultPrice());
             startActivity(intent);
         }
     }
@@ -224,7 +289,7 @@ public class HomeActivity extends AppCompatActivity {
     void clickedCancel(){
 
         priceListItems.clear();
-        selectList.get(0).clear();
+        for (int i=0; i<selectList.size(); i++) selectList.get(i).clear();
 
         selectList.add(0, selectCoffee);
         selectList.add(1, selectParfait);
@@ -232,23 +297,29 @@ public class HomeActivity extends AppCompatActivity {
         selectList.add(3, selectDessert);
         selectList.add(4, selectDrink);
 
-        HomeActivity.oneTouch= 0;
-        Log.d("selectSize", selectList.size()+"" + HomeActivity.oneTouch);
+        binding.resultPrice.setText(resultPrice());
 
-        clickedListMenu();
+        CoffeeFragment.oneTouch= 0;
+        ParfaitFragment.oneTouch= 0;
+        MilkTeaFragment.oneTouch= 0;
+        DessertFragment.oneTouch= 0;
+        DrinkFragment.oneTouch= 0;
+
+        Log.d("selectSize", selectList.size()+"" + HomeActivity.oneTouch);
 
         priceListAdapter.notifyDataSetChanged();
     }
 
-    int[] clickedListMenu(){
+    public int[] clickedListMenu(int category){
 
-        Cursor cursor= dbHelper.get(0).getDataAll();
+        Cursor cursor= dbHelper.get(category).getDataAll();
         StringBuffer buffer= new StringBuffer();
+
+        Log.d("categoryStart", category+"");
 
         int i=0;
 
         while (cursor.moveToNext()){
-            buffer.append("id : " + cursor.getString(0)+"\n");
             buffer.append("name : " + cursor.getString(1)+"\n");
             buffer.append("price : " + cursor.getString(2)+"\n");
             buffer.append("image : " + cursor.getString(3)+"\n\n");
@@ -258,6 +329,19 @@ public class HomeActivity extends AppCompatActivity {
             i++;
             Log.d("numValuse", num.length+"");
         }
+
+        for (int j=0; j<num.length; j++){
+            num[j]= 1;
+        }
+
+        if (category==0) for (int k=0; k<=num.length; k++) priceCategory.coffee.add(k, 0);
+        if (category==1) for (int k=0; k<=num.length; k++) priceCategory.parfait.add(k, 0);
+        if (category==2) for (int k=0; k<=num.length; k++) priceCategory.milkTea.add(k, 0);
+        if (category==3) for (int k=0; k<=num.length; k++) priceCategory.dessert.add(k, 0);
+        if (category==4) for (int k=0; k<=num.length; k++) priceCategory.drink.add(k, 0);
+        Log.d("parfaite", priceCategory.parfait.size()+"");
+
+
 
         return num;
     } // clickedListMenu()

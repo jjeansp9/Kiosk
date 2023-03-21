@@ -3,6 +3,7 @@ package kr.co.kiosk.fragments;
 import android.app.Dialog;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,16 +27,20 @@ import kr.co.kiosk.databinding.FragmentParfaitBinding;
 import kr.co.kiosk.model.Menu;
 import kr.co.kiosk.model.MenuDBHelper;
 import kr.co.kiosk.model.Price;
+import kr.co.kiosk.model.PriceCategory;
 
 public class DrinkFragment extends Fragment {
 
     FragmentDrinkBinding binding;
     RecyclerMenuAdapter menuAdapter;
 
-    ArrayList<Menu> menuItems= new ArrayList<Menu>();
+    public static ArrayList<Menu> menuItems= new ArrayList<>();
     ArrayList<Menu> menuInfo= new ArrayList<>();
+    PriceCategory priceCategory= new PriceCategory();
 
     MenuDBHelper dbHelper;
+
+    public static int oneTouch=0;
 
     @Nullable
     @Override
@@ -68,22 +73,49 @@ public class DrinkFragment extends Fragment {
         menuAdapter.setItemClickListener(new RecyclerMenuAdapter.OnItemClickListener() {
 
             int num=1;
-            int index=0;
 
             // 메뉴 이미지를 클릭했을 때 반응
             @Override
             public void onImageClick(View view, int position) {
+                Log.d("Home", oneTouch+"");
 
-                for (int i=0; i<menuItems.size(); i++){
-                    ((HomeActivity)HomeActivity.context_home).selectDrink.add(index, false);
-                    index++;
+                if (oneTouch ==0){
+                    for (int i=0; i<menuItems.size(); i++){
+                        HomeActivity.selectList.get(1).add(false);
+                        Log.d("menuItems", menuItems.size()+", "+HomeActivity.selectList.get(1).size());
+                    }
+                    oneTouch= 1;
                 }
 
-                if (((HomeActivity)HomeActivity.context_home).selectDrink.get(position)== false){
-                    ((HomeActivity)HomeActivity.context_home).priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
-                    ((HomeActivity)HomeActivity.context_home).selectDrink.set(position, true);
+                if (!HomeActivity.selectList.get(1).get(position)){
+                    HomeActivity.priceListItems.add(new Price(menuItems.get(position).menuName, num+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
+                    HomeActivity.selectList.get(1).set(position, true);
+
+                    HomeActivity.binding.resultPrice.setText(resultPrice());
                 }
-                ((HomeActivity)HomeActivity.context_home).priceListAdapter.notifyDataSetChanged();
+                HomeActivity.num= new int[HomeActivity.priceListItems.size()];
+
+                for (int j=0; j<HomeActivity.num.length; j++){
+                    HomeActivity.num[j]= 1;
+                }
+
+                HomeActivity.priceListAdapter.notifyDataSetChanged();
+            }
+
+            private String resultPrice(){
+
+                String result= "";
+
+                int num = 0;
+                for (int i=0; i<HomeActivity.priceListItems.size(); i++){
+                    String s= HomeActivity.priceListItems.get(i).menuPrice.replaceAll(",","");
+                    num+= Integer.parseInt(s);
+                }
+                result= num+"";
+                // 천 단위마다 [,] 추가
+                result= result.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
+
+                return result;
             }
 
             // 메뉴 info 아이콘을 클릭했을 때 반응

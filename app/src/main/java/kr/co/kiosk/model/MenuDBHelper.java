@@ -24,7 +24,7 @@ public class MenuDBHelper extends SQLiteOpenHelper{
     public int categoryNum;
 
     // 테이블 항목
-    public static final String COL_1 = "id";
+    public static final String COL_1 = "category";
     public static final String COL_2 = "name";
     public static final String COL_3 = "price";
     public static final String COL_4 = "image";
@@ -32,7 +32,7 @@ public class MenuDBHelper extends SQLiteOpenHelper{
 
     public MenuDBHelper(@Nullable Context context, int i) {
         super(context, DATABASE_NAME[i], null, 1);
-        Log.d("dbName", DATABASE_NAME[i]);
+
     }
 
     @Override
