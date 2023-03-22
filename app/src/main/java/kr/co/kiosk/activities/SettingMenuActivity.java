@@ -8,6 +8,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -55,6 +56,8 @@ public class SettingMenuActivity extends AppCompatActivity {
 
         dbHelper = new MenuDBHelper(this);
 
+        binding.coffee.setBackgroundColor(Color.parseColor("#000000"));
+
         // 등록할 메뉴의 카테고리 선택
         binding.coffee.setOnClickListener(v->clickedCategory("커피"));
         binding.parfait.setOnClickListener(v->clickedCategory("파르페"));
@@ -73,8 +76,24 @@ public class SettingMenuActivity extends AppCompatActivity {
     }
 
     // 클릭한 카테고리 문자를 얻어오는 메소드
-    public void clickedCategory(String categoryName){
-        category= categoryName;
+    public void clickedCategory(String category){
+
+        if (category.equals("커피")){binding.coffee.setBackgroundColor(Color.parseColor("#000000"));}
+        else{binding.coffee.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+
+        if (category.equals("파르페")){binding.parfait.setBackgroundColor(Color.parseColor("#000000"));}
+        else{binding.parfait.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+
+        if (category.equals("밀크티")){binding.milkTea.setBackgroundColor(Color.parseColor("#000000"));}
+        else{binding.milkTea.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+
+        if (category.equals("디저트")){binding.dessert.setBackgroundColor(Color.parseColor("#000000"));}
+        else{binding.dessert.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+
+        if (category.equals("음료")){binding.drink.setBackgroundColor(Color.parseColor("#000000"));}
+        else{binding.drink.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+
+        Toast.makeText(this, category+"메뉴 등록하기", Toast.LENGTH_SHORT).show();
     }
 
     void clickedImageSelect(){
@@ -188,7 +207,7 @@ public class SettingMenuActivity extends AppCompatActivity {
 
                 Log.d("uri", cursor.getString(4));
             }
-            showDialog("메뉴", buffer.toString());
+            showDialog(dbHelper.getDatabaseName(), buffer.toString());
         }
     }
 

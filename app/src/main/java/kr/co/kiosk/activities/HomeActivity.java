@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,13 +44,14 @@ public class HomeActivity extends AppCompatActivity {
 
     PriceCategory priceCategory= new PriceCategory();
 
+    private ArrayList<String> categorys= new ArrayList<>();
+
     // 프래그먼트가 이미 add된 경우 또 add하는 상황을 방지하기 위한 변수
     Boolean[] result= {false,false,false,false,false};
 
     // 클릭한 카테고리에 따라 해당 화면을 보여주기 위한 변수
     int categoryNum;
     public static int[] num;
-    int addValue = 0;
 
     public static int oneTouch;
 
@@ -58,6 +60,7 @@ public class HomeActivity extends AppCompatActivity {
 
     ArrayList<Fragment> fragments= new ArrayList<>();
     FragmentManager fragmentManager= null;
+    private String priceResult="";
 
     MenuDBHelper dbHelper;
 
@@ -82,32 +85,41 @@ public class HomeActivity extends AppCompatActivity {
 
         categoryNum= getIntent().getIntExtra("category", categoryNum);
 
+        firstTabColor();
+
         // 홈화면 버튼 클릭시 메인화면으로 이동
         binding.home.setOnClickListener(v-> clickedHome());
-        clickedListMenu(categoryNum);
+        clickedListMenu();
         createBNV();
         context_home= this;
 
         clickedPlusOrMinus(); // [ + , - ] 버튼 눌렀을때 반응하는 메소드
     }
 
+    private void firstTabColor(){
+        if (categoryNum==0) binding.tabCoffee.setBackgroundColor(Color.parseColor("#000000"));
+        else if (categoryNum==1) binding.tabParfait.setBackgroundColor(Color.parseColor("#000000"));
+        else if (categoryNum==2) binding.tabMilkTea.setBackgroundColor(Color.parseColor("#000000"));
+        else if (categoryNum==3) binding.tabDessert.setBackgroundColor(Color.parseColor("#000000"));
+        else if (categoryNum==4) binding.tabDrink.setBackgroundColor(Color.parseColor("#000000"));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        clickedListMenu();
+        priceListAdapter.notifyDataSetChanged();
+    }
 
     // [ + , - ] 버튼 눌렀을때 반응하는 메소드
     void clickedPlusOrMinus(){
         priceListAdapter.setItemClickListener(new RecyclerPriceListAdapter.OnItemClickListener() {
 
-            int tableIndex=-1;
-
             // 선택한 메뉴 항목에 [+] 버튼을 눌렀을 때
             @Override
             public void onAddClick(View view, int position) {
-                try {
 
-
-
-                }catch (RuntimeException e){
-                    Log.d("exceptions", e.getMessage());
-                }
                 num[position]+=1;
                 Log.d("addTouch", "items.size() : "+priceListItems.size()+ ", position :" +position + ", num[position] : " +num[position]);
                 priceListItems.set(position, new Price(priceListItems.get(position).menuName, num[position]+"", addPrice(position , priceListItems.get(position).menuPrice), R.drawable.plus, R.drawable.minus));
@@ -127,32 +139,109 @@ public class HomeActivity extends AppCompatActivity {
 
                     priceListAdapter.notifyDataSetChanged();
 
-                }else if (priceListItems.get(position).menuNumber.equals("1") && selectList.size() !=0){
+                }else if (priceListItems.get(position).menuNumber.equals("1")){
 
                     try {
                         Cursor cursor= dbHelper.getDataAll();
 
                         StringBuffer buffer= new StringBuffer();
 
+                        int[] i={0,0,0,0,0};
+
                         while (cursor.moveToNext()){
-                            buffer.append("name : " + cursor.getString(0)+"\n");
 
-                            tableIndex++;
+                            buffer.append("category : " + cursor.getString(1)+"\n");
+                            buffer.append("cursorName : " + cursor.getString(2)+"\n");
+                            buffer.append("price : " + cursor.getString(3)+"\n\n");
 
-                            if (cursor.getString(0).equals("커피")){
+                            if (cursor.getString(1).equals("커피")){
 
-                                Log.d("touch", "tableIndex : "+tableIndex+", menuName : " + priceListItems.get(position).menuName + ", sqlDB : " + cursor.getString(1) + ", position : "+ position);
+                                if (priceListItems.get(position).menuName.equals(cursor.getString(2))){
 
-                                //selectList.get().set(tableIndex, false);
-                                priceListItems.remove(position);
-                                binding.resultPrice.setText(resultPrice());
+                                    Log.d("touch", ", menuName : " + priceListItems.get(position).menuName + ", dbName : " + cursor.getString(2) + ", dbNum : "+ i[0]);
+                                    HomeActivity.selectList.get(0).set(i[0], false);
 
-                                priceListAdapter.notifyDataSetChanged();
-                                break;
+                                    priceListItems.remove(position);
+                                    num[position]= num[position+1];
+                                    binding.resultPrice.setText(resultPrice());
+
+                                    priceListAdapter.notifyDataSetChanged();
+                                    break;
+                                }
+
+                                i[0]++;
+
                             }
-                            Log.d("touch1", tableIndex+"");
-                            tableIndex= -1;
-                        }
+                            if (cursor.getString(1).equals("파르페")){
+
+                                if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
+
+                                    Log.d("touch", ", menuName : " + priceListItems.get(position).menuName + ", dbName : " + cursor.getString(2) + ", dbNum : "+ i[1]);
+                                    HomeActivity.selectList.get(1).set(i[1], false);
+
+                                    priceListItems.remove(position);
+                                    num[position]= num[position+1];
+                                    binding.resultPrice.setText(resultPrice());
+
+                                    priceListAdapter.notifyDataSetChanged();
+                                    break;
+                                }
+
+                                i[1]++;
+
+                            }
+                            if (cursor.getString(1).equals("밀크티")){
+
+                                if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
+
+                                    Log.d("touch", ", menuName : " + priceListItems.get(position).menuName + ", dbName : " + cursor.getString(2) + ", dbNum : "+ i[0]);
+                                    HomeActivity.selectList.get(2).set(i[2], false);
+
+                                    priceListItems.remove(position);
+                                    num[position]= num[position+1];
+                                    binding.resultPrice.setText(resultPrice());
+
+                                    priceListAdapter.notifyDataSetChanged();
+                                    break;
+                                }
+
+                                i[2]++;
+                            }
+                            if (cursor.getString(1).equals("디저트")){
+
+                                if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
+
+                                    Log.d("touch", ", menuName : " + priceListItems.get(position).menuName + ", dbName : " + cursor.getString(2) + ", dbNum : "+ i[3]);
+                                    HomeActivity.selectList.get(3).set(i[3], false);
+
+                                    priceListItems.remove(position);
+                                    num[position]= num[position+1];
+                                    binding.resultPrice.setText(resultPrice());
+
+                                    priceListAdapter.notifyDataSetChanged();
+                                    break;
+                                }
+
+                                i[3]++;
+                            }
+                            if (cursor.getString(1).equals("음료")){
+
+                                if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
+
+                                    Log.d("touch", ", menuName : " + priceListItems.get(position).menuName + ", dbName : " + cursor.getString(2) + ", dbNum : "+ i[4]);
+                                    HomeActivity.selectList.get(4).set(i[4], false);
+
+                                    priceListItems.remove(position);
+                                    num[position]= num[position+1];
+                                    binding.resultPrice.setText(resultPrice());
+
+                                    priceListAdapter.notifyDataSetChanged();
+                                    break;
+                                }
+
+                                i[4]++;
+                            }
+                        } // while
 
                     }catch (Exception e){
                         Log.d("exception", e.getMessage());
@@ -169,26 +258,50 @@ public class HomeActivity extends AppCompatActivity {
 
         String result= "";
         String s= price.replaceAll(",","");
+        int value=0;
 
+        Cursor cursor= dbHelper.getDataAll();
+        StringBuffer buffer= new StringBuffer();
 
-        if (addValue==0){
-            addValue= Integer.parseInt(s);
-        }
+        while (cursor.moveToNext()){
+            buffer.append("category : " + cursor.getString(1)+"\n");
+            buffer.append("name : " + cursor.getString(2)+"\n");
+            buffer.append("price : " + cursor.getString(3)+"\n\n");
 
+            if (cursor.getString(1).equals("커피")){
+                Log.d("DBNAME", cursor.getString(2));
 
-//        if (categoryNum==0) if (priceCategory.coffee.get(position).equals(0)) value= priceCategory.coffee.set(position, Integer.parseInt(s));
-//        if (categoryNum==1) if (priceCategory.parfait.get(position).equals(0)) value= priceCategory.parfait.set(position, Integer.parseInt(s));
-//        if (categoryNum==2) if (priceCategory.milkTea.get(position).equals(0)) value= priceCategory.milkTea.set(position, Integer.parseInt(s));
-//        if (categoryNum==3) if (priceCategory.dessert.get(position).equals(0)) value= priceCategory.dessert.set(position, Integer.parseInt(s));
-//        if (categoryNum==4) if (priceCategory.drink.get(position).equals(0)) value= priceCategory.drink.set(position, Integer.parseInt(s));
+                if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
+                    value= Integer.parseInt(cursor.getString(3).replaceAll(",", ""));
+                }
 
-        result= Integer.parseInt(s)+addValue+"";
+            }else if(cursor.getString(1).equals("파르페")){
+                if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
+                    value= Integer.parseInt(cursor.getString(3).replaceAll(",", ""));
+                }
+            }else if(cursor.getString(1).equals("밀크티")){
+                if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
+                    value= Integer.parseInt(cursor.getString(3).replaceAll(",", ""));
+                }
+            }else if(cursor.getString(1).equals("디저트")){
+                if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
+                    value= Integer.parseInt(cursor.getString(3).replaceAll(",", ""));
+                }
+            }else if(cursor.getString(1).equals("음료")){
+                if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
+                    value= Integer.parseInt(cursor.getString(3).replaceAll(",", ""));
+                }
+            }
+        } // while
+
+        result= Integer.parseInt(s)+value+"";
 
         // 천 단위마다 [,] 추가
         result= result.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
 
         return result;
     }
+
 
     // 메뉴 수량감소 할 때마다 금액 빼기
     public String subTractPrice(int position, String price){
@@ -197,11 +310,38 @@ public class HomeActivity extends AppCompatActivity {
         String s= price.replaceAll(",","");
         int value=0;
 
-        if (categoryNum==0) if (priceCategory.coffee.get(position).equals(0)) value= priceCategory.coffee.set(position, Integer.parseInt(s));
-        if (categoryNum==1) if (priceCategory.parfait.get(position).equals(0)) value= priceCategory.parfait.set(position, Integer.parseInt(s));
-        if (categoryNum==2) if (priceCategory.milkTea.get(position).equals(0)) value= priceCategory.milkTea.set(position, Integer.parseInt(s));
-        if (categoryNum==3) if (priceCategory.dessert.get(position).equals(0)) value= priceCategory.dessert.set(position, Integer.parseInt(s));
-        if (categoryNum==4) if (priceCategory.drink.get(position).equals(0)) value= priceCategory.drink.set(position, Integer.parseInt(s));
+        Cursor cursor= dbHelper.getDataAll();
+        StringBuffer buffer= new StringBuffer();
+
+        while (cursor.moveToNext()){
+            buffer.append("category : " + cursor.getString(1)+"\n");
+            buffer.append("name : " + cursor.getString(2)+"\n");
+            buffer.append("price : " + cursor.getString(3)+"\n\n");
+
+            if (cursor.getString(1).equals("커피")){
+                Log.d("DBNAME", cursor.getString(2));
+
+                if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
+                    value= Integer.parseInt(cursor.getString(3).replaceAll(",", ""));
+                }
+            }else if(cursor.getString(1).equals("파르페")){
+                if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
+                    value= Integer.parseInt(cursor.getString(3).replaceAll(",", ""));
+                }
+            }else if(cursor.getString(1).equals("밀크티")){
+                if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
+                    value= Integer.parseInt(cursor.getString(3).replaceAll(",", ""));
+                }
+            }else if(cursor.getString(1).equals("디저트")){
+                if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
+                    value= Integer.parseInt(cursor.getString(3).replaceAll(",", ""));
+                }
+            }else if(cursor.getString(1).equals("음료")){
+                if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
+                    value= Integer.parseInt(cursor.getString(3).replaceAll(",", ""));
+                }
+            }
+        } // while
 
         result= Integer.parseInt(s)-value+"";
 
@@ -210,6 +350,7 @@ public class HomeActivity extends AppCompatActivity {
 
         return result;
     }
+
 
     public String resultPrice(){
 
@@ -246,17 +387,33 @@ public class HomeActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().add(R.id.fragment_container, fragments.get(categoryNum)).commit();
         result[categoryNum] = true;
 
-        binding.tabCoffee.setOnClickListener(v -> clickedFragment(0));
-        binding.tabParfait.setOnClickListener(v -> clickedFragment(1));
-        binding.tabMilkTea.setOnClickListener(v -> clickedFragment(2));
-        binding.tabDessert.setOnClickListener(v -> clickedFragment(3));
-        binding.tabDrink.setOnClickListener(v -> clickedFragment(4));
+        binding.tabCoffee.setOnClickListener(v -> clickedFragment("커피", 0));
+        binding.tabParfait.setOnClickListener(v -> clickedFragment("파르페",1));
+        binding.tabMilkTea.setOnClickListener(v -> clickedFragment("밀크티",2));
+        binding.tabDessert.setOnClickListener(v -> clickedFragment("디저트",3));
+        binding.tabDrink.setOnClickListener(v -> clickedFragment("음료",4));
         binding.buy.setOnClickListener(v-> clickedBuy());
         binding.cancel.setOnClickListener(v-> clickedCancel());
     }
 
     // 클릭한 카테고리 값을 얻어와서 값에 해당하는 카테고리 탭 열기
-    void clickedFragment(int num){
+    void clickedFragment(String category, int num){
+
+        if (category.equals("커피")){binding.tabCoffee.setBackgroundColor(Color.parseColor("#000000"));}
+        else{binding.tabCoffee.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+
+        if (category.equals("파르페")){binding.tabParfait.setBackgroundColor(Color.parseColor("#000000"));}
+        else{binding.tabParfait.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+
+        if (category.equals("밀크티")){binding.tabMilkTea.setBackgroundColor(Color.parseColor("#000000"));}
+        else{binding.tabMilkTea.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+
+        if (category.equals("디저트")){binding.tabDessert.setBackgroundColor(Color.parseColor("#000000"));}
+        else{binding.tabDessert.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+
+        if (category.equals("음료")){binding.tabDrink.setBackgroundColor(Color.parseColor("#000000"));}
+        else{binding.tabDrink.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+
         FragmentTransaction tran= fragmentManager.beginTransaction();
 
         if (!result[num]){
@@ -267,8 +424,6 @@ public class HomeActivity extends AppCompatActivity {
             if (fragments.get(i)!=null){ tran.hide(fragments.get(i)); }
         }
         tran.show(fragments.get(num)).commit();
-
-        clickedListMenu(num); // db에 저장되어있는 데이터를 불러오는 메소드
     }
 
     // 주문하기 버튼 클릭했을 때
@@ -285,10 +440,14 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     // 취소하기 버튼 클릭했을 때
-    void clickedCancel(){
+
+    public void clickedCancel(){
 
         priceListItems.clear();
+
         for (int i=0; i<selectList.size(); i++) selectList.get(i).clear();
+
+        selectList.clear();
 
         selectList.add(0, selectCoffee);
         selectList.add(1, selectParfait);
@@ -304,44 +463,38 @@ public class HomeActivity extends AppCompatActivity {
         DessertFragment.oneTouch= 0;
         DrinkFragment.oneTouch= 0;
 
-        Log.d("selectSize", selectList.size()+"" + HomeActivity.oneTouch);
+        Log.d("selectSize", selectList.size()+"");
 
         priceListAdapter.notifyDataSetChanged();
     }
 
-    public int[] clickedListMenu(int category){
+    public int[] clickedListMenu(){
 
         Cursor cursor= dbHelper.getDataAll();
         StringBuffer buffer= new StringBuffer();
 
-        Log.d("categoryStart", category+"");
-
         int i=0;
 
         while (cursor.moveToNext()){
-            buffer.append("category : " + cursor.getString(0)+"\n");
-            buffer.append("name : " + cursor.getString(1)+"\n");
-            buffer.append("price : " + cursor.getString(2)+"\n");
-            buffer.append("image : " + cursor.getString(3)+"\n\n");
-            buffer.append("info : " + cursor.getString(4)+"\n\n");
+            buffer.append("id : " + cursor.getString(0)+"\n");
+            buffer.append("category : " + cursor.getString(1)+"\n");
+            buffer.append("name : " + cursor.getString(2)+"\n");
+            buffer.append("price : " + cursor.getString(3)+"\n\n");
+            buffer.append("image : " + cursor.getString(4)+"\n\n");
+            buffer.append("info : " + cursor.getString(5)+"\n\n");
 
-            num= new int[i];
+            categorys.add(cursor.getString(1));
+            Log.d("categoryList", "number : " + cursor.getString(0) + ", category : " + categorys.get(i));
+
             i++;
-            Log.d("numValuse", num.length+"");
         }
+        num= new int[i];
+        Log.d("numValuse", num.length+"");
 
         for (int j=0; j<num.length; j++){
             num[j]= 1;
         }
-
-//        if (category==0) for (int k=0; k<=num.length; k++) priceCategory.coffee.add(k, 0);
-//        if (category==1) for (int k=0; k<=num.length; k++) priceCategory.parfait.add(k, 0);
-//        if (category==2) for (int k=0; k<=num.length; k++) priceCategory.milkTea.add(k, 0);
-//        if (category==3) for (int k=0; k<=num.length; k++) priceCategory.dessert.add(k, 0);
-//        if (category==4) for (int k=0; k<=num.length; k++) priceCategory.drink.add(k, 0);
-//        Log.d("parfaite", priceCategory.parfait.size()+"");
-
-
+        i=0;
 
         return num;
     } // clickedListMenu()
