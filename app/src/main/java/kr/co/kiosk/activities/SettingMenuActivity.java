@@ -165,7 +165,6 @@ public class SettingMenuActivity extends AppCompatActivity {
             setMenuInfo();
             Toast.makeText(this, name+" 메뉴를 등록하였습니다.", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     // 메뉴데이터 수정 [ 메뉴이름, 메뉴가격, 메뉴이미지 ]
