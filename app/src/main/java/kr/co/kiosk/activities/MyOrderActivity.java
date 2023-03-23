@@ -73,7 +73,7 @@ public class MyOrderActivity extends AppCompatActivity {
         priceListAdapter= new RecyclerPriceListAdapter(this, priceList);
         binding.recycler.setAdapter(priceListAdapter);
 
-        binding.home.setOnClickListener(v-> clickedHome()); // 홈버튼 눌렀을 때
+        //binding.home.setOnClickListener(v-> clickedHome()); // 홈버튼 눌렀을 때
         binding.buyNow.setOnClickListener(v-> clickedBuyNow()); // 결제버튼 눌렀을 때
         binding.buyCancel.setOnClickListener(v-> clickedBuyCancel()); // 취소버튼 눌렀을 때
 
@@ -337,62 +337,67 @@ public class MyOrderActivity extends AppCompatActivity {
         return result;
     }
 
-    private void clickedHome(){
-
-        HomeActivity.priceListItems.clear();
-
-        for (int i= 0; i< HomeActivity.selectList.size(); i++) HomeActivity.selectList.get(i).clear();
-
-        HomeActivity.selectList.clear();
-
-        HomeActivity.selectList.add(0, HomeActivity.selectCoffee);
-        HomeActivity.selectList.add(1, HomeActivity.selectParfait);
-        HomeActivity.selectList.add(2, HomeActivity.selectMilkTea);
-        HomeActivity.selectList.add(3, HomeActivity.selectDessert);
-        HomeActivity.selectList.add(4, HomeActivity.selectDrink);
-
-        HomeActivity.binding.resultPrice.setText(resultPrice());
-
-        CoffeeFragment.oneTouch= 0;
-        ParfaitFragment.oneTouch= 0;
-        MilkTeaFragment.oneTouch= 0;
-        DessertFragment.oneTouch= 0;
-        DrinkFragment.oneTouch= 0;
-
-        HomeActivity.priceListAdapter.notifyDataSetChanged();
-
-        finish();
-    }
+//    private void clickedHome(){
+//
+//        HomeActivity.priceListItems.clear();
+//
+//        for (int i= 0; i< HomeActivity.selectList.size(); i++) HomeActivity.selectList.get(i).clear();
+//
+//        HomeActivity.selectList.clear();
+//
+//        HomeActivity.selectList.add(0, HomeActivity.selectCoffee);
+//        HomeActivity.selectList.add(1, HomeActivity.selectParfait);
+//        HomeActivity.selectList.add(2, HomeActivity.selectMilkTea);
+//        HomeActivity.selectList.add(3, HomeActivity.selectDessert);
+//        HomeActivity.selectList.add(4, HomeActivity.selectDrink);
+//
+//        HomeActivity.binding.resultPrice.setText(resultPrice());
+//
+//        CoffeeFragment.oneTouch= 0;
+//        ParfaitFragment.oneTouch= 0;
+//        MilkTeaFragment.oneTouch= 0;
+//        DessertFragment.oneTouch= 0;
+//        DrinkFragment.oneTouch= 0;
+//
+//        HomeActivity.priceListAdapter.notifyDataSetChanged();
+//
+//        finish();
+//    }
 
     private void clickedBuyNow(){
 
-        saveData();
+        if (priceList.size()==0){
+            Toast.makeText(this, "메뉴가 비어있습니다.", Toast.LENGTH_SHORT).show();
+        }else{
+            saveData();
 
-        HomeActivity.priceListItems.clear();
+            HomeActivity.priceListItems.clear();
 
-        for (int i= 0; i< HomeActivity.selectList.size(); i++) HomeActivity.selectList.get(i).clear();
+            for (int i= 0; i< HomeActivity.selectList.size(); i++) HomeActivity.selectList.get(i).clear();
 
-        HomeActivity.selectList.clear();
+            HomeActivity.selectList.clear();
 
-        HomeActivity.selectList.add(0, HomeActivity.selectCoffee);
-        HomeActivity.selectList.add(1, HomeActivity.selectParfait);
-        HomeActivity.selectList.add(2, HomeActivity.selectMilkTea);
-        HomeActivity.selectList.add(3, HomeActivity.selectDessert);
-        HomeActivity.selectList.add(4, HomeActivity.selectDrink);
+            HomeActivity.selectList.add(0, HomeActivity.selectCoffee);
+            HomeActivity.selectList.add(1, HomeActivity.selectParfait);
+            HomeActivity.selectList.add(2, HomeActivity.selectMilkTea);
+            HomeActivity.selectList.add(3, HomeActivity.selectDessert);
+            HomeActivity.selectList.add(4, HomeActivity.selectDrink);
 
-        HomeActivity.binding.resultPrice.setText(resultPrice());
+            HomeActivity.binding.resultPrice.setText(resultPrice());
 
-        CoffeeFragment.oneTouch= 0;
-        ParfaitFragment.oneTouch= 0;
-        MilkTeaFragment.oneTouch= 0;
-        DessertFragment.oneTouch= 0;
-        DrinkFragment.oneTouch= 0;
+            CoffeeFragment.oneTouch= 0;
+            ParfaitFragment.oneTouch= 0;
+            MilkTeaFragment.oneTouch= 0;
+            DessertFragment.oneTouch= 0;
+            DrinkFragment.oneTouch= 0;
 
-        HomeActivity.priceListAdapter.notifyDataSetChanged();
+            HomeActivity.priceListAdapter.notifyDataSetChanged();
 
-        Toast.makeText(this, "주문 완료", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(MyOrderActivity.this, PaymentActivity.class);
-        startActivity(intent);
+            Toast.makeText(this, "주문 완료", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(MyOrderActivity.this, PaymentActivity.class);
+            startActivity(intent);
+        }
+
     }
 
     private void clickedBuyCancel(){

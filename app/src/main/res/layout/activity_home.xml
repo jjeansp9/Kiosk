@@ -279,7 +279,8 @@
                 android:paddingRight="36dp"
                 android:paddingBottom="69dp"
                 android:text="취소"
-                android:textSize="36sp" />
+                android:textSize="36sp"
+                android:visibility="invisible"/>
 
         </RelativeLayout>
 

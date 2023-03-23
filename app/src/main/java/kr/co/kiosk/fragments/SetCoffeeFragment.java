@@ -241,8 +241,6 @@ public class SetCoffeeFragment extends Fragment {
 
                 if(wantToCloseDialog)
                     dialog.dismiss();
-
-
             }
         });
     }

@@ -21,7 +21,8 @@ public class PaymentActivity extends AppCompatActivity {
         binding= ActivityPaymentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.home.setOnClickListener(v-> clickedHome());
+        //binding.home.setOnClickListener(v-> clickedHome());
+
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

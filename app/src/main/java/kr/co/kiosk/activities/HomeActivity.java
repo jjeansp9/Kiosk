@@ -53,6 +53,9 @@ public class HomeActivity extends AppCompatActivity {
     int categoryNum;
     public static int[] num;
 
+    Cursor cursor;
+    StringBuffer buffer;
+
     public static int oneTouch;
 
     public static RecyclerPriceListAdapter priceListAdapter;
@@ -140,12 +143,89 @@ public class HomeActivity extends AppCompatActivity {
 
                     priceListAdapter.notifyDataSetChanged();
 
+                }else if(priceListItems.size()==1){
+
+                    cursor= dbHelper.getDataAll();
+
+                    buffer= new StringBuffer();
+
+                    int[] i={0,0,0,0,0};
+
+                    while (cursor.moveToNext()){
+                        buffer.append("category : " + cursor.getString(1)+"\n");
+                        buffer.append("cursorName : " + cursor.getString(2)+"\n");
+
+                        if (cursor.getString(1).equals("커피")){
+                            if (priceListItems.get(position).menuName.equals(cursor.getString(2))){
+
+                                selectList.get(0).set(i[0], false);
+
+                                priceListItems.remove(position);
+                                priceListAdapter.notifyDataSetChanged();
+                                binding.cancel.setVisibility(View.INVISIBLE);
+                                break;
+                            }
+                            i[0]++;
+
+                        }else if (cursor.getString(1).equals("파르페")){
+                            if (priceListItems.get(position).menuName.equals(cursor.getString(2))){
+
+                                selectList.get(1).set(i[1], false);
+
+                                priceListItems.remove(position);
+                                priceListAdapter.notifyDataSetChanged();
+                                binding.cancel.setVisibility(View.INVISIBLE);
+                                break;
+                            }
+                            i[1]++;
+
+                        }else if (cursor.getString(1).equals("밀크티")){
+                            if (priceListItems.get(position).menuName.equals(cursor.getString(2))){
+
+                                selectList.get(2).set(i[2], false);
+
+                                priceListItems.remove(position);
+                                priceListAdapter.notifyDataSetChanged();
+                                binding.cancel.setVisibility(View.INVISIBLE);
+                                break;
+                            }
+                            i[2]++;
+
+                        }else if (cursor.getString(1).equals("디저트")){
+                            if (priceListItems.get(position).menuName.equals(cursor.getString(2))){
+
+                                selectList.get(3).set(i[3], false);
+
+                                priceListItems.remove(position);
+                                priceListAdapter.notifyDataSetChanged();
+                                binding.cancel.setVisibility(View.INVISIBLE);
+                                break;
+                            }
+                            i[3]++;
+
+                        }else if (cursor.getString(1).equals("음료")){
+                            if (priceListItems.get(position).menuName.equals(cursor.getString(2))){
+
+                                selectList.get(4).set(i[4], false);
+
+                                priceListItems.remove(position);
+                                priceListAdapter.notifyDataSetChanged();
+                                binding.cancel.setVisibility(View.INVISIBLE);
+                                break;
+                            }
+                            i[4]++;
+                        }
+
+                    }
+
+
+
                 }else if (priceListItems.get(position).menuNumber.equals("1")){
 
                     try {
-                        Cursor cursor= dbHelper.getDataAll();
+                        cursor= dbHelper.getDataAll();
 
-                        StringBuffer buffer= new StringBuffer();
+                        buffer= new StringBuffer();
 
                         int[] i={0,0,0,0,0};
 
@@ -160,7 +240,7 @@ public class HomeActivity extends AppCompatActivity {
                                 if (priceListItems.get(position).menuName.equals(cursor.getString(2))){
 
                                     Log.d("touch", ", menuName : " + priceListItems.get(position).menuName + ", dbName : " + cursor.getString(2) + ", dbNum : "+ i[0]);
-                                    HomeActivity.selectList.get(0).set(i[0], false);
+                                    selectList.get(0).set(i[0], false);
 
                                     priceListItems.remove(position);
                                     num[position]= num[position+1];
@@ -244,6 +324,8 @@ public class HomeActivity extends AppCompatActivity {
                             }
                         } // while
 
+
+
                     }catch (Exception e){
                         Log.d("exception", e.getMessage());
                     }
@@ -311,7 +393,7 @@ public class HomeActivity extends AppCompatActivity {
         String s= price.replaceAll(",","");
         int value=0;
 
-        Cursor cursor= dbHelper.getDataAll();
+        cursor= dbHelper.getDataAll();
         StringBuffer buffer= new StringBuffer();
 
         while (cursor.moveToNext()){
@@ -465,8 +547,9 @@ public class HomeActivity extends AppCompatActivity {
         DrinkFragment.oneTouch= 0;
 
         Log.d("selectSize", selectList.size()+"");
-
+        
         priceListAdapter.notifyDataSetChanged();
+        binding.cancel.setVisibility(View.INVISIBLE);
     }
 
     public int[] clickedListMenu(){

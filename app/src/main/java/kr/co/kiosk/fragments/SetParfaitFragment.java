@@ -182,8 +182,6 @@ public class SetParfaitFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(getActivity(), getName+" 메뉴 수정을 취소하였습니다.", Toast.LENGTH_SHORT).show();
-
-
             }
         });
         AlertDialog dialog= builder.create();

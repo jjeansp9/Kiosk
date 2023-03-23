@@ -121,6 +121,8 @@ public class CoffeeFragment extends Fragment {
                     Log.d("numPosition", HomeActivity.num[position]+", " + position + ", " + HomeActivity.priceListItems.size());
                     HomeActivity.binding.resultPrice.setText(resultPrice());
 
+                    HomeActivity.binding.cancel.setVisibility(View.VISIBLE);
+
                 }else{
                     Log.d("addTouch", "items.size() : "+HomeActivity.priceListItems.size()+ ", position :" +position + ", num[position] : " +HomeActivity.num[position]);
 

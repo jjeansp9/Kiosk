@@ -123,6 +123,8 @@ public class DrinkFragment extends Fragment {
                     HomeActivity.selectList.get(4).set(position, true);
                     HomeActivity.binding.resultPrice.setText(resultPrice());
 
+                    HomeActivity.binding.cancel.setVisibility(View.VISIBLE);
+
                 }else{
                     Log.d("addTouch", "items.size() : "+HomeActivity.priceListItems.size()+ ", position :" +position + ", num[position] : " +HomeActivity.num[position]);
 
