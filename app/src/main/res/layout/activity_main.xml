@@ -82,7 +82,7 @@
                     android:layout_height="100dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="16dp"
-                    android:src="@drawable/coffee_01" />
+                    android:src="@drawable/menu_coffee_01_espresso" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -122,7 +122,7 @@
                     android:layout_height="100dp"
                     android:layout_marginTop="16dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/parfait_01" />
+                    android:src="@drawable/menu_parfait_01" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -161,7 +161,7 @@
                     android:layout_height="100dp"
                     android:layout_marginTop="16dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/milk_tea_01" />
+                    android:src="@drawable/menu_milk_tea_01" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -201,7 +201,7 @@
                     android:layout_height="100dp"
                     android:layout_marginTop="16dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/dessert_01" />
+                    android:src="@drawable/menu_dessert_01_cake" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -241,7 +241,7 @@
                     android:layout_height="100dp"
                     android:layout_marginTop="16dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/drink_01" />
+                    android:src="@drawable/menu_drink_01_lime" />
 
                 <TextView
                     android:layout_width="wrap_content"

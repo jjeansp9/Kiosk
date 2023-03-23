@@ -14,7 +14,7 @@
             android:id="@+id/menu_img"
             android:layout_width="300dp"
             android:layout_height="400dp"
-            android:src="@drawable/coffee_01"/>
+            android:src="@drawable/menu_coffee_01_espresso"/>
         <TextView
             android:id="@+id/menu_name"
             android:layout_width="wrap_content"

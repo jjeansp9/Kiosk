@@ -135,7 +135,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/buy_page"
-            android:layout_below="@+id/bnv"/>
+            android:layout_below="@+id/bnv" />
 
         <RelativeLayout
             android:id="@+id/buy_page"

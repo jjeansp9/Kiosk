@@ -71,10 +71,10 @@ public class SettingMenuActivity extends AppCompatActivity {
         binding.etMenuPrice.addTextChangedListener(commaAddForNumber()); // 메뉴가격에 숫자입력할 때 천단위마다 [,] 표시
 
         // 데이터베이스에서 CRUD 작업하는 메소드
-        binding.btnInsert.setOnClickListener(v-> clickedInsert());
+        binding.btnInsert.setOnClickListener(v-> clickedInsert()); // 메뉴 추가
 //        binding.btnUpdate.setOnClickListener(v-> clickedUpdate());
 //        binding.btnDelete.setOnClickListener(v-> clickedDelete());
-        binding.btnListMenu.setOnClickListener(v-> clickedListMenu());
+        binding.btnListMenu.setOnClickListener(v-> menuList()); // 메뉴 목록
     }
 
     // 클릭한 카테고리 탭에 따라 배경색상 변경 메소드
@@ -218,6 +218,13 @@ public class SettingMenuActivity extends AppCompatActivity {
         builder.setTitle(title);
         builder.setMessage(Message);
         builder.show();
+    }
+
+    // 메뉴목록
+    private void menuList(){
+        Intent intent= new Intent(SettingMenuActivity.this, MenuList.class);
+        startActivity(intent);
+        finish();
     }
 
     void setMenuInfo(){

@@ -25,7 +25,8 @@
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_end.xml" value="0.17890625" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_home.xml" value="0.18" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_intro.xml" value="0.18" />
-        <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_main.xml" value="0.16" />
+        <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_menu_list.xml" value="0.13" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_my_order.xml" value="0.17890625" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_payment.xml" value="0.17890625" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_setting_menu.xml" value="0.18" />
@@ -39,6 +40,7 @@
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/fragment_parfait.xml" value="0.15" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/recycler_menu_item.xml" value="0.22" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/recycler_price_item.xml" value="0.16" />
+        <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/recycler_set_menu_item.xml" value="0.14" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/menu/bnv.xml" value="0.30945945945945946" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/menu/bnv_chat.xml" value="0.17432432432432432" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/menu/popup_community.xml" value="0.30945945945945946" />
