@@ -7,6 +7,17 @@
     tools:context=".activities.MenuList"
     android:background="#EFEFEF">
 
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="메뉴관리"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"/>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
@@ -14,11 +25,18 @@
         app:tabTextColor="@color/nav_item"
         app:tabIndicatorColor="#6C6C6C"
         app:tabTextAppearance="@style/tabTextSizeBold"
-        />
+        android:padding="16dp"
+        android:layout_marginTop="100dp"
+        android:background="#EFEFEF"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_set_menu"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/tab_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_below="@id/tab_layout"
+        android:background="#EFEFEF" />
+
+
+
 
 </RelativeLayout>

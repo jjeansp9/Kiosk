@@ -224,7 +224,6 @@ public class SettingMenuActivity extends AppCompatActivity {
     private void menuList(){
         Intent intent= new Intent(SettingMenuActivity.this, MenuList.class);
         startActivity(intent);
-        finish();
     }
 
     void setMenuInfo(){

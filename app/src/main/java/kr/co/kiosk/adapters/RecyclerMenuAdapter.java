@@ -63,13 +63,6 @@ public class RecyclerMenuAdapter extends RecyclerView.Adapter<RecyclerMenuAdapte
 
         holder.binding.box.setOnClickListener(view -> itemClickListener.onImageClick(holder.binding.box,position));
         holder.binding.info.setOnClickListener(view -> itemClickListener.onInfoClick(holder.binding.info,position));
-
-
-
-        // 이미지연결 - DB안에는 이미지의 경로 주소만 있음. 즉, 서버컴퓨터 도메인주소가 없음.
-//        String imgUrl= "http://jspstudio.dothome.co.kr/05Retrofit/" + item.file;
-        //Glide.with(context).load(item.file).error(R.drawable.paris).into(holder.binding.iv);
-//        Glide.with(context).load(imgUrl).error(R.drawable.paris).into(holder.binding.iv);
     }
 
     @Override

@@ -37,7 +37,6 @@ public class CoffeeFragment extends Fragment {
 
     public static ArrayList<Menu> menuItems= new ArrayList<>();
     ArrayList<Menu> menuInfo= new ArrayList<>();
-    PriceCategory priceCategory= new PriceCategory();
 
     MenuDBHelper dbHelper;
     public static int oneTouch=0;

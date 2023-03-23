@@ -19,63 +19,68 @@
             android:layout_marginLeft="8dp"
             android:src="@drawable/menu_coffee_01_espresso" />
 
-        <TextView
-            android:id="@+id/set_menu_name"
-            android:layout_width="260dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="30dp"
-            android:layout_toRightOf="@id/set_menu_image"
-            android:ellipsize="end"
-            android:text="에스프레소ddddddddddddddddd"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold" />
+        <RelativeLayout
+            android:id="@+id/set_menu_update"
+            android:layout_width="500dp"
+            android:layout_height="170dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/set_menu_image">
 
-        <TextView
-            android:id="@+id/set_menu_price"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_toLeftOf="@id/tv"
-            android:gravity="right"
-            android:text="3,000,000,000"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textSize="26sp" />
-        <TextView
-            android:id="@+id/tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="110dp"
-            android:layout_marginTop="30dp"
-            android:text="원"
-            android:textColor="@color/black"
-            android:textSize="26sp"/>
+            <TextView
+                android:id="@+id/set_menu_name"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="에스프레소"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/set_menu_info"
-            android:layout_width="480dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/set_menu_name"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_toRightOf="@id/set_menu_image"
-            android:ellipsize="end"
-            android:text="이 커피는 향이 진하며 쓴 맛이 난다. 전세계적으로 많은 사람들이 선호하는 그런 맛이다.
-            dddddddddddddddddddddddddddddddddddddddddddd"
-            android:maxLines="3"
-            android:textSize="24sp" />
+            <TextView
+                android:id="@+id/set_menu_price"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/tv"
+                android:gravity="right"
+                android:maxLines="1"
+                android:text="3,000"
+                android:textColor="@color/black"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="원"
+                android:textColor="@color/black"
+                android:textSize="26sp" />
+
+            <TextView
+                android:id="@+id/set_menu_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/set_menu_name"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="30dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="이 커피는 향이 진하며 쓴 맛이 난다. 전세계적으로 많은 사람들이 선호하는 그런 맛이다."
+                android:textSize="24sp" />
+
+        </RelativeLayout>
+
 
         <ImageView
-            android:layout_width="88dp"
-            android:layout_height="88dp"
+            android:id="@+id/set_menu_delete"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_baseline_cancel_24"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            android:src="@drawable/ic_baseline_cancel_24" />
 
     </RelativeLayout>
 
