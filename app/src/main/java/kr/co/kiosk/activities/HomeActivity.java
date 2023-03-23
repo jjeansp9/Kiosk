@@ -243,6 +243,7 @@ public class HomeActivity extends AppCompatActivity {
                                     selectList.get(0).set(i[0], false);
 
                                     priceListItems.remove(position);
+
                                     num[position]= num[position+1];
                                     binding.resultPrice.setText(resultPrice());
 
@@ -547,7 +548,7 @@ public class HomeActivity extends AppCompatActivity {
         DrinkFragment.oneTouch= 0;
 
         Log.d("selectSize", selectList.size()+"");
-        
+
         priceListAdapter.notifyDataSetChanged();
         binding.cancel.setVisibility(View.INVISIBLE);
     }
