@@ -24,7 +24,6 @@ import kr.co.kiosk.R;
 import kr.co.kiosk.activities.HomeActivity;
 import kr.co.kiosk.adapters.RecyclerMenuAdapter;
 import kr.co.kiosk.databinding.FragmentCoffeeBinding;
-import kr.co.kiosk.databinding.FragmentParfaitBinding;
 import kr.co.kiosk.model.Menu;
 import kr.co.kiosk.model.MenuDBHelper;
 import kr.co.kiosk.model.Price;
@@ -32,7 +31,7 @@ import kr.co.kiosk.model.PriceCategory;
 
 public class ParfaitFragment extends Fragment {
 
-    FragmentParfaitBinding binding;
+    FragmentCoffeeBinding binding;
     RecyclerMenuAdapter menuAdapter;
 
     public static ArrayList<Menu> menuItems= new ArrayList<>();
@@ -46,7 +45,7 @@ public class ParfaitFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding= FragmentParfaitBinding.inflate(inflater, container, false);
+        binding= FragmentCoffeeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -55,13 +54,13 @@ public class ParfaitFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         menuAdapter= new RecyclerMenuAdapter(getActivity(), menuItems);
-        binding.recyclerMenuParfait.setAdapter(menuAdapter);
+        binding.recyclerMenuCoffee.setAdapter(menuAdapter);
 
         //dbHelper= new MenuDBHelper(getActivity(), 1);
         dbHelper= new MenuDBHelper(getActivity());
 
         // 오른쪽 화살표 클릭시 오른쪽으로 스크롤
-        binding.right.setOnClickListener(v->binding.recyclerMenuParfait.smoothScrollToPosition(menuItems.size()));
+        binding.right.setOnClickListener(v->binding.recyclerMenuCoffee.smoothScrollToPosition(menuItems.size()));
 
         clickedMenu(); // 카페 메뉴아이템마다 클릭할 때 동작
     }

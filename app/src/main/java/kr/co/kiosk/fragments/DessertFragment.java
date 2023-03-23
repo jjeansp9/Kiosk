@@ -22,8 +22,7 @@ import java.util.ArrayList;
 import kr.co.kiosk.R;
 import kr.co.kiosk.activities.HomeActivity;
 import kr.co.kiosk.adapters.RecyclerMenuAdapter;
-import kr.co.kiosk.databinding.FragmentDessertBinding;
-import kr.co.kiosk.databinding.FragmentParfaitBinding;
+import kr.co.kiosk.databinding.FragmentCoffeeBinding;
 import kr.co.kiosk.model.Menu;
 import kr.co.kiosk.model.MenuDBHelper;
 import kr.co.kiosk.model.Price;
@@ -31,7 +30,7 @@ import kr.co.kiosk.model.PriceCategory;
 
 public class DessertFragment extends Fragment {
 
-    FragmentDessertBinding binding;
+    FragmentCoffeeBinding binding;
     RecyclerMenuAdapter menuAdapter;
 
     public static ArrayList<Menu> menuItems= new ArrayList<>();
@@ -45,7 +44,7 @@ public class DessertFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding= FragmentDessertBinding.inflate(inflater, container, false);
+        binding= FragmentCoffeeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -54,16 +53,14 @@ public class DessertFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         menuAdapter= new RecyclerMenuAdapter(getActivity(), menuItems);
-        binding.recyclerMenuDessert.setAdapter(menuAdapter);
+        binding.recyclerMenuCoffee.setAdapter(menuAdapter);
 
         //dbHelper= new MenuDBHelper(getActivity(), 3);
         dbHelper= new MenuDBHelper(getActivity());
 
-        binding.right.setOnClickListener(v->binding.recyclerMenuDessert.smoothScrollToPosition(menuItems.size()));
+        binding.right.setOnClickListener(v->binding.recyclerMenuCoffee.smoothScrollToPosition(menuItems.size()));
 
         clickedMenu();
-
-
     }
 
     @Override

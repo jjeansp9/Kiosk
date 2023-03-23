@@ -22,8 +22,7 @@ import java.util.ArrayList;
 import kr.co.kiosk.R;
 import kr.co.kiosk.activities.HomeActivity;
 import kr.co.kiosk.adapters.RecyclerMenuAdapter;
-import kr.co.kiosk.databinding.FragmentMilkTeaBinding;
-import kr.co.kiosk.databinding.FragmentParfaitBinding;
+import kr.co.kiosk.databinding.FragmentCoffeeBinding;
 import kr.co.kiosk.model.Menu;
 import kr.co.kiosk.model.MenuDBHelper;
 import kr.co.kiosk.model.Price;
@@ -31,7 +30,7 @@ import kr.co.kiosk.model.PriceCategory;
 
 public class MilkTeaFragment extends Fragment {
 
-    FragmentMilkTeaBinding binding;
+    FragmentCoffeeBinding binding;
     RecyclerMenuAdapter menuAdapter;
 
     public static ArrayList<Menu> menuItems= new ArrayList<>();
@@ -45,7 +44,7 @@ public class MilkTeaFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding= FragmentMilkTeaBinding.inflate(inflater, container, false);
+        binding= FragmentCoffeeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -54,13 +53,13 @@ public class MilkTeaFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         menuAdapter= new RecyclerMenuAdapter(getActivity(), menuItems);
-        binding.recyclerMenuMilkTea.setAdapter(menuAdapter);
+        binding.recyclerMenuCoffee.setAdapter(menuAdapter);
 
         //dbHelper= new MenuDBHelper(getActivity(), 2);
         dbHelper= new MenuDBHelper(getActivity());
 
         // 오른쪽 화살표 클릭시 오른쪽으로 스크롤
-        binding.right.setOnClickListener(v->binding.recyclerMenuMilkTea.smoothScrollToPosition(menuItems.size()));
+        binding.right.setOnClickListener(v->binding.recyclerMenuCoffee.smoothScrollToPosition(menuItems.size()));
 
         clickedMenu();
 
