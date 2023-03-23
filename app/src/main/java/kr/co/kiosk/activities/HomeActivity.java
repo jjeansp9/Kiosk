@@ -109,6 +109,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onResume();
 
         clickedListMenu();
+        binding.resultPrice.setText(resultPrice());
         priceListAdapter.notifyDataSetChanged();
     }
 

@@ -230,7 +230,7 @@ public class DessertFragment extends Fragment {
 
             if(cursor.getString(1).equals("디저트")){
                 menuItems.add(new Menu(cursor.getString(2), cursor.getString(3), cursor.getString(4), R.drawable.ic_baseline_info_24));
-                menuInfo.add(new Menu(cursor.getString(2), cursor.getString(3), cursor.getString(5), R.drawable.ic_baseline_info_24));
+                menuInfo.add(new Menu(cursor.getString(2), cursor.getString(5), cursor.getString(4), R.drawable.ic_baseline_info_24));
             }
         }
     } // clickedListMenu()

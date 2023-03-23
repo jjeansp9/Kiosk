@@ -65,17 +65,19 @@ public class SettingMenuActivity extends AppCompatActivity {
         binding.dessert.setOnClickListener(v->clickedCategory("디저트"));
         binding.drink.setOnClickListener(v->clickedCategory("음료"));
 
+        binding.goBack.setOnClickListener(v-> finish()); // 뒤로가기 버튼
+
         binding.imgMenuImage.setOnClickListener(v-> clickedImageSelect()); // 메뉴이미지 선택해서 디바이스 사진첩에 접근 후 사진 선택
         binding.etMenuPrice.addTextChangedListener(commaAddForNumber()); // 메뉴가격에 숫자입력할 때 천단위마다 [,] 표시
 
         // 데이터베이스에서 CRUD 작업하는 메소드
         binding.btnInsert.setOnClickListener(v-> clickedInsert());
-        binding.btnUpdate.setOnClickListener(v-> clickedUpdate());
-        binding.btnDelete.setOnClickListener(v-> clickedDelete());
+//        binding.btnUpdate.setOnClickListener(v-> clickedUpdate());
+//        binding.btnDelete.setOnClickListener(v-> clickedDelete());
         binding.btnListMenu.setOnClickListener(v-> clickedListMenu());
     }
 
-    // 클릭한 카테고리 문자를 얻어오는 메소드
+    // 클릭한 카테고리 탭에 따라 배경색상 변경 메소드
     public void clickedCategory(String category){
 
         if (category.equals("커피")){binding.coffee.setBackgroundColor(Color.parseColor("#000000"));}

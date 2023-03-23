@@ -236,7 +236,7 @@ public class CoffeeFragment extends Fragment {
 
             if(cursor.getString(1).equals("커피")){
                 menuItems.add(new Menu(cursor.getString(2), cursor.getString(3), cursor.getString(4), R.drawable.ic_baseline_info_24));
-                menuInfo.add(new Menu(cursor.getString(2), cursor.getString(3), cursor.getString(5), R.drawable.ic_baseline_info_24));
+                menuInfo.add(new Menu(cursor.getString(2), cursor.getString(5), cursor.getString(4), R.drawable.ic_baseline_info_24));
             }
         }
         Log.d("menuitems", menuItems.size()+","+dbHelper.getDatabaseName()+"," +dbHelper.getDataAll().getCount());
