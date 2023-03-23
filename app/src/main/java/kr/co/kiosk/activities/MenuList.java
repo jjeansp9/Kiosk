@@ -24,6 +24,9 @@ import kr.co.kiosk.fragments.DrinkFragment;
 import kr.co.kiosk.fragments.MilkTeaFragment;
 import kr.co.kiosk.fragments.ParfaitFragment;
 import kr.co.kiosk.fragments.SetCoffeeFragment;
+import kr.co.kiosk.fragments.SetDrinkFragment;
+import kr.co.kiosk.fragments.SetMilkTeaFragment;
+import kr.co.kiosk.fragments.SetParfaitFragment;
 import kr.co.kiosk.model.SetMenuList;
 
 public class MenuList extends AppCompatActivity {
@@ -45,12 +48,9 @@ public class MenuList extends AppCompatActivity {
 
         createBNV();
         tabLayout();
-        clickedFragment(0);
 
-
+        binding.goBack.setOnClickListener(v -> finish());
     }
-
-
 
     private void tabLayout(){
 
@@ -58,22 +58,18 @@ public class MenuList extends AppCompatActivity {
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("파르페"));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("밀크티"));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("디저트"));
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("음료"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("음료수"));
 
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
-                Log.d("coffe", tab.getText().toString().equals("커피")+"");
-                if (tab.getText().toString().equals("커피")) {
-                    clickedFragment(0);
-                    Log.d("coffe", tab.getText().toString().equals("커피")+"");
-                }
+                if (tab.getText().toString().equals("커피")) clickedFragment(0);
                 else if (tab.getText().toString().equals("파르페")) clickedFragment(1);
                 else if (tab.getText().toString().equals("밀크티")) clickedFragment(2);
                 else if (tab.getText().toString().equals("디저트")) clickedFragment(3);
-                else if (tab.getText().toString().equals("음료")) clickedFragment(4);
+                else if (tab.getText().toString().equals("음료수")) clickedFragment(4);
 
             }
 
@@ -93,10 +89,10 @@ public class MenuList extends AppCompatActivity {
 
         // 5개의 카테고리 fragment 생성
         fragments.add(0, new SetCoffeeFragment());
-//        fragments.add(1, new ParfaitFragment());
-//        fragments.add(2, new MilkTeaFragment());
-//        fragments.add(3, new DessertFragment());
-//        fragments.add(4, new DrinkFragment());
+        fragments.add(1, new SetParfaitFragment());
+        fragments.add(2, new SetMilkTeaFragment());
+        fragments.add(3, new SetMilkTeaFragment());
+        fragments.add(4, new SetDrinkFragment());
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().add(R.id.tab_fragment_container, fragments.get(categoryNum)).commit();
@@ -121,23 +117,6 @@ public class MenuList extends AppCompatActivity {
     }
 
 
-
-//    private void clickedItems(){
-//        adapter.setItemClickListener(new RecyclerSetMenuListAdapter.OnItemClickListener() {
-//
-//            // 아이템 클릭시 수정
-//            @Override
-//            public void onItemClick(View view, int position) {
-//                Toast.makeText(MenuList.this, "아이템 수정", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            // X 아이콘 클릭시 아이템삭제
-//            @Override
-//            public void onDelete(View view, int position) {
-//                Toast.makeText(MenuList.this, "아이템 삭제", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
 
 
 }

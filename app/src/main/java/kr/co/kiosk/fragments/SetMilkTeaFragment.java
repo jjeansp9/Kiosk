@@ -1,9 +1,7 @@
 package kr.co.kiosk.fragments;
 
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,20 +9,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
 
 import kr.co.kiosk.R;
-import kr.co.kiosk.activities.MenuList;
 import kr.co.kiosk.adapters.RecyclerSetMenuListAdapter;
 import kr.co.kiosk.databinding.FragmentCoffeeSetBinding;
-import kr.co.kiosk.model.Menu;
 import kr.co.kiosk.model.MenuDBHelper;
 import kr.co.kiosk.model.SetMenuList;
 
-public class SetCoffeeFragment extends Fragment {
+public class SetMilkTeaFragment extends Fragment {
 
     private FragmentCoffeeSetBinding binding;
     private RecyclerSetMenuListAdapter adapter;
@@ -52,8 +47,6 @@ public class SetCoffeeFragment extends Fragment {
         binding.recyclerCoffee.setAdapter(adapter);
         clickedItems();
 
-
-
     }
 
     // 등록한 메뉴 모두 보여주기
@@ -70,12 +63,12 @@ public class SetCoffeeFragment extends Fragment {
             buffer.append("image : " + cursor.getString(4)+"\n\n");
             buffer.append("info : " + cursor.getString(5)+"\n\n");
 
-            if(cursor.getString(1).equals("커피")){
+            if(cursor.getString(1).equals("밀크티")){
                 items.add(new SetMenuList(cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), R.drawable.ic_baseline_cancel_24));
             }
         }
-
     } // clickedListMenu()
+
 
     private void clickedItems(){
         adapter.setItemClickListener(new RecyclerSetMenuListAdapter.OnItemClickListener() {
@@ -89,64 +82,8 @@ public class SetCoffeeFragment extends Fragment {
             // X 아이콘 클릭시 아이템삭제
             @Override
             public void onDelete(View view, int position) {
-                showDialog(items.get(position).setMenuName);
+                Toast.makeText(getActivity(), items.get(position).setMenuName+" 메뉴 삭제", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    public void showDialog(String menu){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setCancelable(true);
-        builder.setTitle(menu);
-        builder.setMessage("정말로 메뉴를 삭제하시겠습니까?");
-
-        // 메뉴데이터 삭제
-        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-                dbHelper.deleteData(menu);
-                Toast.makeText(getActivity(), menu+"를 삭제하였습니다.", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        // 삭제취소
-        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Toast.makeText(getActivity(), "삭제 취소", Toast.LENGTH_SHORT).show();
-            }
-        });
-        builder.show();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

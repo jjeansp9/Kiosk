@@ -46,7 +46,7 @@ public class SettingMenuActivity extends AppCompatActivity {
     String result= "";
 
     MenuDBHelper dbHelper;
-    String category= "커피";
+    String categoryName= "커피";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +79,8 @@ public class SettingMenuActivity extends AppCompatActivity {
 
     // 클릭한 카테고리 탭에 따라 배경색상 변경 메소드
     public void clickedCategory(String category){
+
+        categoryName= category; // 클릭한 카테고리 문자 대입
 
         if (category.equals("커피")){binding.coffee.setBackgroundColor(Color.parseColor("#000000"));}
         else{binding.coffee.setBackgroundColor(Color.parseColor("#8A8A8A"));}
@@ -162,7 +164,7 @@ public class SettingMenuActivity extends AppCompatActivity {
 
         // 모두 입력한 경우 데이터베이스 테이블에 추가
         else {
-            dbHelper.insertData(category, name, price, image, info);
+            dbHelper.insertData(categoryName, name, price, image, info);
 
             setMenuInfo();
             Toast.makeText(this, name+" 메뉴를 등록하였습니다.", Toast.LENGTH_SHORT).show();
@@ -176,7 +178,7 @@ public class SettingMenuActivity extends AppCompatActivity {
         String image= String.valueOf(uri); // 사진첩에서 가져온 사진의 uri경로를 문자열로 메뉴이미지에 대입
         String info= binding.etMenuInfo.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
 
-        dbHelper.updateData(category, name, price, image, info);
+        dbHelper.updateData(categoryName, name, price, image, info);
 
         setMenuInfo();
         Toast.makeText(this, name+"의 메뉴를 수정하였습니다..", Toast.LENGTH_SHORT).show();
