@@ -161,31 +161,31 @@
         android:id="@+id/layout_menu_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/layout_menu_price"
-        android:layout_marginTop="40dp">
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="24dp"
             android:text="메뉴 정보"
-            android:textSize="36sp"
-            android:layout_marginRight="24dp"/>
+            android:textSize="36sp" />
 
         <EditText
             android:id="@+id/et_menu_info"
             android:layout_width="match_parent"
             android:layout_height="180dp"
+            android:background="@drawable/bg_box_number"
             android:ems="16"
             android:gravity="top|left"
-            android:inputType="textMultiLine"
-            android:textSize="24sp"
-            android:maxLines="6"
-            android:maxLength="50"
             android:hint="등록할 메뉴에 대한 소개글을 작성하세요"
-            android:background="@drawable/bg_box_number"
-            android:padding="12dp"/>
+            android:inputType="textMultiLine"
+            android:maxLength="50"
+            android:maxLines="6"
+            android:padding="12dp"
+            android:textSize="24sp" />
     </LinearLayout>
 
     <ImageView
@@ -217,38 +217,18 @@
 
         <Button
             android:id="@+id/btn_insert"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="26dp"
             android:backgroundTint="#979797"
             android:text="추가하기"
             android:textSize="30sp" />
 
-<!--        <Button-->
-<!--            android:id="@+id/btn_delete"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="16dp"-->
-<!--            android:layout_toRightOf="@id/btn_insert"-->
-<!--            android:backgroundTint="#979797"-->
-<!--            android:text="삭제하기"-->
-<!--            android:textSize="30sp" />-->
-
-<!--        <Button-->
-<!--            android:id="@+id/btn_update"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_margin="16dp"-->
-<!--            android:layout_toRightOf="@id/btn_delete"-->
-<!--            android:backgroundTint="#979797"-->
-<!--            android:text="수정하기"-->
-<!--            android:textSize="30sp" />-->
-
         <Button
             android:id="@+id/btn_list_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:layout_marginLeft="26dp"
             android:backgroundTint="#979797"
             android:text="목록보기"
             android:textSize="30sp" />

@@ -1,17 +1,32 @@
 package kr.co.kiosk.fragments;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
@@ -28,7 +43,10 @@ public class SetDessertFragment extends Fragment {
 
     private ArrayList<SetMenuList> items= new ArrayList<>();
 
+    AlertDialog.Builder builder;
+
     MenuDBHelper dbHelper;
+    ImageView etImage;
 
     @Nullable
     @Override
@@ -78,7 +96,13 @@ public class SetDessertFragment extends Fragment {
             // 아이템 클릭시 수정
             @Override
             public void onItemClick(View view, int position) {
-                Toast.makeText(getActivity(), items.get(position).setMenuName+" 메뉴 수정", Toast.LENGTH_SHORT).show();
+                showDialogForUpdate(
+                        items.get(position).setMenuImage,
+                        items.get(position).setMenuName,
+                        items.get(position).setMenuPrice,
+                        items.get(position).setMenuInfo,
+                        position
+                );
             }
 
             // X 아이콘 클릭시 아이템삭제
@@ -118,5 +142,165 @@ public class SetDessertFragment extends Fragment {
             }
         });
         builder.show();
+    }
+
+
+    // 등록되어있는 메뉴 삭제
+    public void showDialogForDelete(String menuName, int position){
+        builder = new AlertDialog
+                .Builder(getActivity())
+                .setCancelable(true)
+                .setTitle(menuName)
+                .setMessage("정말로 메뉴를 삭제하시겠습니까?");
+
+        // 메뉴데이터 삭제
+        builder.setPositiveButton("삭제하기", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                dbHelper.deleteData(menuName);
+                items.remove(position);
+                adapter.notifyDataSetChanged();
+                binding.recyclerCoffee.setAdapter(adapter);
+                binding.recyclerCoffee.smoothScrollToPosition(position);
+
+                Toast.makeText(getActivity(), menuName+"를 삭제하였습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // 삭제취소
+        builder.setNegativeButton("삭제취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getActivity(), menuName+" 삭제를 취소하였습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.show();
+    }
+
+    // 등록한 메뉴 정보 수정
+    public void showDialogForUpdate(String getImage, String getName, String getPrice, String getInfo, int position){
+
+        LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        RelativeLayout updateLayout= (RelativeLayout) vi.inflate(R.layout.dialog_menu_update, null);
+
+        EditText etName= updateLayout.findViewById(R.id.et_update_name);
+        etImage= updateLayout.findViewById(R.id.update_image);
+        EditText etPrice= updateLayout.findViewById(R.id.et_update_price);
+        EditText etInfo= updateLayout.findViewById(R.id.et_update_info);
+
+        etImage.setOnClickListener(v -> clickedImageSelect()); // 사진 파일 접근
+
+        Glide.with(getActivity()).load(getImage).into(etImage);
+        etName.setText(getName);
+        etPrice.setText(getPrice);
+        etInfo.setText(getInfo);
+
+
+        builder = new AlertDialog
+                .Builder(getActivity())
+                .setCancelable(false)
+                .setView(updateLayout);
+
+        // 메뉴 수정
+        builder.setPositiveButton("수정하기", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        // 메뉴 수정취소
+        builder.setNegativeButton("수정취소", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //Toast.makeText(getActivity(), name+" 메뉴 수정을 취소하였습니다.", Toast.LENGTH_SHORT).show();
+                Log.d("uris", uri+"");
+                String image= String.valueOf(uri);
+
+            }
+        });
+        AlertDialog dialog= builder.create();
+        dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Boolean wantToCloseDialog = false;
+
+                String name= etName.getText().toString();
+                String image= String.valueOf(uri);
+                String price= etPrice.getText().toString();
+                String info= etInfo.getText().toString();
+
+                if (uri==null){
+                    Toast.makeText(getActivity(), "사진을 추가해주세요", Toast.LENGTH_SHORT).show();
+
+                }else if(name.replace(" ", "").equals("")){
+                    Toast.makeText(getActivity(), "메뉴이름을 입력해주세요", Toast.LENGTH_SHORT).show();
+
+                }else if(price.replace(" ", "").equals("")){
+                    Toast.makeText(getActivity(), "메뉴가격을 입력해주세요", Toast.LENGTH_SHORT).show();
+
+                }else if(info.replace(" ", "").equals("")){
+                    Toast.makeText(getActivity(), "메뉴정보를 입력해주세요", Toast.LENGTH_SHORT).show();
+
+                }else{
+                    price= price.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
+
+                    dbHelper.updateData("커피", name, price, image, info);
+                    items.set(position, new SetMenuList(name, price, image, info, R.drawable.ic_baseline_cancel_24));
+
+                    adapter.notifyDataSetChanged();
+                    binding.recyclerCoffee.setAdapter(adapter);
+                    binding.recyclerCoffee.smoothScrollToPosition(position);
+
+                    Toast.makeText(getActivity(), name+" 메뉴를 수정하였습니다.", Toast.LENGTH_SHORT).show();
+                    Log.d("Images", image);
+                    wantToCloseDialog= true;
+                }
+
+                if(wantToCloseDialog)
+                    dialog.dismiss();
+
+
+            }
+        });
+    }
+
+    private ImageView image(){
+        LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        RelativeLayout updateLayout= (RelativeLayout) vi.inflate(R.layout.dialog_menu_update, null);
+
+        ImageView etImage= updateLayout.findViewById(R.id.update_image);
+        return etImage;
+    }
+
+    Uri uri;
+
+    ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if( result.getResultCode() == RESULT_OK && result.getData() != null){
+
+                        uri = result.getData().getData();
+
+                        Glide.with(getActivity()).load(uri).into(image());
+                        Log.d("ImgURI", uri+"");
+                    }
+                }
+            });
+
+
+    // 사진업로드 관련
+    private void clickedImageSelect(){
+
+        Intent intent= new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("image/*");
+        startActivityResult.launch(intent);
+
+        Glide.with(getActivity()).load(uri).into(etImage);
     }
 }

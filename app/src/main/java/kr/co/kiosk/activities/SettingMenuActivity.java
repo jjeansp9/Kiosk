@@ -186,6 +186,7 @@ public class SettingMenuActivity extends AppCompatActivity {
 
     // 해당 메뉴이름을 가진 데이터 항목 모두 삭제
     void clickedDelete(){
+
         String name= binding.etMenuName.getText().toString();
         dbHelper.deleteData(name);
 

@@ -24,6 +24,7 @@ import kr.co.kiosk.fragments.DrinkFragment;
 import kr.co.kiosk.fragments.MilkTeaFragment;
 import kr.co.kiosk.fragments.ParfaitFragment;
 import kr.co.kiosk.fragments.SetCoffeeFragment;
+import kr.co.kiosk.fragments.SetDessertFragment;
 import kr.co.kiosk.fragments.SetDrinkFragment;
 import kr.co.kiosk.fragments.SetMilkTeaFragment;
 import kr.co.kiosk.fragments.SetParfaitFragment;
@@ -91,7 +92,7 @@ public class MenuList extends AppCompatActivity {
         fragments.add(0, new SetCoffeeFragment());
         fragments.add(1, new SetParfaitFragment());
         fragments.add(2, new SetMilkTeaFragment());
-        fragments.add(3, new SetMilkTeaFragment());
+        fragments.add(3, new SetDessertFragment());
         fragments.add(4, new SetDrinkFragment());
 
         fragmentManager = getSupportFragmentManager();
