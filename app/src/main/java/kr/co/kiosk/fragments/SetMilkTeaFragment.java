@@ -163,7 +163,6 @@ public class SetMilkTeaFragment extends Fragment {
         etPrice.setText(getPrice);
         etInfo.setText(getInfo);
 
-
         builder = new AlertDialog
                 .Builder(getActivity())
                 .setCancelable(false)
@@ -181,9 +180,8 @@ public class SetMilkTeaFragment extends Fragment {
         builder.setNegativeButton("수정취소", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                //Toast.makeText(getActivity(), name+" 메뉴 수정을 취소하였습니다.", Toast.LENGTH_SHORT).show();
-                Log.d("uris", uri+"");
-                String image= String.valueOf(uri);
+                Toast.makeText(getActivity(), getName+" 메뉴 수정을 취소하였습니다.", Toast.LENGTH_SHORT).show();
+
 
             }
         });
@@ -195,15 +193,15 @@ public class SetMilkTeaFragment extends Fragment {
 
                 Boolean wantToCloseDialog = false;
 
+                String image= "";
+
+                if (uri==null) image= getImage;
+                else image= String.valueOf(uri);
                 String name= etName.getText().toString();
-                String image= String.valueOf(uri);
                 String price= etPrice.getText().toString();
                 String info= etInfo.getText().toString();
 
-                if (uri==null){
-                    Toast.makeText(getActivity(), "사진을 추가해주세요", Toast.LENGTH_SHORT).show();
-
-                }else if(name.replace(" ", "").equals("")){
+                if(name.replace(" ", "").equals("")){
                     Toast.makeText(getActivity(), "메뉴이름을 입력해주세요", Toast.LENGTH_SHORT).show();
 
                 }else if(price.replace(" ", "").equals("")){
