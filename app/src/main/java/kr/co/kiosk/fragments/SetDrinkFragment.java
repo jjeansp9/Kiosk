@@ -1,5 +1,6 @@
 package kr.co.kiosk.fragments;
 
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
@@ -82,8 +84,39 @@ public class SetDrinkFragment extends Fragment {
             // X 아이콘 클릭시 아이템삭제
             @Override
             public void onDelete(View view, int position) {
-                Toast.makeText(getActivity(), items.get(position).setMenuName+" 메뉴 삭제", Toast.LENGTH_SHORT).show();
+                showDialog(items.get(position).setMenuName, position);
             }
         });
+    }
+
+    public void showDialog(String menu, int position){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setCancelable(true);
+        builder.setTitle(menu);
+        builder.setMessage("정말로 메뉴를 삭제하시겠습니까?");
+
+        // 메뉴데이터 삭제
+        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                dbHelper.deleteData(menu);
+                items.remove(position);
+                adapter.notifyDataSetChanged();
+                binding.recyclerCoffee.setAdapter(adapter);
+                binding.recyclerCoffee.smoothScrollToPosition(position);
+
+                Toast.makeText(getActivity(), menu+"를 삭제하였습니다.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        // 삭제취소
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                Toast.makeText(getActivity(), "삭제 취소", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.show();
     }
 }

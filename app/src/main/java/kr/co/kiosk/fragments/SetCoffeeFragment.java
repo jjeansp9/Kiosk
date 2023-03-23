@@ -46,10 +46,12 @@ public class SetCoffeeFragment extends Fragment {
 
         dbHelper= new MenuDBHelper(getActivity());
 
-        clickedListMenu();
+
 
         adapter= new RecyclerSetMenuListAdapter(getActivity(), items);
         binding.recyclerCoffee.setAdapter(adapter);
+
+        clickedListMenu();
         clickedItems();
 
 
@@ -58,7 +60,6 @@ public class SetCoffeeFragment extends Fragment {
 
     // 등록한 메뉴 모두 보여주기
     private void clickedListMenu(){
-
         Cursor cursor= dbHelper.getDataAll();
         StringBuffer buffer= new StringBuffer();
 
@@ -75,6 +76,7 @@ public class SetCoffeeFragment extends Fragment {
             }
         }
 
+
     } // clickedListMenu()
 
     private void clickedItems(){
@@ -89,12 +91,12 @@ public class SetCoffeeFragment extends Fragment {
             // X 아이콘 클릭시 아이템삭제
             @Override
             public void onDelete(View view, int position) {
-                showDialog(items.get(position).setMenuName);
+                showDialog(items.get(position).setMenuName, position);
             }
         });
     }
 
-    public void showDialog(String menu){
+    public void showDialog(String menu, int position){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(true);
         builder.setTitle(menu);
@@ -106,6 +108,11 @@ public class SetCoffeeFragment extends Fragment {
             public void onClick(DialogInterface dialogInterface, int i) {
 
                 dbHelper.deleteData(menu);
+                items.remove(position);
+                adapter.notifyDataSetChanged();
+                binding.recyclerCoffee.setAdapter(adapter);
+                binding.recyclerCoffee.smoothScrollToPosition(position);
+
                 Toast.makeText(getActivity(), menu+"를 삭제하였습니다.", Toast.LENGTH_SHORT).show();
             }
         });
