@@ -114,6 +114,10 @@ public class MenuListActivity extends AppCompatActivity {
             title.setText("음료 메뉴등록");
         }
 
+        etName.setHint("등록할 메뉴의 이름을 입력하세요");
+        etPrice.setHint("등록할 메뉴의 가격을 입력하세요");
+        etInfo.setHint("등록할 메뉴에 대한 소개글을 작성하세요");
+
         etImage.setOnClickListener(v -> clickedImageSelect()); // 사진 파일 접근
 
         builder = new AlertDialog
