@@ -47,6 +47,7 @@ public class SettingMenuActivity extends AppCompatActivity {
 
     MenuDBHelper dbHelper;
     String categoryName= "커피";
+    int categoryNum=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +56,6 @@ public class SettingMenuActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         dbHelper = new MenuDBHelper(this);
-
-        binding.coffee.setBackgroundColor(Color.parseColor("#000000"));
 
         // 등록할 메뉴의 카테고리 선택
         binding.coffee.setOnClickListener(v->clickedCategory("커피"));
@@ -72,9 +71,19 @@ public class SettingMenuActivity extends AppCompatActivity {
 
         // 데이터베이스에서 CRUD 작업하는 메소드
         binding.btnInsert.setOnClickListener(v-> clickedInsert()); // 메뉴 추가
-//        binding.btnUpdate.setOnClickListener(v-> clickedUpdate());
-//        binding.btnDelete.setOnClickListener(v-> clickedDelete());
         binding.btnListMenu.setOnClickListener(v-> menuList()); // 메뉴 목록
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        categoryNum= getIntent().getIntExtra("category_set", categoryNum);
+
+        if (categoryNum==0) binding.coffee.setBackgroundColor(Color.parseColor("#000000"));
+        if (categoryNum==1) binding.parfait.setBackgroundColor(Color.parseColor("#000000"));
+        if (categoryNum==2) binding.milkTea.setBackgroundColor(Color.parseColor("#000000"));
+        if (categoryNum==3) binding.dessert.setBackgroundColor(Color.parseColor("#000000"));
+        if (categoryNum==4) binding.drink.setBackgroundColor(Color.parseColor("#000000"));
     }
 
     // 클릭한 카테고리 탭에 따라 배경색상 변경 메소드
@@ -82,20 +91,33 @@ public class SettingMenuActivity extends AppCompatActivity {
 
         categoryName= category; // 클릭한 카테고리 문자 대입
 
-        if (category.equals("커피")){binding.coffee.setBackgroundColor(Color.parseColor("#000000"));}
-        else{binding.coffee.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+        if (category.equals("커피")){
+            binding.coffee.setBackgroundColor(Color.parseColor("#000000"));
+            categoryNum=0;
+        }else{binding.coffee.setBackgroundColor(Color.parseColor("#A3A2A2"));}
 
-        if (category.equals("파르페")){binding.parfait.setBackgroundColor(Color.parseColor("#000000"));}
-        else{binding.parfait.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+        if (category.equals("파르페")){
+            binding.parfait.setBackgroundColor(Color.parseColor("#000000"));
+            categoryNum=1;
+        }else{
+            binding.parfait.setBackgroundColor(Color.parseColor("#A3A2A2"));
+        }
 
-        if (category.equals("밀크티")){binding.milkTea.setBackgroundColor(Color.parseColor("#000000"));}
-        else{binding.milkTea.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+        if (category.equals("밀크티")){
+            binding.milkTea.setBackgroundColor(Color.parseColor("#000000"));
+            categoryNum=2;
+        }else{binding.milkTea.setBackgroundColor(Color.parseColor("#A3A2A2"));}
 
-        if (category.equals("디저트")){binding.dessert.setBackgroundColor(Color.parseColor("#000000"));}
-        else{binding.dessert.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+        if (category.equals("디저트")){
+            binding.dessert.setBackgroundColor(Color.parseColor("#000000"));
+            categoryNum=3;
+        }else{binding.dessert.setBackgroundColor(Color.parseColor("#A3A2A2"));}
 
-        if (category.equals("음료")){binding.drink.setBackgroundColor(Color.parseColor("#000000"));}
-        else{binding.drink.setBackgroundColor(Color.parseColor("#8A8A8A"));}
+        if (category.equals("음료")){
+            binding.drink.setBackgroundColor(Color.parseColor("#000000"));
+            categoryNum=4;
+
+        }else{binding.drink.setBackgroundColor(Color.parseColor("#A3A2A2"));}
 
         Toast.makeText(this, category+"메뉴 등록하기", Toast.LENGTH_SHORT).show();
     }
@@ -148,6 +170,12 @@ public class SettingMenuActivity extends AppCompatActivity {
     // 메뉴데이터 테이블에 추가 [ 메뉴이름, 메뉴가격, 메뉴이미지 ]
     void clickedInsert(){
 
+        if (categoryNum==0) categoryName= "커피";
+        else if (categoryNum==1) categoryName= "파르페";
+        else if (categoryNum==2) categoryName= "밀크티";
+        else if (categoryNum==3) categoryName= "디저트";
+        else if (categoryNum==4) categoryName= "음료";
+
         String name= binding.etMenuName.getText().toString(); // EditText에 입력한 문자열을 메뉴이름에 대입
         String price= binding.etMenuPrice.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
         String image= String.valueOf(uri); // 사진첩에서 가져온 사진의 uri경로를 문자열로 메뉴이미지에 대입
@@ -186,25 +214,11 @@ public class SettingMenuActivity extends AppCompatActivity {
                     Toast.makeText(this, name+" 메뉴를 등록하였습니다.", Toast.LENGTH_SHORT).show();
                     break;
                 }
-            }
-
-
+            } // while
         }
 
+    } // clickedInsert()
 
-
-
-    }
-
-
-
-
-
-    // 등록한 메뉴 모두 보여주기
-    void clickedListMenu(){
-
-
-    }
 
     public void showDialog(String title, String Message){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -214,9 +228,10 @@ public class SettingMenuActivity extends AppCompatActivity {
         builder.show();
     }
 
-    // 메뉴목록
+    // 등록한 메뉴목록 화면으로 이동
     private void menuList(){
         Intent intent= new Intent(SettingMenuActivity.this, MenuList.class);
+        intent.putExtra("categorys", categoryNum);
         startActivity(intent);
     }
 

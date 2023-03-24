@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,10 +48,22 @@ public class MenuList extends AppCompatActivity {
         binding= ActivityMenuListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        categoryNum= getIntent().getIntExtra("categorys", categoryNum);
+
         createBNV();
         tabLayout();
 
-        binding.goBack.setOnClickListener(v -> finish());
+        binding.goBack.setOnClickListener(v -> goBack());
+    }
+
+    void goBack(){
+        Intent intent= new Intent(MenuList.this, SettingMenuActivity.class);
+        intent.putExtra("category_set", categoryNum);
+        startActivity(intent);
+
+        Log.d("cates", categoryNum+"");
+
+        finish();
     }
 
     private void tabLayout(){
@@ -61,16 +74,37 @@ public class MenuList extends AppCompatActivity {
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("디저트"));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("음료수"));
 
+        binding.tabLayout.selectTab(binding.tabLayout.getTabAt(categoryNum));
+
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
-                if (tab.getText().toString().equals("커피")) clickedFragment(0);
-                else if (tab.getText().toString().equals("파르페")) clickedFragment(1);
-                else if (tab.getText().toString().equals("밀크티")) clickedFragment(2);
-                else if (tab.getText().toString().equals("디저트")) clickedFragment(3);
-                else if (tab.getText().toString().equals("음료수")) clickedFragment(4);
+                if (tab.getText().toString().equals("커피")) {
+                    categoryNum= 0;
+                    clickedFragment(categoryNum);
+                }
+
+                else if (tab.getText().toString().equals("파르페")) {
+                    categoryNum= 1;
+                    clickedFragment(categoryNum);
+                }
+
+                else if (tab.getText().toString().equals("밀크티")) {
+                    categoryNum= 2;
+                    clickedFragment(categoryNum);
+                }
+
+                else if (tab.getText().toString().equals("디저트")) {
+                    categoryNum= 3;
+                    clickedFragment(categoryNum);
+                }
+
+                else if (tab.getText().toString().equals("음료수")) {
+                    categoryNum= 4;
+                    clickedFragment(categoryNum);
+                }
 
             }
 
