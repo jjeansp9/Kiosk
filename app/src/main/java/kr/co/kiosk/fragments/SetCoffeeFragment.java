@@ -31,6 +31,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 
 import kr.co.kiosk.R;
+import kr.co.kiosk.activities.MenuListActivity;
 import kr.co.kiosk.adapters.RecyclerSetMenuListAdapter;
 import kr.co.kiosk.databinding.FragmentCoffeeSetBinding;
 import kr.co.kiosk.model.MenuDBHelper;
@@ -166,7 +167,6 @@ public class SetCoffeeFragment extends Fragment {
         etPrice.setText(getPrice);
         etInfo.setText(getInfo);
 
-
         builder = new AlertDialog
                 .Builder(getActivity())
                 .setCancelable(false)
@@ -188,12 +188,15 @@ public class SetCoffeeFragment extends Fragment {
             }
         });
         AlertDialog dialog= builder.create();
+
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Boolean wantToCloseDialog = false;
+                Boolean sameName= false;
+                String updateName= "";
 
                 String image= "";
 
@@ -207,6 +210,9 @@ public class SetCoffeeFragment extends Fragment {
                 if(name.replace(" ", "").equals("")){
                     Toast.makeText(getActivity(), "메뉴이름을 입력해주세요", Toast.LENGTH_SHORT).show();
 
+                }else if (!name.replace(" ", "").matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*")) {
+                    Toast.makeText(getActivity(), "특수문자를 제외하고 이름을 등록해주세요.", Toast.LENGTH_SHORT).show();
+
                 }else if(price.replace(" ", "").equals("")){
                     Toast.makeText(getActivity(), "메뉴가격을 입력해주세요", Toast.LENGTH_SHORT).show();
 
@@ -214,18 +220,45 @@ public class SetCoffeeFragment extends Fragment {
                     Toast.makeText(getActivity(), "메뉴정보를 입력해주세요", Toast.LENGTH_SHORT).show();
 
                 }else{
-                    price= price.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
+                    price= price.replace(",", "").replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
 
-                    dbHelper.updateData("커피", name, price, image, info);
-                    items.set(position, new SetMenuList(name, price, image, info, R.drawable.ic_baseline_cancel_24));
+                    Cursor cursor= dbHelper.getDataAll();
 
-                    adapter.notifyDataSetChanged();
-                    binding.recyclerCoffee.setAdapter(adapter);
-                    binding.recyclerCoffee.smoothScrollToPosition(position);
+                    StringBuffer buffer= new StringBuffer();
+                    while (cursor.moveToNext()) {
 
-                    Toast.makeText(getActivity(), name+" 메뉴를 수정하였습니다.", Toast.LENGTH_SHORT).show();
-                    Log.d("Images", image);
-                    wantToCloseDialog= true;
+                        buffer.append("id : " + cursor.getString(0) + "\n");
+                        buffer.append("category : " + cursor.getString(1) + "\n");
+                        buffer.append("name : " + cursor.getString(2) + "\n");
+
+                        Log.e("name","name : " + cursor.getString(2) + ", "+name.replace(" ", "")+ ", id : " + cursor.getString(0));
+
+                        if (cursor.getString(2).equals(name)) {
+                            sameName = true;
+                            break;
+                        }
+                        if (items.get(position).setMenuName.equals(cursor.getString(2))) {
+                            updateName= cursor.getString(0);
+                            Log.d("updateName", updateName);
+                        }
+                    }
+
+                    if (!sameName || items.get(position).setMenuName.equals(name)){
+                        dbHelper.updateData("커피", name, price, image, info, updateName);
+                        items.set(position, new SetMenuList(name, price, image, info, R.drawable.ic_baseline_cancel_24));
+
+                        adapter.notifyDataSetChanged();
+                        binding.recyclerCoffee.setAdapter(adapter);
+                        binding.recyclerCoffee.smoothScrollToPosition(position);
+
+                        Toast.makeText(getActivity(), name+" 메뉴를 수정하였습니다.", Toast.LENGTH_SHORT).show();
+                        Log.d("Images", updateName);
+                        wantToCloseDialog= true;
+                    }else if(!sameName){
+                        Toast.makeText(getActivity(), "["+cursor.getString(2)+"]은(는) "+ cursor.getString(1)+ "카테고리에 이미 등록한 메뉴입니다.", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getActivity(), "["+cursor.getString(2)+"]은(는) "+ cursor.getString(1)+ "카테고리에 이미 등록한 메뉴입니다.", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 if(wantToCloseDialog)

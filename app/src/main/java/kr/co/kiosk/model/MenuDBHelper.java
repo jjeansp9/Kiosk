@@ -30,6 +30,7 @@ public class MenuDBHelper extends SQLiteOpenHelper{
     public static final String COL_3 = "price";
     public static final String COL_4 = "image";
     public static final String COL_5 = "info";
+    public static final String COL_6 = "id";
 
     public MenuDBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -63,15 +64,16 @@ public class MenuDBHelper extends SQLiteOpenHelper{
     }
 
     // 데이터 수정하기
-    public void updateData(String category, String name, String price, String image, String info){
+    public void updateData(String category, String name, String price, String image, String info, String id){
         ContentValues contentValues= new ContentValues();
         contentValues.put(COL_1, category);
         contentValues.put(COL_2, name);
         contentValues.put(COL_3, price);
         contentValues.put(COL_4, image);
         contentValues.put(COL_5, info);
+        contentValues.put(COL_6, id);
 
-        db.update(TABLE_NAME, contentValues, "name = ?", new String[] {name});
+        db.update(TABLE_NAME, contentValues, "id = ?", new String[] {id});
 
         //db.execSQL("UPDATE " + TABLE_NAME + " SET price='"+price+"', image='"+image+"', info='"+info+"' WHERE name= '"+name+"'" );
     }
