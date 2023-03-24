@@ -1,23 +1,17 @@
 package kr.co.kiosk.activities;
 
-import static kr.co.kiosk.model.MenuDBHelper.TABLE_NAME;
-
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -25,15 +19,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.google.android.material.tabs.TabLayout;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.DecimalFormat;
 
 import kr.co.kiosk.R;
 import kr.co.kiosk.databinding.ActivitySettingMenuBinding;
-import kr.co.kiosk.model.Menu;
 import kr.co.kiosk.model.MenuDBHelper;
 
 public class SettingMenuActivity extends AppCompatActivity {
@@ -230,9 +220,11 @@ public class SettingMenuActivity extends AppCompatActivity {
 
     // 등록한 메뉴목록 화면으로 이동
     private void menuList(){
-        Intent intent= new Intent(SettingMenuActivity.this, MenuList.class);
+        Intent intent= new Intent(SettingMenuActivity.this, MenuListActivity.class);
         intent.putExtra("categorys", categoryNum);
         startActivity(intent);
+
+        finish();
     }
 
     void setMenuInfo(){

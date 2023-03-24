@@ -38,10 +38,10 @@ import kr.co.kiosk.model.SetMenuList;
 
 public class SetParfaitFragment extends Fragment {
 
-    private FragmentCoffeeSetBinding binding;
-    private RecyclerSetMenuListAdapter adapter;
+    public static FragmentCoffeeSetBinding binding;
+    public static RecyclerSetMenuListAdapter adapter;
 
-    private ArrayList<SetMenuList> items= new ArrayList<>();
+    public static ArrayList<SetMenuList> items= new ArrayList<>();
 
     AlertDialog.Builder builder;
 

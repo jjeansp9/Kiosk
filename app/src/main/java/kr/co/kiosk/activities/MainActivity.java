@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                 if (pw.getText().toString().equals(password)){
 
                     Toast.makeText(MainActivity.this, "관리자 설정으로 이동", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, SettingMenuActivity.class);
+                    Intent intent = new Intent(MainActivity.this, MenuListActivity.class);
                     startActivity(intent);
 
                 }else{ Toast.makeText(MainActivity.this, "비밀번호가 틀립니다.", Toast.LENGTH_SHORT).show(); }

@@ -6,20 +6,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -34,25 +28,20 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import kr.co.kiosk.R;
-import kr.co.kiosk.activities.MenuList;
-import kr.co.kiosk.activities.SettingMenuActivity;
 import kr.co.kiosk.adapters.RecyclerSetMenuListAdapter;
-import kr.co.kiosk.databinding.DialogMenuUpdateBinding;
 import kr.co.kiosk.databinding.FragmentCoffeeSetBinding;
-import kr.co.kiosk.model.Menu;
 import kr.co.kiosk.model.MenuDBHelper;
 import kr.co.kiosk.model.SetMenuList;
 
 public class SetCoffeeFragment extends Fragment {
 
-    private FragmentCoffeeSetBinding binding;
-    private RecyclerSetMenuListAdapter adapter;
+    public static FragmentCoffeeSetBinding binding;
+    public static RecyclerSetMenuListAdapter adapter;
 
-    private ArrayList<SetMenuList> items= new ArrayList<>();
+    public static ArrayList<SetMenuList> items= new ArrayList<>();
 
     AlertDialog.Builder builder;
 
@@ -245,14 +234,6 @@ public class SetCoffeeFragment extends Fragment {
         });
     }
 
-    private ImageView image(){
-        LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        RelativeLayout updateLayout= (RelativeLayout) vi.inflate(R.layout.dialog_menu_update, null);
-
-        ImageView etImage= updateLayout.findViewById(R.id.update_image);
-        return etImage;
-    }
-
     Uri uri;
 
     ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
@@ -264,7 +245,7 @@ public class SetCoffeeFragment extends Fragment {
 
                         uri = result.getData().getData();
 
-                        Glide.with(getActivity()).load(uri).into(image());
+                        Glide.with(getActivity()).load(uri).into(etImage);
                         Log.d("ImgURI", uri+"");
                     }
                 }

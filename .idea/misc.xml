@@ -8,6 +8,7 @@
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/drawable/bg_box_number.xml" value="0.1935" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/drawable/bg_message.xml" value="0.1945" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/drawable/bg_upload_image.xml" value="0.179" />
+        <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/drawable/ic_add_write.xml" value="0.2065" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/drawable/ic_baseline_add_comment_24.xml" value="0.315" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/drawable/ic_baseline_arrow_drop_down_24.xml" value="0.315" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/drawable/ic_baseline_arrow_right_24.xml" value="0.315" />
@@ -26,7 +27,7 @@
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_home.xml" value="0.18" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_intro.xml" value="0.18" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_main.xml" value="0.16" />
-        <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_menu_list.xml" value="0.13" />
+        <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_menu_list.xml" value="0.16" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_my_order.xml" value="0.17890625" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_payment.xml" value="0.17890625" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/layout/activity_setting_menu.xml" value="0.16" />
