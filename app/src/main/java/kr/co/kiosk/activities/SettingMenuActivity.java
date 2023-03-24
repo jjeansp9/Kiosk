@@ -164,55 +164,46 @@ public class SettingMenuActivity extends AppCompatActivity {
 
         // 모두 입력한 경우 데이터베이스 테이블에 추가
         else {
-            dbHelper.insertData(categoryName, name, price, image, info);
 
-            setMenuInfo();
-            Toast.makeText(this, name+" 메뉴를 등록하였습니다.", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    // 메뉴데이터 수정 [ 메뉴이름, 메뉴가격, 메뉴이미지 ]
-    void clickedUpdate(){
-        String name= binding.etMenuName.getText().toString(); //
-        String price= binding.etMenuPrice.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
-        String image= String.valueOf(uri); // 사진첩에서 가져온 사진의 uri경로를 문자열로 메뉴이미지에 대입
-        String info= binding.etMenuInfo.getText().toString(); // EditText에 입력한 문자열을 메뉴가격에 대입
-
-        dbHelper.updateData(categoryName, name, price, image, info);
-
-        setMenuInfo();
-        Toast.makeText(this, name+"의 메뉴를 수정하였습니다..", Toast.LENGTH_SHORT).show();
-    }
-
-    // 해당 메뉴이름을 가진 데이터 항목 모두 삭제
-    void clickedDelete(){
-
-        String name= binding.etMenuName.getText().toString();
-        dbHelper.deleteData(name);
-
-        Toast.makeText(this, name+"의 메뉴를 삭제하였습니다.", Toast.LENGTH_SHORT).show();
-    }
-
-    // 등록한 메뉴 모두 보여주기
-    void clickedListMenu(){
-        Cursor cursor= dbHelper.getDataAll();
-
-        if (cursor.getCount() == 0) showDialog("error", "데이터가 없습니다.");
-        else{
+            Cursor cursor= dbHelper.getDataAll();
 
             StringBuffer buffer= new StringBuffer();
             while (cursor.moveToNext()){
-                buffer.append("id : " + cursor.getString(0)+"\n");
+
                 buffer.append("category : " + cursor.getString(1)+"\n");
                 buffer.append("name : " + cursor.getString(2)+"\n");
-                buffer.append("price : " + cursor.getString(3)+"\n\n");
-                buffer.append("image : " + cursor.getString(4)+"\n\n");
-                buffer.append("info : " + cursor.getString(5)+"\n\n");
 
-                Log.d("uri", cursor.getString(4));
+                if (name.replace(" ", "").equals(cursor.getString(2))){
+                    Toast.makeText(this, "["+cursor.getString(2)+"]은(는) "+ cursor.getString(1)+ "카테고리에 이미 등록한 메뉴입니다.", Toast.LENGTH_SHORT).show();
+                    break;
+                }else if(!name.matches ("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*")){
+                    Toast.makeText(this, "특수문자를 제외하고 이름을 등록해주세요.", Toast.LENGTH_SHORT).show();
+                    break;
+                }else{
+                    dbHelper.insertData(categoryName, name, price, image, info);
+
+                    setMenuInfo();
+                    Toast.makeText(this, name+" 메뉴를 등록하였습니다.", Toast.LENGTH_SHORT).show();
+                    break;
+                }
             }
-            showDialog(dbHelper.getDatabaseName(), buffer.toString());
+
+
         }
+
+
+
+
+    }
+
+
+
+
+
+    // 등록한 메뉴 모두 보여주기
+    void clickedListMenu(){
+
+
     }
 
     public void showDialog(String title, String Message){
