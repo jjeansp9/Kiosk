@@ -73,7 +73,7 @@ public class MenuDBHelper extends SQLiteOpenHelper{
         contentValues.put(COL_5, info);
         contentValues.put(COL_6, id);
 
-        db.update(TABLE_NAME, contentValues, "id = ?", new String[] {id});
+        db.update(TABLE_NAME, contentValues, COL_6+" = ?", new String[] {id});
 
         //db.execSQL("UPDATE " + TABLE_NAME + " SET price='"+price+"', image='"+image+"', info='"+info+"' WHERE name= '"+name+"'" );
     }

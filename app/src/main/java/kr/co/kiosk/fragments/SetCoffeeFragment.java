@@ -8,6 +8,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +31,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import kr.co.kiosk.R;
@@ -48,6 +52,7 @@ public class SetCoffeeFragment extends Fragment {
 
     MenuDBHelper dbHelper;
     ImageView etImage;
+    EditText etPrice;
 
     @Nullable
     @Override
@@ -157,7 +162,7 @@ public class SetCoffeeFragment extends Fragment {
 
         EditText etName= updateLayout.findViewById(R.id.et_update_name);
         etImage= updateLayout.findViewById(R.id.update_image);
-        EditText etPrice= updateLayout.findViewById(R.id.et_update_price);
+        etPrice= updateLayout.findViewById(R.id.et_update_price);
         EditText etInfo= updateLayout.findViewById(R.id.et_update_info);
 
         etImage.setOnClickListener(v -> clickedImageSelect()); // 사진 파일 접근
@@ -166,6 +171,8 @@ public class SetCoffeeFragment extends Fragment {
         etName.setText(getName);
         etPrice.setText(getPrice);
         etInfo.setText(getInfo);
+
+        etPrice.addTextChangedListener(commaAddForNumber());
 
         builder = new AlertDialog
                 .Builder(getActivity())
@@ -194,8 +201,7 @@ public class SetCoffeeFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                Boolean wantToCloseDialog = false;
-                Boolean sameName= false;
+                boolean sameName= false;
                 String updateName= "";
 
                 String image= "";
@@ -203,24 +209,23 @@ public class SetCoffeeFragment extends Fragment {
                 if (uri==null) image= getImage;
                 else image= String.valueOf(uri);
 
-                String name= etName.getText().toString();
-                String price= etPrice.getText().toString();
-                String info= etInfo.getText().toString();
+                String name= etName.getText().toString().trim();
+                String price= etPrice.getText().toString().trim();
+                String info= etInfo.getText().toString().trim();
 
-                if(name.replace(" ", "").equals("")){
+                if(TextUtils.isEmpty(name)){
                     Toast.makeText(getActivity(), "메뉴이름을 입력해주세요", Toast.LENGTH_SHORT).show();
 
-                }else if (!name.replace(" ", "").matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*")) {
+                }else if (!name.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*")) {
                     Toast.makeText(getActivity(), "특수문자를 제외하고 이름을 등록해주세요.", Toast.LENGTH_SHORT).show();
 
-                }else if(price.replace(" ", "").equals("")){
+                }else if(price.equals("")){
                     Toast.makeText(getActivity(), "메뉴가격을 입력해주세요", Toast.LENGTH_SHORT).show();
 
-                }else if(info.replace(" ", "").equals("")){
+                }else if(info.equals("")){
                     Toast.makeText(getActivity(), "메뉴정보를 입력해주세요", Toast.LENGTH_SHORT).show();
 
                 }else{
-                    price= price.replace(",", "").replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
 
                     Cursor cursor= dbHelper.getDataAll();
 
@@ -235,8 +240,8 @@ public class SetCoffeeFragment extends Fragment {
 
                         if (cursor.getString(2).equals(name)) {
                             sameName = true;
-                            break;
                         }
+
                         if (items.get(position).setMenuName.equals(cursor.getString(2))) {
                             updateName= cursor.getString(0);
                             Log.d("updateName", updateName);
@@ -253,16 +258,11 @@ public class SetCoffeeFragment extends Fragment {
 
                         Toast.makeText(getActivity(), name+" 메뉴를 수정하였습니다.", Toast.LENGTH_SHORT).show();
                         Log.d("Images", updateName);
-                        wantToCloseDialog= true;
-                    }else if(!sameName){
-                        Toast.makeText(getActivity(), "["+cursor.getString(2)+"]은(는) "+ cursor.getString(1)+ "카테고리에 이미 등록한 메뉴입니다.", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
                     }else{
-                        Toast.makeText(getActivity(), "["+cursor.getString(2)+"]은(는) "+ cursor.getString(1)+ "카테고리에 이미 등록한 메뉴입니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "["+name+"]은(는) 이미 등록한 메뉴입니다.", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-                if(wantToCloseDialog)
-                    dialog.dismiss();
             }
         });
     }
@@ -293,6 +293,33 @@ public class SetCoffeeFragment extends Fragment {
 
         Glide.with(getActivity()).load(uri).into(etImage);
     }
+
+
+    // 숫자 천단위에 [,]를 찍기위한 변수
+    DecimalFormat myFormatter= new DecimalFormat("###,###");
+    String result= "";
+
+    // 메뉴가격 숫자 입력란에 천단위마다 [,]를 표시하기 위한 메소드
+    TextWatcher commaAddForNumber(){
+        TextWatcher watcher= new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+
+                if (!TextUtils.isEmpty(s.toString()) && !s.toString().equals(result)){
+                    result= myFormatter.format(Double.parseDouble(s.toString().replaceAll(",","")));
+                    etPrice.setText(result);
+                    etPrice.setSelection(result.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        };
+        return watcher;
+    } // commaAddForNumber()
 
 }
 
