@@ -241,9 +241,18 @@ public class HomeActivity extends AppCompatActivity {
                                 if (priceListItems.get(position).menuName.equals(cursor.getString(2))){
 
                                     selectList.get(0).set(i[0], false);
-                                    priceListItems.remove(position);
+                                    if (position+1 == priceListItems.size()){
 
-                                    for (int j=0; j<priceListItems.size(); j++) num[position+j]= num[position+j+1];
+                                        priceListItems.remove(position);
+                                        num[position] = 1;
+
+                                    }else if (position+1 < priceListItems.size()){
+
+                                        priceListItems.remove(position);
+                                        for (int j = 0; j < priceListItems.size(); j++) {
+                                            num[position + j] = num[position + j + 1];
+                                        }
+                                    }
 
                                     binding.resultPrice.setText(resultPrice());
                                     priceListAdapter.notifyDataSetChanged();
@@ -256,9 +265,18 @@ public class HomeActivity extends AppCompatActivity {
                                 if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
 
                                     selectList.get(1).set(i[1], false);
-                                    priceListItems.remove(position);
+                                    if (position+1 == priceListItems.size()){
 
-                                    for (int j=0; j<priceListItems.size(); j++) num[position+j]= num[position+j+1];
+                                        priceListItems.remove(position);
+                                        num[position] = 1;
+
+                                    }else if (position+1 < priceListItems.size()){
+
+                                        priceListItems.remove(position);
+                                        for (int j = 0; j < priceListItems.size(); j++) {
+                                            num[position + j] = num[position + j + 1];
+                                        }
+                                    }
 
                                     binding.resultPrice.setText(resultPrice());
                                     priceListAdapter.notifyDataSetChanged();
@@ -271,9 +289,18 @@ public class HomeActivity extends AppCompatActivity {
                                 if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
 
                                     selectList.get(2).set(i[2], false);
-                                    priceListItems.remove(position);
+                                    if (position+1 == priceListItems.size()){
 
-                                    for (int j=0; j<priceListItems.size(); j++) num[position+j]= num[position+j+1];
+                                        priceListItems.remove(position);
+                                        num[position] = 1;
+
+                                    }else if (position+1 < priceListItems.size()){
+
+                                        priceListItems.remove(position);
+                                        for (int j = 0; j < priceListItems.size(); j++) {
+                                            num[position + j] = num[position + j + 1];
+                                        }
+                                    }
 
                                     binding.resultPrice.setText(resultPrice());
                                     priceListAdapter.notifyDataSetChanged();
@@ -285,9 +312,18 @@ public class HomeActivity extends AppCompatActivity {
                                 if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
 
                                     selectList.get(3).set(i[3], false);
-                                    priceListItems.remove(position);
+                                    if (position+1 == priceListItems.size()){
 
-                                    for (int j=0; j<priceListItems.size(); j++) num[position+j]= num[position+j+1];
+                                        priceListItems.remove(position);
+                                        num[position] = 1;
+
+                                    }else if (position+1 < priceListItems.size()){
+
+                                        priceListItems.remove(position);
+                                        for (int j = 0; j < priceListItems.size(); j++) {
+                                            num[position + j] = num[position + j + 1];
+                                        }
+                                    }
 
                                     binding.resultPrice.setText(resultPrice());
                                     priceListAdapter.notifyDataSetChanged();
@@ -299,12 +335,18 @@ public class HomeActivity extends AppCompatActivity {
                                 if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
 
                                     selectList.get(4).set(i[4], false);
-                                    priceListItems.remove(position);
 
-                                    if (num[position]==priceListItems.size()){
-                                        num[position]= 0;
-                                    }else{
-                                        for (int j=0; j<priceListItems.size(); j++) num[position+j]= num[position+j+1];
+                                    if (position+1 == priceListItems.size()){
+
+                                        priceListItems.remove(position);
+                                        num[position] = 1;
+
+                                    }else if (position+1 < priceListItems.size()){
+
+                                        priceListItems.remove(position);
+                                        for (int j = 0; j < priceListItems.size(); j++) {
+                                            num[position + j] = num[position + j + 1];
+                                        }
                                     }
 
 

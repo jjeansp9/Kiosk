@@ -461,6 +461,8 @@ public class MyOrderActivity extends AppCompatActivity {
 
             Toast.makeText(this, "주문 완료", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(MyOrderActivity.this, PaymentActivity.class);
+            intent.putExtra("select_menu", priceList);
+            intent.putExtra("price_result", resultPrice());
             startActivity(intent);
         }
 
