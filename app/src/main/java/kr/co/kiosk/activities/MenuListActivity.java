@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -21,8 +22,10 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -66,11 +69,15 @@ public class MenuListActivity extends AppCompatActivity {
 
     String img= "";
 
+    private Context mContext;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding= ActivityMenuListBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        mContext =this;
 
         dbHelper= new MenuDBHelper(this);
 
@@ -97,6 +104,64 @@ public class MenuListActivity extends AppCompatActivity {
         startActivityResult.launch(intent);
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View view = getCurrentFocus(); // 현재 터치 위치
+    Log.e("dispatchTouchEvent", "1 >>>>>>>>>>>>>>>>>>>>> "+ev.getAction()+", "+view+", ");
+        if (view != null
+                && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE)
+                && view instanceof EditText
+                && !view.getClass().getName().startsWith("android.webkit.")) {
+
+            Log.e("dispatchTouchEvent", "2 >>>>>>>>>>>>>>>>>>>>>");
+
+            // view 의 id 가 명시되어있지 않은 다른 부분을 터치 시
+            int[] scrcoords = new int[2];
+            view.getLocationOnScreen(scrcoords);
+
+            // 0 은 x 마지막 터치 위치에서 x 값
+            // 1은 y 마지막 터치 위치에서 y 값
+
+            float x = ev.getRawX() + view.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + view.getTop() - scrcoords[1];
+
+            if (x < view.getLeft() || x > view.getRight()
+                    || y < view.getTop() || y > view.getBottom())
+                ((InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
+        }
+//        View view = getCurrentFocus();
+//
+//        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(INPUT_METHOD_SERVICE);
+//        if(view == null)
+//            view = new View(mContext);
+//
+//        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+//
+        return super.dispatchTouchEvent(ev);
+    }
+
+
+//    @Override
+//    public boolean dispatchTouchEvent(MotionEvent ev) {
+//        View focusView = getCurrentFocus();
+//        if (focusView != null) {
+//            Rect rect = new Rect();
+//            focusView.getGlobalVisibleRect(rect);
+//            int x = (int) ev.getX(), y = (int) ev.getY();
+//            if (!rect.contains(x, y)) {
+//                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+//                if (imm != null)
+//                    imm.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
+//                focusView.clearFocus();
+//            }
+//        }
+//        return super.dispatchTouchEvent(ev);
+//    }
+
+
+
+
+
     void insertMenu(){
 
         LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -107,6 +172,16 @@ public class MenuListActivity extends AppCompatActivity {
         etImage= updateLayout.findViewById(R.id.update_image);
         etPrice= updateLayout.findViewById(R.id.et_update_price);
         EditText etInfo= updateLayout.findViewById(R.id.et_update_info);
+
+        etName.setFocusableInTouchMode(true);
+
+//        ((RelativeLayout) updateLayout.findViewById(R.id.background)).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Log.e(">>>>>>" ," >>>>>>>>>>>>>>>");
+//                ((InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(etName.getWindowToken(), 0);
+//            }
+//        });
 
         if (categoryNum==0) {
             categoryName= "커피";
@@ -138,7 +213,6 @@ public class MenuListActivity extends AppCompatActivity {
 
         builder = new AlertDialog
                 .Builder(this)
-                .setCancelable(false)
                 .setView(updateLayout);
 
         // 메뉴 등록
@@ -161,10 +235,11 @@ public class MenuListActivity extends AppCompatActivity {
 
         AlertDialog dialog= builder.create();
 
+        //dialog.setCancelable(true);
         dialog.show();
 
         WindowManager.LayoutParams params=dialog.getWindow().getAttributes();
-        params.width= 800;
+        params.width= 750;
         params.height= 950;
         dialog.getWindow().setAttributes(params);
 

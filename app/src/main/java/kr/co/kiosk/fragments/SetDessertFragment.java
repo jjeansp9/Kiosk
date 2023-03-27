@@ -75,6 +75,7 @@ public class SetDessertFragment extends Fragment {
 
     }
 
+
     // 등록한 메뉴 모두 보여주기
     private void clickedListMenu(){
 
@@ -247,9 +248,7 @@ public class SetDessertFragment extends Fragment {
                         Log.e("name", "name : " + cursor.getString(2) + ", " + name.replace(" ", ""));
 
                         if (cursor.getString(2).equals(name.replace(" ", ""))) {
-                            Toast.makeText(getActivity(), "[" + cursor.getString(2) + "]은(는) " + cursor.getString(1) + "카테고리에 이미 등록한 메뉴입니다.", Toast.LENGTH_SHORT).show();
                             sameName = true;
-                            break;
                         }
                         if (items.get(position).setMenuName.equals(cursor.getString(2))) {
                             updateName = cursor.getString(0);

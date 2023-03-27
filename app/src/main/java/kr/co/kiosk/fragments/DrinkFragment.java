@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
@@ -59,11 +60,42 @@ public class DrinkFragment extends Fragment {
         dbHelper= new MenuDBHelper(getActivity());
 
         // 오른쪽 화살표 클릭시 오른쪽으로 스크롤
-        binding.right.setOnClickListener(v->binding.recyclerMenuCoffee.smoothScrollToPosition(menuItems.size()));
+        binding.right.setOnClickListener(v->binding.recyclerMenuCoffee.smoothScrollToPosition(menuItems.size())); // 클릭시 [ 오른쪽 ]으로 스크롤
+        binding.left.setOnClickListener(v->binding.recyclerMenuCoffee.smoothScrollToPosition(0)); // 클릭시 [ 왼쪽 ]으로 스크롤
+        scrollListener();
 
         clickedMenu();
+    }
 
+    private void scrollListener(){
+        binding.recyclerMenuCoffee.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                Log.d("positions", binding.recyclerMenuCoffee.getWidth()+"");
+                Log.d("positions", "extent : "+binding.recyclerMenuCoffee.computeHorizontalScrollExtent()+"");
+                Log.d("positions", "offset : "+binding.recyclerMenuCoffee.computeHorizontalScrollOffset()+"");
+                Log.d("positions", "range : "+binding.recyclerMenuCoffee.computeHorizontalScrollRange()+"");
+
+                if (
+                        binding.recyclerMenuCoffee.computeHorizontalScrollExtent()+binding.recyclerMenuCoffee.computeHorizontalScrollOffset()
+                                < binding.recyclerMenuCoffee.computeHorizontalScrollRange()-binding.recyclerMenuCoffee.computeHorizontalScrollOffset()
+                ){
+                    binding.right.setVisibility(View.VISIBLE);
+                    binding.left.setVisibility(View.GONE);
+                }else{
+                    binding.right.setVisibility(View.GONE);
+                    binding.left.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     @Override

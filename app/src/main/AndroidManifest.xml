@@ -25,6 +25,7 @@
         <activity
             android:name=".activities.MenuListActivity"
             android:exported="false"
+            android:windowSoftInputMode="stateAlwaysHidden"
             />
         <activity
             android:name=".activities.SettingMenuActivity"

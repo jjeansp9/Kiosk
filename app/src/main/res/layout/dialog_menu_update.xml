@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/background"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:focusable="true">
 
     <TextView
         android:id="@+id/tv_title"
@@ -55,6 +58,8 @@
             android:textSize="24sp"
             android:hint="수정할 메뉴의 이름을 입력하세요"
             android:background="@drawable/bg_box_number"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:padding="12dp"/>
     </LinearLayout>
 

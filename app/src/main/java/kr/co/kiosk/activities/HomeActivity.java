@@ -483,8 +483,14 @@ public class HomeActivity extends AppCompatActivity {
 
     // 홈버튼 클릭
     void clickedHome(){
-        Intent intent= new Intent(this, MainActivity.class);
+//        Intent intent= new Intent(this, MainActivity.class);
+//        startActivity(intent);
+//        finish();
+        // 지금까지 쌓아놓은 모든 Activity 종료하고 MainActivity만 실행
+        Intent intent= new Intent(HomeActivity.this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
     }
 
     void createBNV(){

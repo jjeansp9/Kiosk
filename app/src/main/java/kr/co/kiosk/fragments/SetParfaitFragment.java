@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -195,7 +196,7 @@ public class SetParfaitFragment extends Fragment {
         dialog.show();
 
         WindowManager.LayoutParams params=dialog.getWindow().getAttributes();
-        params.width= 800;
+        params.width= 600;
         params.height= 950;
         dialog.getWindow().setAttributes(params);
 
@@ -242,32 +243,45 @@ public class SetParfaitFragment extends Fragment {
                         Log.e("name","name : " + cursor.getString(2) + ", "+name.replace(" ", ""));
 
                         if (cursor.getString(2).equals(name.replace(" ", ""))) {
-                            Toast.makeText(getActivity(), "["+cursor.getString(2)+"]은(는) "+ cursor.getString(1)+ "카테고리에 이미 등록한 메뉴입니다.", Toast.LENGTH_SHORT).show();
                             sameName = true;
                         }
                         if (items.get(position).setMenuName.equals(cursor.getString(2))) {
                             updateName= cursor.getString(0);
                             Log.d("updateName", updateName);
                         }
-                    }
+                    } // while
 
-                    if (!sameName || items.get(position).setMenuName.equals(name)){
+                    if (
+                            !sameName
+                            || items.get(position).setMenuName.equals(name)
+                            && !items.get(position).setMenuPrice.equals(price)
+                            && !items.get(position).setMenuInfo.equals(info)
+                            || items.get(position).setMenuName.equals(name)
+                            && items.get(position).setMenuPrice.equals(price)
+                            && !items.get(position).setMenuInfo.equals(info)
+                            || items.get(position).setMenuName.equals(name)
+                            && !items.get(position).setMenuPrice.equals(price)
+                            && items.get(position).setMenuInfo.equals(info)
+                            || !image.equals(getImage)
+                    ){
                         dbHelper.updateData("파르페", name, price, image, info, updateName);
                         items.set(position, new SetMenuList(name, price, image, info, R.drawable.ic_baseline_cancel_24));
 
                         adapter.notifyDataSetChanged();
                         binding.recyclerCoffee.smoothScrollToPosition(position);
+                        uri=null;
 
                         Toast.makeText(getActivity(), name+" 메뉴를 수정하였습니다.", Toast.LENGTH_SHORT).show();
                         Log.d("Images", image);
                         dialog.dismiss();
-                    }else{
+
+                    }else if (items.get(position).setMenuName.equals(name) && items.get(position).setMenuPrice.equals(price) && items.get(position).setMenuInfo.equals(info)){
+                        Toast.makeText(getActivity(), "메뉴를 수정해주세요.", Toast.LENGTH_SHORT).show();
+
+                    }else if(sameName){
                         Toast.makeText(getActivity(), "["+name+"]은(는) 이미 등록한 메뉴입니다.", Toast.LENGTH_SHORT).show();
                     }
-
-
                 }
-
             }
         });
     }

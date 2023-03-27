@@ -172,7 +172,7 @@ public class SetCoffeeFragment extends Fragment {
         etPrice.setText(getPrice);
         etInfo.setText(getInfo);
 
-        etPrice.addTextChangedListener(commaAddForNumber()); // 가격 천단위 콤마
+        etPrice.addTextChangedListener(commaAddForNumber());
 
         builder = new AlertDialog
                 .Builder(getActivity())
