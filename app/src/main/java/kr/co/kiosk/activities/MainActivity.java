@@ -10,8 +10,11 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -58,10 +61,11 @@ public class MainActivity extends AppCompatActivity {
         LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LinearLayout loginLayout = (LinearLayout) vi.inflate(R.layout.dialog_login, null);
 
-        final EditText pw= loginLayout.findViewById(R.id.pw);
+        EditText pw= loginLayout.findViewById(R.id.pw);
+        TextView setPw= loginLayout.findViewById(R.id.set_pw);
 
         // 비밀번호 :1233 [ 잘못 입력한 경우 관리자설정으로 갈 수 없음 ]
-        new AlertDialog.Builder(this).setView(loginLayout).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        AlertDialog.Builder builder= new AlertDialog.Builder(this).setView(loginLayout).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -71,14 +75,36 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, MenuListActivity.class);
                     startActivity(intent);
 
-                }else{ Toast.makeText(MainActivity.this, "비밀번호가 틀립니다.", Toast.LENGTH_SHORT).show(); }
+                }else{ Toast.makeText(MainActivity.this, "비밀번호가 틀립니다.", Toast.LENGTH_SHORT).show();}
             }
         }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 
             }
-        }).show();
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+
+        // 비밀번호 변경 버튼 누르면 비밀번호 변경 다이얼로그 오픈
+        setPw.setOnClickListener(v -> {
+            Toast.makeText(this, "비밀번호 변경하기", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+
+            AlertDialog.Builder builders= new AlertDialog.Builder(this)
+                    .setView(R.layout.dialog_set_pw)
+                    .setCancelable(true);
+
+            AlertDialog dialogs = builders.create();
+            dialogs.show();
+
+            WindowManager.LayoutParams params=dialogs.getWindow().getAttributes();
+            params.width= 700;
+            params.height= 400;
+            dialogs.getWindow().setAttributes(params);
+        });
+        setPw.setVisibility(View.INVISIBLE);
     }
 
     // 외부저장소 권한요청

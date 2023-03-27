@@ -61,7 +61,6 @@ public class HomeActivity extends AppCompatActivity {
 
     ArrayList<Fragment> fragments= new ArrayList<>();
     FragmentManager fragmentManager= null;
-    private String priceResult="";
 
     MenuDBHelper dbHelper;
 
@@ -81,7 +80,6 @@ public class HomeActivity extends AppCompatActivity {
         priceListAdapter= new RecyclerPriceListAdapter(this, priceListItems);
         binding.recyclerSelect.setAdapter(priceListAdapter);
 
-        //for (int i=0; i<MenuDBHelper.DATABASE_NAME.length; i++ ) dbHelper.add(new MenuDBHelper(this, i));
         dbHelper= new MenuDBHelper(this);
 
         categoryNum= getIntent().getIntExtra("category", categoryNum);

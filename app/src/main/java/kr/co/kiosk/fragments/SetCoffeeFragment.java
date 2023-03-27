@@ -177,7 +177,7 @@ public class SetCoffeeFragment extends Fragment {
 
         builder = new AlertDialog
                 .Builder(getActivity())
-                .setCancelable(false)
+                .setCancelable(true)
                 .setView(updateLayout);
 
         // 메뉴 수정
@@ -192,6 +192,7 @@ public class SetCoffeeFragment extends Fragment {
         builder.setNegativeButton("수정취소", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                uri=null;
                 Toast.makeText(getActivity(), getName+" 메뉴 수정을 취소하였습니다.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -223,7 +224,7 @@ public class SetCoffeeFragment extends Fragment {
                 if(TextUtils.isEmpty(name)){
                     Toast.makeText(getActivity(), "메뉴이름을 입력해주세요", Toast.LENGTH_SHORT).show();
 
-                }else if (!name.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*")) {
+                }else if (!name.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝| ]*")) {
                     Toast.makeText(getActivity(), "특수문자를 제외하고 이름을 등록해주세요.", Toast.LENGTH_SHORT).show();
 
                 }else if(price.equals("")){
@@ -297,8 +298,6 @@ public class SetCoffeeFragment extends Fragment {
         Intent intent= new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("image/*");
         startActivityResult.launch(intent);
-
-        Glide.with(getActivity()).load(uri).into(etImage);
     }
 
 

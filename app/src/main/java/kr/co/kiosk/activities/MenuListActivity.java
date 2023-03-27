@@ -90,8 +90,6 @@ public class MenuListActivity extends AppCompatActivity {
         Intent intent= new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("image/*");
         startActivityResult.launch(intent);
-
-        Glide.with(this).load(uri).into(etImage);
     }
 
     void insertMenu(){
@@ -149,6 +147,7 @@ public class MenuListActivity extends AppCompatActivity {
         builder.setNegativeButton("등록취소", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                uri= null;
                 Toast.makeText(MenuListActivity.this, categoryName+"카테고리의 메뉴 등록을 취소하였습니다.", Toast.LENGTH_SHORT).show();
 
             }
@@ -168,7 +167,6 @@ public class MenuListActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Boolean wantToCloseDialog = false;
                 Boolean sameName= false;
 
                 if (uri==null) img= "";

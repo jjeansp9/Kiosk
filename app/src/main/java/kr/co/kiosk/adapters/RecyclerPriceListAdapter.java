@@ -50,7 +50,8 @@ public class RecyclerPriceListAdapter extends RecyclerView.Adapter<RecyclerPrice
         holder.binding.tvMenuPrice.setText(item.menuPrice);
         holder.binding.tvMenuNumber.setText(item.menuNumber);
 
-        holder.binding.add.setOnClickListener(view -> itemClickListener.onAddClick(holder.binding.add,position));
+        //holder.binding.add.setOnClickListener(view -> itemClickListener.onAddClick(holder.binding.add,position));
+        holder.binding.add.setOnClickListener(view ->  itemClickListener.onAddClick(holder.binding.add,position));
         holder.binding.subtract.setOnClickListener(view -> itemClickListener.onSubTractClick(holder.binding.subtract, position));
     }
 

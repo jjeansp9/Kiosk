@@ -75,6 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="320,000"
+            android:maxLines="1"
             android:textSize="24sp" />
 
     </LinearLayout>

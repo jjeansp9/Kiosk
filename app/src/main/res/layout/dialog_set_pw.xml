@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+
+
+        <LinearLayout
+            android:id="@+id/layout_first"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:text="현재 비밀번호"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_gravity="right"
+                android:layout_marginTop="8dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:text="새 비밀번호"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_gravity="right"
+                android:layout_marginTop="30dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp"
+                android:text="새 비밀번호 확인"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_gravity="right"
+                android:layout_marginTop="31dp"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_first"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true">
+
+
+
+            <EditText
+                android:id="@+id/current_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_box_number"
+                android:ems="16"
+                android:gravity="center"
+                android:hint="현재 사용중인 비밀번호 입력"
+                android:inputType="numberPassword"
+                android:textSize="20sp"/>
+
+            <EditText
+                android:id="@+id/new_pw"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_box_number"
+                android:ems="16"
+                android:gravity="center"
+                android:hint="새 비밀번호 입력력"
+               android:inputType="numberPassword"
+                android:textSize="20sp"/>
+
+            <EditText
+                android:id="@+id/new_pw_confirm"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_box_number"
+                android:ems="16"
+                android:gravity="center"
+                android:hint="새 비밀번호 확인"
+                android:inputType="numberPassword"
+                android:textSize="20sp"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:text="비밀번호 변경"
+        android:textSize="24sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="40dp"/>
+
+
+
+
+
+</RelativeLayout>
