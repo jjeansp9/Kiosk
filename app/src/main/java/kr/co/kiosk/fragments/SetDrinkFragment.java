@@ -136,7 +136,6 @@ public class SetDrinkFragment extends Fragment {
                 dbHelper.deleteData(menuName);
                 items.remove(position);
                 adapter.notifyDataSetChanged();
-                binding.recyclerCoffee.setAdapter(adapter);
                 binding.recyclerCoffee.smoothScrollToPosition(position);
 
                 Toast.makeText(getActivity(), menuName+"를 삭제하였습니다.", Toast.LENGTH_SHORT).show();
@@ -263,7 +262,6 @@ public class SetDrinkFragment extends Fragment {
                         items.set(position, new SetMenuList(name, price, image, info, R.drawable.ic_baseline_cancel_24));
 
                         adapter.notifyDataSetChanged();
-                        binding.recyclerCoffee.setAdapter(adapter);
                         binding.recyclerCoffee.smoothScrollToPosition(position);
 
                         Toast.makeText(getActivity(), name+" 메뉴를 수정하였습니다.", Toast.LENGTH_SHORT).show();
@@ -278,14 +276,6 @@ public class SetDrinkFragment extends Fragment {
         });
     }
 
-    private ImageView image(){
-        LayoutInflater vi = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        RelativeLayout updateLayout= (RelativeLayout) vi.inflate(R.layout.dialog_menu_update, null);
-
-        ImageView etImage= updateLayout.findViewById(R.id.update_image);
-        return etImage;
-    }
-
     Uri uri;
 
     ActivityResultLauncher<Intent> startActivityResult = registerForActivityResult(
@@ -297,7 +287,7 @@ public class SetDrinkFragment extends Fragment {
 
                         uri = result.getData().getData();
 
-                        Glide.with(getActivity()).load(uri).into(image());
+                        Glide.with(getActivity()).load(uri).into(etImage);
                         Log.d("ImgURI", uri+"");
                     }
                 }

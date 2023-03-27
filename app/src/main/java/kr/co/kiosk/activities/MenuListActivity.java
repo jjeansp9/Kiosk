@@ -16,7 +16,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +32,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import kr.co.kiosk.R;
@@ -52,6 +55,8 @@ public class MenuListActivity extends AppCompatActivity {
     FragmentManager fragmentManager= null;
 
     ImageView etImage;
+    EditText etPrice;
+
     AlertDialog.Builder builder;
     MenuDBHelper dbHelper;
 
@@ -100,7 +105,7 @@ public class MenuListActivity extends AppCompatActivity {
         EditText etName= updateLayout.findViewById(R.id.et_update_name);
         TextView title= updateLayout.findViewById(R.id.tv_title);
         etImage= updateLayout.findViewById(R.id.update_image);
-        EditText etPrice= updateLayout.findViewById(R.id.et_update_price);
+        etPrice= updateLayout.findViewById(R.id.et_update_price);
         EditText etInfo= updateLayout.findViewById(R.id.et_update_info);
 
         if (categoryNum==0) {
@@ -129,6 +134,7 @@ public class MenuListActivity extends AppCompatActivity {
         etInfo.setHint("등록할 메뉴에 대한 소개글을 작성하세요");
 
         etImage.setOnClickListener(v -> clickedImageSelect()); // 사진 파일 접근
+        etPrice.addTextChangedListener(commaAddForNumber()); // 가격 천단위 콤마
 
         builder = new AlertDialog
                 .Builder(this)
@@ -352,6 +358,7 @@ public class MenuListActivity extends AppCompatActivity {
         Log.d("fragment", "categoryNum: " + categoryNum + ", fragments.size(): " + fragments.size());
     }
 
+    // 프래그먼트 전환
     void clickedFragment(int num){
 
         FragmentTransaction tran= fragmentManager.beginTransaction();
@@ -364,8 +371,33 @@ public class MenuListActivity extends AppCompatActivity {
             if (fragments.get(i)!=null){ tran.hide(fragments.get(i)); }
         }
         tran.show(fragments.get(num)).commit();
-
     }
+
+    // 숫자 천단위에 [,]를 찍기위한 변수
+    DecimalFormat myFormatter= new DecimalFormat("###,###");
+    String resultPrice= "";
+
+    // 메뉴가격 숫자 입력란에 천단위마다 [,]를 표시하기 위한 메소드
+    TextWatcher commaAddForNumber(){
+        TextWatcher watcher= new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int i, int i1, int i2) {
+
+                if (!TextUtils.isEmpty(s.toString()) && !s.toString().equals(resultPrice)){
+                    resultPrice= myFormatter.format(Double.parseDouble(s.toString().replaceAll(",","")));
+                    etPrice.setText(resultPrice);
+                    etPrice.setSelection(resultPrice.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
+        };
+        return watcher;
+    } // commaAddForNumber()
 
 
 

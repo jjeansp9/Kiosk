@@ -138,7 +138,6 @@ public class SetCoffeeFragment extends Fragment {
                 dbHelper.deleteData(menuName);
                 items.remove(position);
                 adapter.notifyDataSetChanged();
-                binding.recyclerCoffee.setAdapter(adapter);
                 binding.recyclerCoffee.smoothScrollToPosition(position);
 
                 Toast.makeText(getActivity(), menuName+"를 삭제하였습니다.", Toast.LENGTH_SHORT).show();
@@ -173,7 +172,7 @@ public class SetCoffeeFragment extends Fragment {
         etPrice.setText(getPrice);
         etInfo.setText(getInfo);
 
-        etPrice.addTextChangedListener(commaAddForNumber());
+        etPrice.addTextChangedListener(commaAddForNumber()); // 가격 천단위 콤마
 
         builder = new AlertDialog
                 .Builder(getActivity())
@@ -261,7 +260,6 @@ public class SetCoffeeFragment extends Fragment {
                         items.set(position, new SetMenuList(name, price, image, info, R.drawable.ic_baseline_cancel_24));
 
                         adapter.notifyDataSetChanged();
-                        binding.recyclerCoffee.setAdapter(adapter);
                         binding.recyclerCoffee.smoothScrollToPosition(position);
 
                         Toast.makeText(getActivity(), name+" 메뉴를 수정하였습니다.", Toast.LENGTH_SHORT).show();
