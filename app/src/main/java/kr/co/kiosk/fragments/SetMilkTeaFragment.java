@@ -113,12 +113,12 @@ public class SetMilkTeaFragment extends Fragment {
             // X 아이콘 클릭시 아이템삭제
             @Override
             public void onDelete(View view, int position) {
-                showDialog(items.get(position).setMenuName, position);
+                showDialogForDelete(items.get(position).setMenuName, position);
             }
         });
     }
 
-    public void showDialog(String menu, int position){
+    public void showDialogForDelete(String menu, int position){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setCancelable(true);
         builder.setTitle(menu);
@@ -206,20 +206,20 @@ public class SetMilkTeaFragment extends Fragment {
 
                 if (uri==null) image= getImage;
                 else image= String.valueOf(uri);
-                String name= etName.getText().toString();
-                String price= etPrice.getText().toString();
-                String info= etInfo.getText().toString();
+                String name= etName.getText().toString().trim();
+                String price= etPrice.getText().toString().trim();
+                String info= etInfo.getText().toString().trim();
 
-                if(name.replace(" ", "").equals("")){
+                if(name.equals("")){
                     Toast.makeText(getActivity(), "메뉴이름을 입력해주세요", Toast.LENGTH_SHORT).show();
 
                 }else if (!name.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*")) {
                     Toast.makeText(getActivity(), "특수문자를 제외하고 이름을 등록해주세요.", Toast.LENGTH_SHORT).show();
 
-                }else if(price.replace(" ", "").equals("")){
+                }else if(price.equals("")){
                     Toast.makeText(getActivity(), "메뉴가격을 입력해주세요", Toast.LENGTH_SHORT).show();
 
-                }else if(info.replace(" ", "").equals("")){
+                }else if(info.equals("")){
                     Toast.makeText(getActivity(), "메뉴정보를 입력해주세요", Toast.LENGTH_SHORT).show();
 
                 }else{
