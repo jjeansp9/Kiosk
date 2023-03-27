@@ -16,9 +16,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -149,14 +151,17 @@ public class MenuListActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialogInterface, int i) {
                 Toast.makeText(MenuListActivity.this, categoryName+"카테고리의 메뉴 등록을 취소하였습니다.", Toast.LENGTH_SHORT).show();
 
-
-
             }
         });
 
         AlertDialog dialog= builder.create();
 
         dialog.show();
+
+        WindowManager.LayoutParams params=dialog.getWindow().getAttributes();
+        params.width= 800;
+        params.height= 950;
+        dialog.getWindow().setAttributes(params);
 
         // 등록하기 버튼 클릭했을 때
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
@@ -170,25 +175,25 @@ public class MenuListActivity extends AppCompatActivity {
                 else img= String.valueOf(uri);
                 Log.d("Uris", img);
 
-                String name= etName.getText().toString();
-                String price= etPrice.getText().toString();
-                String info= etInfo.getText().toString();
+                String name= etName.getText().toString().trim();
+                String price= etPrice.getText().toString().trim();
+                String info= etInfo.getText().toString().trim();
 
-                if(name.replace(" ", "").equals("")){
+                if(TextUtils.isEmpty(name)){
                     Toast.makeText(MenuListActivity.this, "메뉴이름을 입력해주세요", Toast.LENGTH_SHORT).show();
                     return;
-                }else if (!name.replace(" ", "").matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*")) {
+                }else if (!name.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*")) {
                     Toast.makeText(MenuListActivity.this, "특수문자를 제외하고 이름을 등록해주세요.", Toast.LENGTH_SHORT).show();
 
                 } else if (img=="") {
                     Toast.makeText(MenuListActivity.this, "사진을 등록해주세요.", Toast.LENGTH_SHORT).show();
                     return;
 
-                }else if(price.replace(" ", "").equals("")){
+                }else if(price.equals("")){
                     Toast.makeText(MenuListActivity.this, "메뉴가격을 입력해주세요", Toast.LENGTH_SHORT).show();
                     return;
 
-                }else if(info.replace(" ", "").equals("")){
+                }else if(info.equals("")){
                     Toast.makeText(MenuListActivity.this, "메뉴정보를 입력해주세요", Toast.LENGTH_SHORT).show();
                     return;
 
@@ -219,44 +224,36 @@ public class MenuListActivity extends AppCompatActivity {
                         if (categoryName.equals("커피")){
                             SetCoffeeFragment.items.add(new SetMenuList(name, price, img, info, R.drawable.ic_baseline_cancel_24));
                             SetCoffeeFragment.adapter.notifyDataSetChanged();
-                            SetCoffeeFragment.binding.recyclerCoffee.setAdapter(SetCoffeeFragment.adapter);
 
                         }else if (categoryName.equals("파르페")){
                             SetParfaitFragment.items.add(new SetMenuList(name, price, img, info, R.drawable.ic_baseline_cancel_24));
                             SetParfaitFragment.adapter.notifyDataSetChanged();
-                            SetParfaitFragment.binding.recyclerCoffee.setAdapter(SetParfaitFragment.adapter);
 
                         }else if (categoryName.equals("밀크티")){
                             SetMilkTeaFragment.items.add(new SetMenuList(name, price, img, info, R.drawable.ic_baseline_cancel_24));
                             SetMilkTeaFragment.adapter.notifyDataSetChanged();
-                            SetMilkTeaFragment.binding.recyclerCoffee.setAdapter(SetMilkTeaFragment.adapter);
 
                         }else if (categoryName.equals("디저트")){
                             SetDessertFragment.items.add(new SetMenuList(name, price, img, info, R.drawable.ic_baseline_cancel_24));
                             SetDessertFragment.adapter.notifyDataSetChanged();
-                            SetDessertFragment.binding.recyclerCoffee.setAdapter(SetDessertFragment.adapter);
 
                         }else if (categoryName.equals("음료")){
                             SetDrinkFragment.items.add(new SetMenuList(name, price, img, info, R.drawable.ic_baseline_cancel_24));
                             SetDrinkFragment.adapter.notifyDataSetChanged();
-                            SetDrinkFragment.binding.recyclerCoffee.setAdapter(SetDrinkFragment.adapter);
                         }
 
                         Toast.makeText(MenuListActivity.this, name+" 메뉴를 등록하였습니다.", Toast.LENGTH_SHORT).show();
                         img= "";
                         uri= null;
                         Log.d("Images", img);
-                        wantToCloseDialog= true;
+                        dialog.dismiss();
                     }
 
                 }
 
-                if(wantToCloseDialog)
-                    dialog.dismiss();
-
             }
         });
-    }
+    } // insertMenu()
 
     Uri uri;
 
@@ -276,7 +273,7 @@ public class MenuListActivity extends AppCompatActivity {
             });
 
 
-
+    // 뒤로가기
     void goBack(){
         Intent intent= new Intent(MenuListActivity.this, MainActivity.class);
         intent.putExtra("category_set", categoryNum);
@@ -293,7 +290,7 @@ public class MenuListActivity extends AppCompatActivity {
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("파르페"));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("밀크티"));
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("디저트"));
-        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("음료수"));
+        binding.tabLayout.addTab(binding.tabLayout.newTab().setText("음료"));
 
         binding.tabLayout.selectTab(binding.tabLayout.getTabAt(categoryNum));
 
@@ -322,7 +319,7 @@ public class MenuListActivity extends AppCompatActivity {
                     clickedFragment(categoryNum);
                 }
 
-                else if (tab.getText().toString().equals("음료수")) {
+                else if (tab.getText().toString().equals("음료")) {
                     categoryNum= 4;
                     clickedFragment(categoryNum);
                 }

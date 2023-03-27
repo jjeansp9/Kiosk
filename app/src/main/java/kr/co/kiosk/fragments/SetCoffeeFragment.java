@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -197,6 +198,12 @@ public class SetCoffeeFragment extends Fragment {
         AlertDialog dialog= builder.create();
 
         dialog.show();
+
+        WindowManager.LayoutParams params=dialog.getWindow().getAttributes();
+        params.width= 800;
+        params.height= 950;
+        dialog.getWindow().setAttributes(params);
+
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

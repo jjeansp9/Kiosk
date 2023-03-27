@@ -21,19 +21,22 @@
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="180dp"
         android:layout_marginBottom="30dp"
+        android:padding="10dp"
         android:background="@drawable/bg_upload_image"
         android:src="@drawable/ic_upload_image" />
 
     <LinearLayout
         android:id="@+id/layout_menu_name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/update_image"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -57,12 +60,14 @@
 
     <LinearLayout
         android:id="@+id/layout_menu_price"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/layout_menu_name"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -86,12 +91,15 @@
 
     <LinearLayout
         android:id="@+id/layout_upadte_info"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout_menu_price"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="40dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -112,7 +120,7 @@
             android:maxLength="50"
             android:maxLines="6"
             android:padding="12dp"
-            android:textSize="24sp" />
+            android:textSize="24sp"/>
     </LinearLayout>
 
 </RelativeLayout>

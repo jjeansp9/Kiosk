@@ -1,35 +1,22 @@
 package kr.co.kiosk.activities;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 
 import kr.co.kiosk.R;
-import kr.co.kiosk.adapters.RecyclerMenuAdapter;
 import kr.co.kiosk.databinding.ActivityMainBinding;
-import kr.co.kiosk.model.Menu;
-import kr.co.kiosk.model.MenuDBHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     int[] category={0,1,2,3,4};
 
     String password= "1233";
-    MenuDBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,16 +31,13 @@ public class MainActivity extends AppCompatActivity {
         binding= ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        dbHelper= new MenuDBHelper(this);
-        //Log.d("dahelper", dbHelper.getDataAll().getCount()+"");
-
+        //
         binding.category1.setOnClickListener(v-> clickedCategory("커피 메뉴로 이동", 0));
         binding.category2.setOnClickListener(v-> clickedCategory("파르페 메뉴로 이동", 1));
         binding.category3.setOnClickListener(v-> clickedCategory("밀크티 메뉴로 이동", 2));
         binding.category4.setOnClickListener(v-> clickedCategory("디저트 메뉴로 이동", 3));
         binding.category5.setOnClickListener(v-> clickedCategory("음료 메뉴로 이동", 4));
 
-        clickedListMenu();
         binding.settings.setOnClickListener(v-> clickedSettings());
 
         checkPermission(); // 외부저장소 권한요청
@@ -69,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // 관리자설정 메뉴로 이동
     void clickedSettings(){
 
         LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -95,8 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }).show();
-
-
     }
 
     // 외부저장소 권한요청
@@ -107,19 +89,4 @@ public class MainActivity extends AppCompatActivity {
             requestPermissions(permissions, 100);
         }
     }
-
-    // 등록한 메뉴 모두 보여주기
-    void clickedListMenu(){
-
-    }
-
-    public void showDialog(String title, String Message){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setTitle(title);
-        builder.setMessage(Message);
-        builder.show();
-    }
-
-
 }
