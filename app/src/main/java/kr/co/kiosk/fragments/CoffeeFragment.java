@@ -80,21 +80,27 @@ public class CoffeeFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
 
                 Log.d("positions", binding.recyclerMenuCoffee.getWidth()+"");
-                Log.d("positions", "extent : "+binding.recyclerMenuCoffee.computeHorizontalScrollExtent()+"");
-                Log.d("positions", "offset : "+binding.recyclerMenuCoffee.computeHorizontalScrollOffset()+"");
-                Log.d("positions", "range : "+binding.recyclerMenuCoffee.computeHorizontalScrollRange()+"");
+                Log.d("positions", "extent : "+binding.recyclerMenuCoffee.computeHorizontalScrollExtent()+""); // 화면에 보여지는 길이 [ 리사이클러뷰 컨테이너 사이즈 ]
+                Log.d("positions", "offset : "+binding.recyclerMenuCoffee.computeHorizontalScrollOffset()+""); // 어느정도 움직였는지 알려주는 값
+                Log.d("positions", "range : "+binding.recyclerMenuCoffee.computeHorizontalScrollRange()+""); // 스크롤 막대가 나타내는 범위
 
-                if (
-                        binding.recyclerMenuCoffee.computeHorizontalScrollExtent()+binding.recyclerMenuCoffee.computeHorizontalScrollOffset()
-                                < binding.recyclerMenuCoffee.computeHorizontalScrollRange()-binding.recyclerMenuCoffee.computeHorizontalScrollOffset()
-                ){
-                    binding.right.setVisibility(View.VISIBLE);
+                if (menuItems.size()<5){
+                    binding.right.setVisibility(View.GONE);
                     binding.left.setVisibility(View.GONE);
                 }else{
+                    if (
+                            binding.recyclerMenuCoffee.computeHorizontalScrollExtent()+binding.recyclerMenuCoffee.computeHorizontalScrollOffset()
+                                    < binding.recyclerMenuCoffee.computeHorizontalScrollRange()-binding.recyclerMenuCoffee.computeHorizontalScrollOffset()
+                    ){
+                        binding.right.setVisibility(View.VISIBLE);
+                        binding.left.setVisibility(View.GONE);
+                    }else{
 
-                    binding.right.setVisibility(View.GONE);
-                    binding.left.setVisibility(View.VISIBLE);
+                        binding.right.setVisibility(View.GONE);
+                        binding.left.setVisibility(View.VISIBLE);
+                    }
                 }
+
             }
         });
     }

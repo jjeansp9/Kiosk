@@ -63,8 +63,8 @@ public class ParfaitFragment extends Fragment {
         // 오른쪽 화살표 클릭시 오른쪽으로 스크롤
         binding.right.setOnClickListener(v->binding.recyclerMenuCoffee.smoothScrollToPosition(menuItems.size())); // 클릭시 [ 오른쪽 ]으로 스크롤
         binding.left.setOnClickListener(v->binding.recyclerMenuCoffee.smoothScrollToPosition(0)); // 클릭시 [ 왼쪽 ]으로 스크롤
-        scrollListener();
 
+        scrollListener();
         clickedMenu();
     }
 
@@ -85,17 +85,23 @@ public class ParfaitFragment extends Fragment {
                 Log.d("positions", "offset : "+binding.recyclerMenuCoffee.computeHorizontalScrollOffset()+"");
                 Log.d("positions", "range : "+binding.recyclerMenuCoffee.computeHorizontalScrollRange()+"");
 
-                if (
-                        binding.recyclerMenuCoffee.computeHorizontalScrollExtent()+binding.recyclerMenuCoffee.computeHorizontalScrollOffset()
-                                < binding.recyclerMenuCoffee.computeHorizontalScrollRange()-binding.recyclerMenuCoffee.computeHorizontalScrollOffset()
-                ){
-                    binding.right.setVisibility(View.VISIBLE);
-                    binding.left.setVisibility(View.GONE);
-                }else{
-
+                if (menuItems.size()<5){
                     binding.right.setVisibility(View.GONE);
-                    binding.left.setVisibility(View.VISIBLE);
+                    binding.left.setVisibility(View.INVISIBLE);
+                }else{
+                    if (
+                            binding.recyclerMenuCoffee.computeHorizontalScrollExtent()+binding.recyclerMenuCoffee.computeHorizontalScrollOffset()
+                                    < binding.recyclerMenuCoffee.computeHorizontalScrollRange()-binding.recyclerMenuCoffee.computeHorizontalScrollOffset()
+                    ){
+                        binding.right.setVisibility(View.VISIBLE);
+                        binding.left.setVisibility(View.GONE);
+                    }else{
+
+                        binding.right.setVisibility(View.GONE);
+                        binding.left.setVisibility(View.VISIBLE);
+                    }
                 }
+
             }
         });
     }
@@ -270,12 +276,12 @@ public class ParfaitFragment extends Fragment {
                 menuItems.add(new Menu(cursor.getString(2), cursor.getString(3), cursor.getString(4), R.drawable.ic_baseline_info_24));
                 menuInfo.add(new Menu(cursor.getString(2), cursor.getString(5), cursor.getString(4), R.drawable.ic_baseline_info_24));
             }
-
-
         }
-//        for (int i=0; i<=menuItems.size(); i++){
-//            priceCategory.parfait.add(i, 0);
-//        }
+
+        if (menuItems.size()<5){
+            binding.right.setVisibility(View.GONE);
+            binding.left.setVisibility(View.GONE);
+        }
     } // clickedListMenu()
 
 

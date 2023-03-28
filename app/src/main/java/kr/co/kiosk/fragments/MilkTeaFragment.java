@@ -62,8 +62,8 @@ public class MilkTeaFragment extends Fragment {
         // 오른쪽 화살표 클릭시 오른쪽으로 스크롤
         binding.right.setOnClickListener(v->binding.recyclerMenuCoffee.smoothScrollToPosition(menuItems.size())); // 클릭시 [ 오른쪽 ]으로 스크롤
         binding.left.setOnClickListener(v->binding.recyclerMenuCoffee.smoothScrollToPosition(0)); // 클릭시 [ 왼쪽 ]으로 스크롤
-        scrollListener();
 
+        scrollListener();
         clickedMenu();
     }
 
@@ -80,21 +80,27 @@ public class MilkTeaFragment extends Fragment {
                 super.onScrolled(recyclerView, dx, dy);
 
                 Log.d("positions", binding.recyclerMenuCoffee.getWidth()+"");
-                Log.d("positions", "extent : "+binding.recyclerMenuCoffee.computeHorizontalScrollExtent()+"");
-                Log.d("positions", "offset : "+binding.recyclerMenuCoffee.computeHorizontalScrollOffset()+"");
-                Log.d("positions", "range : "+binding.recyclerMenuCoffee.computeHorizontalScrollRange()+"");
+                Log.d("positions", "extent : "+binding.recyclerMenuCoffee.computeHorizontalScrollExtent()+""); // 화면에 보여지는 길이 [ 리사이클러뷰 컨테이너 사이즈 ]
+                Log.d("positions", "offset : "+binding.recyclerMenuCoffee.computeHorizontalScrollOffset()+""); // 어느정도 움직였는지 알려주는 값
+                Log.d("positions", "range : "+binding.recyclerMenuCoffee.computeHorizontalScrollRange()+""); // 스크롤 막대가 나타내는 범위
 
-                if (
-                        binding.recyclerMenuCoffee.computeHorizontalScrollExtent()+binding.recyclerMenuCoffee.computeHorizontalScrollOffset()
-                                < binding.recyclerMenuCoffee.computeHorizontalScrollRange()-binding.recyclerMenuCoffee.computeHorizontalScrollOffset()
-                ){
-                    binding.right.setVisibility(View.VISIBLE);
-                    binding.left.setVisibility(View.GONE);
-                }else{
-
+                if (menuItems.size()<5){
                     binding.right.setVisibility(View.GONE);
-                    binding.left.setVisibility(View.VISIBLE);
+                    binding.left.setVisibility(View.INVISIBLE);
+                }else{
+                    if (
+                            binding.recyclerMenuCoffee.computeHorizontalScrollExtent()+binding.recyclerMenuCoffee.computeHorizontalScrollOffset()
+                                    < binding.recyclerMenuCoffee.computeHorizontalScrollRange()-binding.recyclerMenuCoffee.computeHorizontalScrollOffset()
+                    ){
+                        binding.right.setVisibility(View.VISIBLE);
+                        binding.left.setVisibility(View.GONE);
+                    }else{
+
+                        binding.right.setVisibility(View.GONE);
+                        binding.left.setVisibility(View.VISIBLE);
+                    }
                 }
+
             }
         });
     }
@@ -286,5 +292,11 @@ public class MilkTeaFragment extends Fragment {
                 menuInfo.add(new Menu(cursor.getString(2), cursor.getString(5), cursor.getString(4), R.drawable.ic_baseline_info_24));
             }
         }
+
+        if (menuItems.size()<5){
+            binding.right.setVisibility(View.GONE);
+            binding.left.setVisibility(View.GONE);
+        }
+
     } // clickedListMenu()
 }
