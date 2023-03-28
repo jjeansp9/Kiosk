@@ -71,10 +71,8 @@ public class SetCoffeeFragment extends Fragment {
 
         adapter= new RecyclerSetMenuListAdapter(getActivity(), items);
         binding.recyclerCoffee.setAdapter(adapter);
+
         clickedItems();
-
-
-
         clickedListMenu();
     }
 
@@ -96,8 +94,6 @@ public class SetCoffeeFragment extends Fragment {
                 items.add(new SetMenuList(cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), R.drawable.ic_baseline_cancel_24));
             }
         }
-
-
     } // clickedListMenu()
 
     private void clickedItems(){
@@ -213,6 +209,7 @@ public class SetCoffeeFragment extends Fragment {
         params.height= 950;
         dialog.getWindow().setAttributes(params);
 
+        // 수정하기 버튼 눌렀을때 반응
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -247,16 +244,11 @@ public class SetCoffeeFragment extends Fragment {
 
                     StringBuffer buffer= new StringBuffer();
                     while (cursor.moveToNext()) {
-
                         buffer.append("id : " + cursor.getString(0) + "\n");
                         buffer.append("category : " + cursor.getString(1) + "\n");
                         buffer.append("name : " + cursor.getString(2) + "\n");
 
-                        Log.e("name","name : " + cursor.getString(2) + ", "+name.replace(" ", "")+ ", id : " + cursor.getString(0));
-
-                        if (cursor.getString(2).equals(name)) {
-                            sameName = true;
-                        }
+                        if (cursor.getString(2).equals(name)) sameName = true;
 
                         if (items.get(position).setMenuName.equals(cursor.getString(2))) {
                             updateName= cursor.getString(0);

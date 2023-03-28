@@ -56,7 +56,6 @@ public class CoffeeFragment extends Fragment {
         menuAdapter= new RecyclerMenuAdapter(getActivity(), menuItems);
         binding.recyclerMenuCoffee.setAdapter(menuAdapter);
 
-        //dbHelper = new MenuDBHelper(getActivity(), 0);
         dbHelper= new MenuDBHelper(getActivity());
 
         binding.right.setOnClickListener(v->binding.recyclerMenuCoffee.smoothScrollToPosition(menuItems.size())); // 클릭시 [ 오른쪽 ]으로 스크롤
@@ -106,7 +105,7 @@ public class CoffeeFragment extends Fragment {
     }
 
     @Override
-    public void onPause() {
+    public void onPause() { // Fragment를 떠나기 시작했지만 Fragment는 여전히 visible 일 때 호출 [ STARTED ] 상태로 호출됨
         super.onPause();
 
         menuItems.clear();
@@ -129,6 +128,7 @@ public class CoffeeFragment extends Fragment {
         DrinkFragment.oneTouch= 0;
     }
 
+    // 프래그먼트가 사용자와 상호작용할 수 있을 때 onResume()콜백이 호출
     @Override
     public void onResume() {
         super.onResume();
@@ -141,42 +141,41 @@ public class CoffeeFragment extends Fragment {
             // 메뉴 이미지를 클릭했을 때 반응
             @Override
             public void onImageClick(View view, int position) {
-
-
-                if (oneTouch ==0){
+                if (oneTouch ==0){ // 두번클릭할때 같은이름으로 item을 add하지 않기 위한 조건문
                     for (int i=0; i<menuItems.size(); i++){
                         HomeActivity.selectList.get(0).add(false);
-                        Log.d("menuItems", menuItems.size()+", "+HomeActivity.selectList.get(0).size());
                     }
                     oneTouch= 1;
                 }
 
                 if (!HomeActivity.selectList.get(0).get(position)){
 
-                    HomeActivity.priceListItems.add(new Price(menuItems.get(position).menuName, HomeActivity.num[position]+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
+                    HomeActivity.priceListItems.add(new Price(
+                            menuItems.get(position).menuName,
+                            HomeActivity.num[position]+"", menuItems.get(position).menuPrice,
+                            R.drawable.plus, R.drawable.minus
+                        ));
 
                     HomeActivity.num[HomeActivity.priceListItems.size()-1]= 1;
-                    HomeActivity.priceListItems.set(HomeActivity.priceListItems.size()-1, new Price(menuItems.get(position).menuName, HomeActivity.num[HomeActivity.priceListItems.size()-1]+"", menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus));
 
+                    HomeActivity.priceListItems.set(HomeActivity.priceListItems.size()-1, new Price(
+                            menuItems.get(position).menuName,
+                            HomeActivity.num[HomeActivity.priceListItems.size()-1]+"",
+                            menuItems.get(position).menuPrice, R.drawable.plus, R.drawable.minus
+                        ));
                     HomeActivity.selectList.get(0).set(position, true);
-                    Log.d("numPosition", HomeActivity.num[position]+", " + position + ", " + HomeActivity.priceListItems.size());
                     HomeActivity.binding.resultPrice.setText(resultPrice());
-
                     HomeActivity.binding.cancel.setVisibility(View.VISIBLE);
 
                 }else{
-                    Log.d("addTouch", "items.size() : "+HomeActivity.priceListItems.size()+ ", position :" +position + ", num[position] : " +HomeActivity.num[position]);
 
                     for (int i=0; i<HomeActivity.priceListItems.size(); i++){
 
                         if (HomeActivity.priceListItems.get(i).menuName.equals(menuItems.get(position).menuName)){
                             HomeActivity.num[i]+=1;
                             HomeActivity.priceListItems.set(i, new Price(HomeActivity.priceListItems.get(i).menuName, HomeActivity.num[i]+"", addPrice(i , HomeActivity.priceListItems.get(i).menuPrice), R.drawable.plus, R.drawable.minus));
-                            Log.d("iNumber", i+", " + HomeActivity.num[i]);
                         }
-                        Log.d("iNumber1", i+"");
                     }
-
                     HomeActivity.binding.resultPrice.setText(resultPrice());
                 }
                 HomeActivity.priceListAdapter.notifyDataSetChanged();
@@ -213,7 +212,6 @@ public class CoffeeFragment extends Fragment {
 
     // 메뉴 수량증가 할 때마다 금액 더하기
     private String addPrice(int position, String price){
-
         String result= "";
         String s= price.replaceAll(",","");
         int value=0;
@@ -227,28 +225,21 @@ public class CoffeeFragment extends Fragment {
             buffer.append("price : " + cursor.getString(3)+"\n\n");
 
             if (cursor.getString(1).equals("커피")){
-                Log.d("DBNAME", cursor.getString(2));
-
                 if (cursor.getString(2).equals(HomeActivity.priceListItems.get(position).menuName)){
                     value= Integer.parseInt(cursor.getString(3).replaceAll(",", ""));
                 }
-
             }
         } // while
 
         result= Integer.parseInt(s)+value+"";
-
         // 천 단위마다 [,] 추가
         result= result.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
 
         return result;
     }
 
-
     private String resultPrice(){
-
         String result= "";
-
         int num = 0;
         for (int i=0; i<HomeActivity.priceListItems.size(); i++){
             String s= HomeActivity.priceListItems.get(i).menuPrice.replaceAll(",","");

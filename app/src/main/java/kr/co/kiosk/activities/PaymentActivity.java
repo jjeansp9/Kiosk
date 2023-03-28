@@ -27,27 +27,22 @@ public class PaymentActivity extends AppCompatActivity {
         binding= ActivityPaymentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // 주문한 데이터 전달받기 [ 주문한 메뉴의 이름, 수량, 금액 // 총합금액 ]
         Intent intent= getIntent();
         priceList= intent.getParcelableArrayListExtra("select_menu");
         priceResult= intent.getStringExtra("price_result");
-
-        //binding.home.setOnClickListener(v-> clickedHome());
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 Toast.makeText(PaymentActivity.this, "결제 완료", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(PaymentActivity.this, EndActivity.class);
-                intent.putExtra("select_menu", priceList);
+                intent.putExtra("select_menu", priceList); // 결제완료된
                 intent.putExtra("price_result", priceResult);
                 startActivity(intent);
                 finish();
             }
         }, 3000);
-    }
-
-    void clickedHome(){
-        finish();
     }
 }
 

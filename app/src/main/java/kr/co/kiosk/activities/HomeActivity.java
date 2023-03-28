@@ -42,8 +42,6 @@ public class HomeActivity extends AppCompatActivity {
     public static ArrayList<Boolean> selectDessert= new ArrayList<>();
     public static ArrayList<Boolean> selectDrink= new ArrayList<>();
 
-    private ArrayList<String> categorys= new ArrayList<>();
-
     // 프래그먼트가 이미 add된 경우 또 add하는 상황을 방지하기 위한 변수
     Boolean[] result= {false,false,false,false,false};
 
@@ -53,8 +51,6 @@ public class HomeActivity extends AppCompatActivity {
 
     Cursor cursor;
     StringBuffer buffer;
-
-    public static int oneTouch;
 
     public static RecyclerPriceListAdapter priceListAdapter;
     public static ArrayList<Price> priceListItems= new ArrayList<>();
@@ -95,14 +91,6 @@ public class HomeActivity extends AppCompatActivity {
         clickedPlusOrMinus(); // [ + , - ] 버튼 눌렀을때 반응하는 메소드
     }
 
-    private void firstTabColor(){
-        if (categoryNum==0) binding.tabCoffee.setBackgroundColor(Color.parseColor("#000000"));
-        else if (categoryNum==1) binding.tabParfait.setBackgroundColor(Color.parseColor("#000000"));
-        else if (categoryNum==2) binding.tabMilkTea.setBackgroundColor(Color.parseColor("#000000"));
-        else if (categoryNum==3) binding.tabDessert.setBackgroundColor(Color.parseColor("#000000"));
-        else if (categoryNum==4) binding.tabDrink.setBackgroundColor(Color.parseColor("#000000"));
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -111,6 +99,14 @@ public class HomeActivity extends AppCompatActivity {
         clickedListMenu();
         binding.resultPrice.setText(resultPrice());
         priceListAdapter.notifyDataSetChanged();
+    }
+
+    private void firstTabColor(){
+        if (categoryNum==0) binding.tabCoffee.setBackgroundColor(Color.parseColor("#000000"));
+        else if (categoryNum==1) binding.tabParfait.setBackgroundColor(Color.parseColor("#000000"));
+        else if (categoryNum==2) binding.tabMilkTea.setBackgroundColor(Color.parseColor("#000000"));
+        else if (categoryNum==3) binding.tabDessert.setBackgroundColor(Color.parseColor("#000000"));
+        else if (categoryNum==4) binding.tabDrink.setBackgroundColor(Color.parseColor("#000000"));
     }
 
     // [ + , - ] 버튼 눌렀을때 반응하는 메소드
@@ -368,22 +364,18 @@ public class HomeActivity extends AppCompatActivity {
 
     // 메뉴 수량증가 할 때마다 금액 더하기
     private String addPrice(int position, String price){
-
         String result= "";
         String s= price.replaceAll(",","");
         int value=0;
 
         Cursor cursor= dbHelper.getDataAll();
         StringBuffer buffer= new StringBuffer();
-
         while (cursor.moveToNext()){
             buffer.append("category : " + cursor.getString(1)+"\n");
             buffer.append("name : " + cursor.getString(2)+"\n");
             buffer.append("price : " + cursor.getString(3)+"\n\n");
 
             if (cursor.getString(1).equals("커피")){
-                Log.d("DBNAME", cursor.getString(2));
-
                 if (cursor.getString(2).equals(priceListItems.get(position).menuName)){
                     value= Integer.parseInt(cursor.getString(3).replaceAll(",", ""));
                 }
@@ -406,9 +398,7 @@ public class HomeActivity extends AppCompatActivity {
                 }
             }
         } // while
-
         result= Integer.parseInt(s)+value+"";
-
         // 천 단위마다 [,] 추가
         result= result.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
 
@@ -483,9 +473,6 @@ public class HomeActivity extends AppCompatActivity {
 
     // 홈버튼 클릭
     void clickedHome(){
-//        Intent intent= new Intent(this, MainActivity.class);
-//        startActivity(intent);
-//        finish();
         // 지금까지 쌓아놓은 모든 Activity 종료하고 MainActivity만 실행
         Intent intent= new Intent(HomeActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -518,6 +505,18 @@ public class HomeActivity extends AppCompatActivity {
     // 클릭한 카테고리 값을 얻어와서 값에 해당하는 카테고리 탭 열기
     void clickedFragment(String category, int num){
 
+        FragmentTransaction tran= fragmentManager.beginTransaction();
+
+        if (!result[num]){
+            tran.add(R.id.fragment_container, fragments.get(num));
+            result[num] = true;
+        }
+        for (int i=0; i<fragments.size(); i++){
+            if (fragments.get(i)!=null){ tran.hide(fragments.get(i)); }
+        }
+        tran.show(fragments.get(num)).commit();
+
+
         if (category.equals("커피")){binding.tabCoffee.setBackgroundColor(Color.parseColor("#000000"));}
         else{binding.tabCoffee.setBackgroundColor(Color.parseColor("#8A8A8A"));}
 
@@ -532,17 +531,6 @@ public class HomeActivity extends AppCompatActivity {
 
         if (category.equals("음료")){binding.tabDrink.setBackgroundColor(Color.parseColor("#000000"));}
         else{binding.tabDrink.setBackgroundColor(Color.parseColor("#8A8A8A"));}
-
-        FragmentTransaction tran= fragmentManager.beginTransaction();
-
-        if (!result[num]){
-            tran.add(R.id.fragment_container, fragments.get(num));
-            result[num] = true;
-        }
-        for (int i=0; i<fragments.size(); i++){
-            if (fragments.get(i)!=null){ tran.hide(fragments.get(i)); }
-        }
-        tran.show(fragments.get(num)).commit();
     }
 
     // 주문하기 버튼 클릭했을 때
@@ -559,7 +547,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     // 취소하기 버튼 클릭했을 때
-
     public void clickedCancel(){
 
         priceListItems.clear();
@@ -603,9 +590,6 @@ public class HomeActivity extends AppCompatActivity {
             buffer.append("image : " + cursor.getString(4)+"\n\n");
             buffer.append("info : " + cursor.getString(5)+"\n\n");
 
-            categorys.add(cursor.getString(1));
-            Log.d("categoryList", "number : " + cursor.getString(0) + ", category : " + categorys.get(i));
-
             i++;
         }
         num= new int[i];
@@ -614,7 +598,6 @@ public class HomeActivity extends AppCompatActivity {
         for (int j=0; j<num.length; j++){
             num[j]= 1;
         }
-        i=0;
 
         return num;
     } // clickedListMenu()

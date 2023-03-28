@@ -40,8 +40,6 @@ public class RecyclerMenuAdapter extends RecyclerView.Adapter<RecyclerMenuAdapte
         this.itemClickListener= onItemClickListener;
     }
 
-
-
     @NonNull
     @Override
     public VH onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,7 +55,6 @@ public class RecyclerMenuAdapter extends RecyclerView.Adapter<RecyclerMenuAdapte
 
         holder.binding.name.setText(item.menuName);
         holder.binding.price.setText(item.menuPrice);
-
         Glide.with(context).load(item.menuImage).into(holder.binding.image);
         Glide.with(context).load(item.menuInfo).into(holder.binding.info);
 

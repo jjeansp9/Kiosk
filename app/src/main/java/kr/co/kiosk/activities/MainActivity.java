@@ -37,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
         binding= ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // 클릭한 버튼에 따라 값을 다르게 줘서 그 값에 맞는 카테고리로 이동
         binding.category1.setOnClickListener(v-> clickedCategory("커피 메뉴로 이동", 0));
         binding.category2.setOnClickListener(v-> clickedCategory("파르페 메뉴로 이동", 1));
         binding.category3.setOnClickListener(v-> clickedCategory("밀크티 메뉴로 이동", 2));
         binding.category4.setOnClickListener(v-> clickedCategory("디저트 메뉴로 이동", 3));
         binding.category5.setOnClickListener(v-> clickedCategory("음료 메뉴로 이동", 4));
 
-        binding.settings.setOnClickListener(v-> clickedSettings());
+        binding.settings.setOnClickListener(v-> clickedSettings()); // 관리자설정 화면으로 이동
 
         // 디바이스에 저장된 비밀번호 가져오기
         pref= getSharedPreferences("login", MODE_PRIVATE);
@@ -103,8 +104,6 @@ public class MainActivity extends AppCompatActivity {
             EditText etNewPw= setPwLayout.findViewById(R.id.new_pw);
             EditText etNewPwConfirm= setPwLayout.findViewById(R.id.new_pw_confirm);
 
-
-
             AlertDialog.Builder builders= new AlertDialog.Builder(this)
                     .setView(setPwLayout)
                     .setCancelable(true)
@@ -112,12 +111,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
 
-                    Log.d("password", "현재비번 : " + etCurrentPw.getText().toString() + ", 새로운비번 : " + etNewPw.getText().toString() + ", 새로운비번확인 : " + etNewPwConfirm.getText().toString());
-
                     String currentPw= etCurrentPw.getText().toString();
                     String newPw= etNewPw.getText().toString();
                     String newPwConfirm= etNewPwConfirm.getText().toString();
-
 
                     if (newPw.equals(password) || newPwConfirm.equals(password)){
                         Toast.makeText(MainActivity.this, "이미 설정된 비밀번호입니다.", Toast.LENGTH_SHORT).show();

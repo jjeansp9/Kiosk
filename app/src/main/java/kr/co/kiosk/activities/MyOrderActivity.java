@@ -45,8 +45,6 @@ public class MyOrderActivity extends AppCompatActivity {
     private RecyclerPriceListAdapter priceListAdapter;
     private String priceResult="";
 
-    PriceCategory priceCategory= new PriceCategory();
-
     MenuDBHelper dbHelper;
 
     Cursor cursor;
@@ -108,10 +106,16 @@ public class MyOrderActivity extends AppCompatActivity {
                 if (HomeActivity.num[position]>1){
 
                     HomeActivity.num[position]-=1;
-                    priceList.set(position, new Price(priceList.get(position).menuName, HomeActivity.num[position]+"",  subTractPrice(position , priceList.get(position).menuPrice), R.drawable.plus, R.drawable.minus));
+                    priceList.set(position, new Price(
+                            priceList.get(position).menuName,
+                            HomeActivity.num[position]+"",
+                            subTractPrice(position ,
+                            priceList.get(position).menuPrice),
+                            R.drawable.plus, R.drawable.minus
+                    ));
                     binding.priceResult.setText(resultPrice());
-
                     priceListAdapter.notifyDataSetChanged();
+
                 }else if (priceList.size()==1){
 
                     cursor= dbHelper.getDataAll();
@@ -482,8 +486,6 @@ public class MyOrderActivity extends AppCompatActivity {
         HomeActivity.selectList.add(3, HomeActivity.selectDessert);
         HomeActivity.selectList.add(4, HomeActivity.selectDrink);
 
-
-
         HomeActivity.binding.resultPrice.setText(resultPrice());
 
         CoffeeFragment.oneTouch= 0;
@@ -500,6 +502,7 @@ public class MyOrderActivity extends AppCompatActivity {
     //    - 파일 경로 : /sdcard/Android/data/%Package%/cache/history/history.log
     //    - 파일에 기록할 format : [yyyyMMdd HH:mm:ss][주문내역][결제금액]
     private void saveData() {
+
         // 외부메모리(SDcard, USB)가 있는가?
         String state= Environment.getExternalStorageState(); // 저장소 연결상태값 문자열 리턴함
 
@@ -507,15 +510,13 @@ public class MyOrderActivity extends AppCompatActivity {
         if( !state.equals(Environment.MEDIA_MOUNTED) ){
             Toast.makeText(this, "SDcard is not mounted", Toast.LENGTH_SHORT).show();
             return;
+
         }else{
-
             // 2023.03.17 13:16:34 2개 6,000원 아메리카노
-
             long now= System.currentTimeMillis();
             Date today = new Date(now); // 현재시간에서 하루 더하기 : new Date(now+(1000*60*60*24*1))
 
             SimpleDateFormat sdf= new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-
             String getDate= sdf.format(today);
 
             String[] name= new String[priceList.size()];
@@ -530,14 +531,12 @@ public class MyOrderActivity extends AppCompatActivity {
             }
 
             File path; // 외부메모리 영역의 경로를 관리하는 객체 참조변수
-
             File[] paths= getExternalCacheDirs();
             //paths[0]= getExternalFilesDir("history");;  // "history" 폴더명
             path= paths[0];
 
             // 위 경로에 "Data.txt"라는 이름의 파일을 만들기 위해 File객체 생성
             File file= new File(path, "history.log");
-
             try {
                 // "history.log"까지 연결되는 문자스트림 생성
                 FileWriter fw= new FileWriter(file, true);
@@ -546,8 +545,6 @@ public class MyOrderActivity extends AppCompatActivity {
                 for (int i=0; i<priceList.size(); i++){
                     writer.println(getDate+"    "+number[i]+"개 "+price[i]+"원 "+name[i]);
                 }
-
-
                 writer.flush();
                 writer.close();
 

@@ -15,14 +15,11 @@ import kr.co.kiosk.activities.SettingMenuActivity;
 public class MenuDBHelper extends SQLiteOpenHelper{
 
     SQLiteDatabase db= getWritableDatabase();
-
     // 데이터베이스 명
-    //public static final String[] DATABASE_NAME = {"coffee_test_03.db", "parfait_test_03.db","milk_tea_test_03.db","dessert_test_03.db","drink_test_03.db", "my_order_test_03.db"};
     public static final String DATABASE_NAME = "test_03";
 
     // 테이블 명
     public static final String TABLE_NAME = "test_coffee";
-    public int categoryNum;
 
     // 테이블 항목
     public static final String COL_1 = "category";
@@ -34,7 +31,6 @@ public class MenuDBHelper extends SQLiteOpenHelper{
 
     public MenuDBHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
-
     }
 
     @Override
@@ -74,7 +70,6 @@ public class MenuDBHelper extends SQLiteOpenHelper{
         contentValues.put(COL_6, id);
 
         db.update(TABLE_NAME, contentValues, COL_6+" = ?", new String[] {id});
-
         //db.execSQL("UPDATE " + TABLE_NAME + " SET price='"+price+"', image='"+image+"', info='"+info+"' WHERE name= '"+name+"'" );
     }
 

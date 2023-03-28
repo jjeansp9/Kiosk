@@ -51,9 +51,7 @@ import kr.co.kiosk.model.SetMenuList;
 
 public class MenuListActivity extends AppCompatActivity {
 
-
     ActivityMenuListBinding binding;
-
     ArrayList<Fragment> fragments= new ArrayList<>();
     FragmentManager fragmentManager= null;
 
@@ -63,12 +61,11 @@ public class MenuListActivity extends AppCompatActivity {
     AlertDialog.Builder builder;
     MenuDBHelper dbHelper;
 
-    Boolean[] result= {false,false,false,false,false}; // 프래그먼트가 이미 add된 경우 또 add하는 상황을 방지하기 위한 변수
+    Boolean[] result= {false,false,false,false,false}; // 프래그먼트가 이미 add된 경우에 또 add하는 상황을 방지하기 위한 변수
     int categoryNum= 0; // 클릭한 카테고리에 따라 해당 화면을 보여주기 위한 변수
     String categoryName="";
 
     String img= "";
-
     private Context mContext;
 
     @Override
@@ -283,11 +280,8 @@ public class MenuListActivity extends AppCompatActivity {
 
                     StringBuffer buffer= new StringBuffer();
                     while (cursor.moveToNext()) {
-
                         buffer.append("category : " + cursor.getString(1) + "\n");
                         buffer.append("name : " + cursor.getString(2) + "\n");
-
-                        Log.e("name","name : " + cursor.getString(2) + ", "+name.replace(" ", ""));
 
                         if (cursor.getString(2).equals(name)) {
                             Toast.makeText(MenuListActivity.this, "["+cursor.getString(2)+"]은(는) "+ cursor.getString(1)+ "카테고리에 이미 등록한 메뉴입니다.", Toast.LENGTH_SHORT).show();
@@ -295,7 +289,6 @@ public class MenuListActivity extends AppCompatActivity {
                             break;
                         }
                     }
-
 
                     if (!sameName){
                         dbHelper.insertData(categoryName, name, price, img, info);
@@ -372,7 +365,6 @@ public class MenuListActivity extends AppCompatActivity {
         binding.tabLayout.addTab(binding.tabLayout.newTab().setText("음료"));
 
         binding.tabLayout.selectTab(binding.tabLayout.getTabAt(categoryNum));
-
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
@@ -402,7 +394,6 @@ public class MenuListActivity extends AppCompatActivity {
                     categoryNum= 4;
                     clickedFragment(categoryNum);
                 }
-
             }
 
             @Override
