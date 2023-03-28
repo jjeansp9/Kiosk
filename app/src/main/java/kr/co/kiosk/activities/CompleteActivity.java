@@ -8,11 +8,10 @@ import android.os.Bundle;
 
 import java.util.ArrayList;
 
-import kr.co.kiosk.R;
 import kr.co.kiosk.databinding.ActivityEndBinding;
 import kr.co.kiosk.model.Price;
 
-public class EndActivity extends AppCompatActivity {
+public class CompleteActivity extends AppCompatActivity {
 
     ActivityEndBinding binding;
     ArrayList<Price> priceList= new ArrayList<>();
@@ -49,7 +48,7 @@ public class EndActivity extends AppCompatActivity {
 
     void clickedGoBack(){
         // 지금까지 쌓아놓은 모든 Activity 종료하고 MainActivity만 실행
-        Intent intent= new Intent(EndActivity.this, MainActivity.class);
+        Intent intent= new Intent(CompleteActivity.this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }

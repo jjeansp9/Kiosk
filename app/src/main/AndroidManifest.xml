@@ -32,7 +32,7 @@
             android:exported="false"
             />
         <activity
-            android:name=".activities.EndActivity"
+            android:name=".activities.CompleteActivity"
             android:exported="false"
             />
         <activity

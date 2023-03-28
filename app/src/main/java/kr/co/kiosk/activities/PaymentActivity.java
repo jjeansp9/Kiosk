@@ -9,8 +9,6 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import kr.co.kiosk.R;
-import kr.co.kiosk.databinding.ActivityMainBinding;
 import kr.co.kiosk.databinding.ActivityPaymentBinding;
 import kr.co.kiosk.model.Price;
 
@@ -36,7 +34,7 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Toast.makeText(PaymentActivity.this, "결제 완료", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(PaymentActivity.this, EndActivity.class);
+                Intent intent = new Intent(PaymentActivity.this, CompleteActivity.class);
                 intent.putExtra("select_menu", priceList); // 결제완료된
                 intent.putExtra("price_result", priceResult);
                 startActivity(intent);
