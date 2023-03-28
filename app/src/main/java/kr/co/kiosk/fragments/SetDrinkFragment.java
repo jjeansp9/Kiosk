@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -172,6 +173,14 @@ public class SetDrinkFragment extends Fragment {
 
         etPrice.addTextChangedListener(commaAddForNumber());
 
+        ((RelativeLayout) updateLayout.findViewById(R.id.background)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e(">>>>>>" ," >>>>>>>>>>>>>>>");
+                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(etName.getWindowToken(), 0);
+            }
+        });
+
         builder = new AlertDialog
                 .Builder(getActivity())
                 .setCancelable(false)
@@ -255,7 +264,19 @@ public class SetDrinkFragment extends Fragment {
                         }
                     }
 
-                    if (!sameName || items.get(position).setMenuName.equals(name)){
+                    if (
+                            !sameName
+                                    || items.get(position).setMenuName.equals(name)
+                                    && !items.get(position).setMenuPrice.equals(price)
+                                    && !items.get(position).setMenuInfo.equals(info)
+                                    || items.get(position).setMenuName.equals(name)
+                                    && items.get(position).setMenuPrice.equals(price)
+                                    && !items.get(position).setMenuInfo.equals(info)
+                                    || items.get(position).setMenuName.equals(name)
+                                    && !items.get(position).setMenuPrice.equals(price)
+                                    && items.get(position).setMenuInfo.equals(info)
+                                    || !image.equals(getImage)
+                    ){
                         dbHelper.updateData("음료", name, price, image, info, updateName);
                         items.set(position, new SetMenuList(name, price, image, info, R.drawable.ic_baseline_cancel_24));
 
@@ -265,7 +286,10 @@ public class SetDrinkFragment extends Fragment {
                         Toast.makeText(getActivity(), name+" 메뉴를 수정하였습니다.", Toast.LENGTH_SHORT).show();
                         Log.d("Images", image);
                         dialog.dismiss();
-                    }else{
+                    }else if (items.get(position).setMenuName.equals(name) && items.get(position).setMenuPrice.equals(price) && items.get(position).setMenuInfo.equals(info)){
+                        Toast.makeText(getActivity(), "메뉴를 수정해주세요.", Toast.LENGTH_SHORT).show();
+
+                    }else if(sameName){
                         Toast.makeText(getActivity(), "["+name+"]은(는) 이미 등록한 메뉴입니다.", Toast.LENGTH_SHORT).show();
                     }
 

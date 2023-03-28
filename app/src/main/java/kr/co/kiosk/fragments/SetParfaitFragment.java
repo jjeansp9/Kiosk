@@ -171,6 +171,14 @@ public class SetParfaitFragment extends Fragment {
 
         etPrice.addTextChangedListener(commaAddForNumber());
 
+        ((RelativeLayout) updateLayout.findViewById(R.id.background)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e(">>>>>>" ," >>>>>>>>>>>>>>>");
+                ((InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(etName.getWindowToken(), 0);
+            }
+        });
+
         builder = new AlertDialog
                 .Builder(getActivity())
                 .setCancelable(false)

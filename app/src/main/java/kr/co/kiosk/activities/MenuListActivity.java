@@ -175,13 +175,13 @@ public class MenuListActivity extends AppCompatActivity {
 
         etName.setFocusableInTouchMode(true);
 
-//        ((RelativeLayout) updateLayout.findViewById(R.id.background)).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Log.e(">>>>>>" ," >>>>>>>>>>>>>>>");
-//                ((InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(etName.getWindowToken(), 0);
-//            }
-//        });
+        ((RelativeLayout) updateLayout.findViewById(R.id.background)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e(">>>>>>" ," >>>>>>>>>>>>>>>");
+                ((InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(etName.getWindowToken(), 0);
+            }
+        });
 
         if (categoryNum==0) {
             categoryName= "커피";
