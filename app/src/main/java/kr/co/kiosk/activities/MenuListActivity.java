@@ -160,7 +160,6 @@ public class MenuListActivity extends AppCompatActivity {
 
 
     void insertMenu(){
-
         LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         RelativeLayout updateLayout= (RelativeLayout) vi.inflate(R.layout.dialog_menu_update, null);
 
@@ -169,8 +168,6 @@ public class MenuListActivity extends AppCompatActivity {
         etImage= updateLayout.findViewById(R.id.update_image);
         etPrice= updateLayout.findViewById(R.id.et_update_price);
         EditText etInfo= updateLayout.findViewById(R.id.et_update_info);
-
-        etName.setFocusableInTouchMode(true);
 
         ((RelativeLayout) updateLayout.findViewById(R.id.background)).setOnClickListener(new View.OnClickListener() {
             @Override

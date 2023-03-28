@@ -36,7 +36,6 @@ public class DessertFragment extends Fragment {
 
     public static ArrayList<Menu> menuItems= new ArrayList<>();
     ArrayList<Menu> menuInfo= new ArrayList<>();
-    PriceCategory priceCategory= new PriceCategory();
 
     MenuDBHelper dbHelper;
 

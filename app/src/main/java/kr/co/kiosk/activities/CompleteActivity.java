@@ -27,7 +27,6 @@ public class CompleteActivity extends AppCompatActivity {
         priceList= intent.getParcelableArrayListExtra("select_menu"); // 주문한 메뉴이름, 수량, 가격 전달받기
         priceResult= intent.getStringExtra("price_result"); // 주문한 메뉴들의 총합금액 전달받기
 
-        //binding.home.setOnClickListener(v->clickedHome()); // 홈버튼
         binding.btnConfirm.setOnClickListener(v->clickedConfirm()); // 주문화인 버튼
         binding.btnGoBack.setOnClickListener(v->clickedGoBack()); // 돌아가기 버튼
     }
