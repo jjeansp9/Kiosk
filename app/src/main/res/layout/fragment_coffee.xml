@@ -8,11 +8,11 @@
         android:id="@+id/recycler_menu_coffee"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#EFEFEF"
         android:orientation="horizontal"
         android:scrollbars="horizontal"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2"
-        android:background="#EFEFEF"/>
+        app:spanCount="2" />
 
     <ImageView
         android:id="@+id/right"

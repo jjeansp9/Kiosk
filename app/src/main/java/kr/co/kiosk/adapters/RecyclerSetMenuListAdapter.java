@@ -61,6 +61,8 @@ public class RecyclerSetMenuListAdapter extends RecyclerView.Adapter<RecyclerSet
         holder.binding.setMenuDelete.setOnClickListener(v -> itemClickListener.onDelete(holder.binding.setMenuDelete, position));
 
 
+
+
     }
 
     @Override

@@ -50,6 +50,9 @@
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/menu/bnv.xml" value="0.30945945945945946" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/menu/bnv_chat.xml" value="0.17432432432432432" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/menu/popup_community.xml" value="0.30945945945945946" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout/fragment_coffee.xml" value="0.3614583333333333" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout/fragment_coffee_set.xml" value="0.35462962962962963" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout/recycler_set_menu_item.xml" value="0.3614583333333333" />
       </map>
     </option>
   </component>
