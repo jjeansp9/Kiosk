@@ -62,7 +62,7 @@ public class CoffeeFragment extends Fragment {
         binding.left.setOnClickListener(v->binding.recyclerMenuCoffee.smoothScrollToPosition(0)); // 클릭시 [ 왼쪽 ]으로 스크롤
         scrollListener();
 
-        clickedMenu(); // 카페 메뉴아이템마다 클릭할 때 동작.
+        clickedMenu(); // 카페 메뉴아이템마다 클릭할 때 동작
     }
 
 
