@@ -21,7 +21,7 @@ public class MenuDBHelper extends SQLiteOpenHelper{
     // 테이블 명
     public static final String TABLE_NAME = "test_coffee";
 
-    // 테이블 항목
+    // 테이블 항목.
     public static final String COL_1 = "category";
     public static final String COL_2 = "name";
     public static final String COL_3 = "price";
