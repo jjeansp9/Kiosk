@@ -105,7 +105,7 @@ public class CoffeeFragment extends Fragment {
     }
 
     @Override
-    public void onPause() { // Fragment를 떠나기 시작했지만 Fragment는 여전히 visible 일 때 호출 [ STARTED ] 상태로 호출됨
+    public void onPause() { // Fragment를 떠나기 시작했지만 Fragment는 여전히 visible 일 때 호출 [ STARTED ] 상태로 호출됨.
         super.onPause();
 
         menuItems.clear();
