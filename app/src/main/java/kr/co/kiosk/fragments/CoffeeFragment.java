@@ -81,7 +81,7 @@ public class CoffeeFragment extends Fragment {
                 Log.d("positions", binding.recyclerMenuCoffee.getWidth()+"");
                 Log.d("positions", "extent : "+binding.recyclerMenuCoffee.computeHorizontalScrollExtent()+""); // 화면에 보여지는 길이 [ 리사이클러뷰 컨테이너 사이즈 ]
                 Log.d("positions", "offset : "+binding.recyclerMenuCoffee.computeHorizontalScrollOffset()+""); // 어느정도 움직였는지 알려주는 값
-                Log.d("positions", "range : "+binding.recyclerMenuCoffee.computeHorizontalScrollRange()+""); // 스크롤 막대가 나타내는 범위.
+                Log.d("positions", "range : "+binding.recyclerMenuCoffee.computeHorizontalScrollRange()+""); // 스크롤 막대가 나타내는 범위
 
                 if (menuItems.size()<5){
                     binding.right.setVisibility(View.GONE);
