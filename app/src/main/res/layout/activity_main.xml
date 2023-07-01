@@ -1,268 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".activities.MainActivity"
-    android:background="#EFEFEF">
-
-    <ImageView
-        android:id="@+id/settings"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_alignParentRight="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        android:src="@drawable/ic_baseline_settings_24" />
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="180dp"
-        android:src="@drawable/logo_kiosk" />
-
-    <LinearLayout
-        android:id="@+id/bg_message"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/logo"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/bg_message"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="60dp"
-            android:layout_marginBottom="12dp"
-            android:text="주문을 원하시는 메뉴 카테고리를 선택해 주세요."
-            android:textSize="24sp"
-            android:gravity="center"/>
-
-    </LinearLayout>
-
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bg_message"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/category1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EFEFEF">
+
+        <ImageView
+            android:id="@+id/settings"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:src="@drawable/ic_baseline_settings_24" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:src="@drawable/logo_kiosk" />
+
+        <LinearLayout
+            android:id="@+id/bg_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/bg_message"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginBottom="12dp"
+                android:text="주문을 원하시는 메뉴 카테고리를 선택해 주세요."
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            android:elevation="16dp"
-            android:layout_margin="8dp">
+            android:layout_below="@id/bg_message"
+            android:layout_marginTop="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="12dp">
 
-            <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
-                android:orientation="vertical">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/category1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:elevation="16dp"
+                app:cardCornerRadius="8dp">
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/menu_coffee_01_espresso" />
+                <RelativeLayout
+                    android:layout_width="170dp"
+                    android:layout_height="170dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:paddingLeft="30dp"
-                    android:paddingTop="4dp"
-                    android:paddingRight="30dp"
-                    android:paddingBottom="4dp"
-                    android:background="@drawable/bg_box_black"
-                    android:text="커피"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold"/>
-            </LinearLayout>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
 
-        </androidx.cardview.widget.CardView>
+                        <ImageView
+                            android:id="@+id/img_menu_coffee"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/menu_coffee_01_espresso" />
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/category2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/category1"
-            app:cardCornerRadius="8dp"
-            android:elevation="16dp"
-            android:layout_margin="8dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/img_menu_coffee"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_box_black"
+                            android:paddingLeft="30dp"
+                            android:paddingTop="4dp"
+                            android:paddingRight="30dp"
+                            android:paddingBottom="4dp"
+                            android:text="커피"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="16dp"
-                android:orientation="vertical">
+                    </RelativeLayout>
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/menu_parfait_01" />
+                </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/bg_box_black"
-                    android:paddingLeft="30dp"
-                    android:paddingTop="4dp"
-                    android:paddingRight="30dp"
-                    android:paddingBottom="4dp"
-                    android:text="파르페"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-        </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/category2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_toRightOf="@id/category1"
+                android:elevation="16dp"
+                app:cardCornerRadius="8dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/category3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/category2"
-            app:cardCornerRadius="8dp"
-            android:elevation="16dp"
-            android:layout_margin="8dp">
+                <RelativeLayout
+                    android:layout_width="170dp"
+                    android:layout_height="170dp">
 
-            <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="16dp"
-                android:orientation="vertical">
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/menu_milk_tea_01" />
+                        <ImageView
+                            android:id="@+id/img_menu_parfait"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/menu_parfait_01" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/bg_box_black"
-                    android:paddingLeft="30dp"
-                    android:paddingTop="4dp"
-                    android:paddingRight="30dp"
-                    android:paddingBottom="4dp"
-                    android:text="밀크티"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/img_menu_parfait"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_box_black"
+                            android:paddingLeft="30dp"
+                            android:paddingTop="4dp"
+                            android:paddingRight="30dp"
+                            android:paddingBottom="4dp"
+                            android:text="파르페"
+                            android:textColor="@color/white" />
 
-        </androidx.cardview.widget.CardView>
+                    </RelativeLayout>
 
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/category4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/category1"
-            app:cardCornerRadius="8dp"
-            android:elevation="16dp"
-            android:layout_margin="8dp">
+                </RelativeLayout>
 
-            <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="16dp"
-                android:orientation="vertical">
+            </androidx.cardview.widget.CardView>
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/menu_dessert_01_cake" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/category3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/category1"
+                android:layout_margin="8dp"
+                android:elevation="16dp"
+                app:cardCornerRadius="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/bg_box_black"
-                    android:paddingLeft="30dp"
-                    android:paddingTop="4dp"
-                    android:paddingRight="30dp"
-                    android:paddingBottom="4dp"
-                    android:text="디저트"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </LinearLayout>
+                <RelativeLayout
+                    android:layout_width="170dp"
+                    android:layout_height="170dp">
 
-        </androidx.cardview.widget.CardView>
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/category5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/category1"
-            android:layout_toRightOf="@id/category4"
-            app:cardCornerRadius="8dp"
-            android:elevation="16dp"
-            android:layout_margin="8dp">
+                        <ImageView
+                            android:id="@+id/img_menu_milk_tea"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/menu_milk_tea_01" />
 
-            <LinearLayout
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="16dp"
-                android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/img_menu_milk_tea"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_box_black"
+                            android:paddingLeft="30dp"
+                            android:paddingTop="4dp"
+                            android:paddingRight="30dp"
+                            android:paddingBottom="4dp"
+                            android:text="밀크티"
+                            android:textColor="@color/white" />
 
-                <ImageView
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/menu_drink_01_lime" />
+                    </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/bg_box_black"
-                    android:paddingLeft="30dp"
-                    android:paddingTop="4dp"
-                    android:paddingRight="30dp"
-                    android:paddingBottom="4dp"
-                    android:text="음료"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
-            </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
+                </RelativeLayout>
 
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/category4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/category1"
+                android:layout_margin="8dp"
+                android:layout_toEndOf="@id/category3"
+                android:elevation="16dp"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:layout_width="170dp"
+                    android:layout_height="170dp">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:id="@+id/img_menu_dessert"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/menu_dessert_01_cake" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/img_menu_dessert"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_box_black"
+                            android:paddingLeft="30dp"
+                            android:paddingTop="4dp"
+                            android:paddingRight="30dp"
+                            android:paddingBottom="4dp"
+                            android:text="디저트"
+                            android:textColor="@color/white" />
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/category5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/category3"
+                android:layout_margin="8dp"
+                android:elevation="16dp"
+                app:cardCornerRadius="8dp">
+
+                <RelativeLayout
+                    android:layout_width="170dp"
+                    android:layout_height="170dp">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true">
+
+                        <ImageView
+                            android:id="@+id/img_menu_drink"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            android:layout_centerHorizontal="true"
+                            android:src="@drawable/menu_drink_01_lime" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/img_menu_drink"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginTop="20dp"
+                            android:background="@drawable/bg_box_black"
+                            android:paddingLeft="30dp"
+                            android:paddingTop="4dp"
+                            android:paddingRight="30dp"
+                            android:paddingBottom="4dp"
+                            android:text="음료"
+                            android:textColor="@color/white" />
+
+                    </RelativeLayout>
+
+
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+        </RelativeLayout>
 
 
     </RelativeLayout>
 
+</ScrollView>
 
-</RelativeLayout>

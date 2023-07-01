@@ -37,9 +37,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import kr.co.kiosk.R;
-import kr.co.kiosk.activities.MenuListActivity;
 import kr.co.kiosk.adapters.RecyclerSetMenuListAdapter;
-import kr.co.kiosk.databinding.FragmentCoffeeSetBinding;
 import kr.co.kiosk.model.MenuDBHelper;
 import kr.co.kiosk.model.SetMenuList;
 

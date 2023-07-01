@@ -23,7 +23,6 @@ import com.bumptech.glide.Glide;
 import java.text.DecimalFormat;
 
 import kr.co.kiosk.R;
-import kr.co.kiosk.databinding.ActivitySettingMenuBinding;
 import kr.co.kiosk.model.MenuDBHelper;
 
 public class SettingMenuActivity extends AppCompatActivity {
@@ -220,7 +219,7 @@ public class SettingMenuActivity extends AppCompatActivity {
 
     // 등록한 메뉴목록 화면으로 이동
     private void menuList(){
-        Intent intent= new Intent(SettingMenuActivity.this, MenuListActivity.class);
+        Intent intent= new Intent(SettingMenuActivity.this, SetMenuListActivity.class);
         intent.putExtra("categorys", categoryNum);
         startActivity(intent);
 

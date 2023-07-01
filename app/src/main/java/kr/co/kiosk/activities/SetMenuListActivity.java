@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -40,7 +39,6 @@ import java.util.ArrayList;
 
 import kr.co.kiosk.R;
 import kr.co.kiosk.databinding.ActivityMenuListBinding;
-import kr.co.kiosk.fragments.DrinkFragment;
 import kr.co.kiosk.fragments.SetCoffeeFragment;
 import kr.co.kiosk.fragments.SetDessertFragment;
 import kr.co.kiosk.fragments.SetDrinkFragment;
@@ -49,7 +47,7 @@ import kr.co.kiosk.fragments.SetParfaitFragment;
 import kr.co.kiosk.model.MenuDBHelper;
 import kr.co.kiosk.model.SetMenuList;
 
-public class MenuListActivity extends AppCompatActivity {
+public class SetMenuListActivity extends AppCompatActivity {
 
     ActivityMenuListBinding binding;
     ArrayList<Fragment> fragments= new ArrayList<>();
@@ -222,7 +220,7 @@ public class MenuListActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 uri= null;
-                Toast.makeText(MenuListActivity.this, categoryName+"카테고리의 메뉴 등록을 취소하였습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SetMenuListActivity.this, categoryName+"카테고리의 메뉴 등록을 취소하였습니다.", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -253,21 +251,21 @@ public class MenuListActivity extends AppCompatActivity {
                 String info= etInfo.getText().toString().trim();
 
                 if(TextUtils.isEmpty(name)){
-                    Toast.makeText(MenuListActivity.this, "메뉴이름을 입력해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SetMenuListActivity.this, "메뉴이름을 입력해주세요", Toast.LENGTH_SHORT).show();
                     return;
                 }else if (!name.matches("[0-9|a-z|A-Z|ㄱ-ㅎ|ㅏ-ㅣ|가-힝]*")) {
-                    Toast.makeText(MenuListActivity.this, "특수문자를 제외하고 이름을 등록해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SetMenuListActivity.this, "특수문자를 제외하고 이름을 등록해주세요.", Toast.LENGTH_SHORT).show();
 
                 } else if (img=="") {
-                    Toast.makeText(MenuListActivity.this, "사진을 등록해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SetMenuListActivity.this, "사진을 등록해주세요.", Toast.LENGTH_SHORT).show();
                     return;
 
                 }else if(price.equals("")){
-                    Toast.makeText(MenuListActivity.this, "메뉴가격을 입력해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SetMenuListActivity.this, "메뉴가격을 입력해주세요", Toast.LENGTH_SHORT).show();
                     return;
 
                 }else if(info.equals("")){
-                    Toast.makeText(MenuListActivity.this, "메뉴정보를 입력해주세요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SetMenuListActivity.this, "메뉴정보를 입력해주세요", Toast.LENGTH_SHORT).show();
                     return;
 
                 }else{
@@ -281,7 +279,7 @@ public class MenuListActivity extends AppCompatActivity {
                         buffer.append("name : " + cursor.getString(2) + "\n");
 
                         if (cursor.getString(2).equals(name)) {
-                            Toast.makeText(MenuListActivity.this, "["+cursor.getString(2)+"]은(는) "+ cursor.getString(1)+ "카테고리에 이미 등록한 메뉴입니다.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SetMenuListActivity.this, "["+cursor.getString(2)+"]은(는) "+ cursor.getString(1)+ "카테고리에 이미 등록한 메뉴입니다.", Toast.LENGTH_SHORT).show();
                             sameName = true;
                             break;
                         }
@@ -311,7 +309,7 @@ public class MenuListActivity extends AppCompatActivity {
                             SetDrinkFragment.adapter.notifyDataSetChanged();
                         }
 
-                        Toast.makeText(MenuListActivity.this, name+" 메뉴를 등록하였습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SetMenuListActivity.this, name+" 메뉴를 등록하였습니다.", Toast.LENGTH_SHORT).show();
                         img= "";
                         uri= null;
                         Log.d("Images", img);
@@ -335,7 +333,7 @@ public class MenuListActivity extends AppCompatActivity {
 
                         uri = result.getData().getData();
 
-                        Glide.with(MenuListActivity.this).load(uri).into(etImage);
+                        Glide.with(SetMenuListActivity.this).load(uri).into(etImage);
                         Log.d("ImgURI", uri+"");
                     }
                 }
@@ -344,7 +342,7 @@ public class MenuListActivity extends AppCompatActivity {
 
     // 뒤로가기
     void goBack(){
-        Intent intent= new Intent(MenuListActivity.this, MainActivity.class);
+        Intent intent= new Intent(SetMenuListActivity.this, MainActivity.class);
         intent.putExtra("category_set", categoryNum);
         startActivity(intent);
 

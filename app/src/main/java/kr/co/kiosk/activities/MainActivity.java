@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -20,14 +19,13 @@ import android.widget.Toast;
 
 
 import kr.co.kiosk.R;
-import kr.co.kiosk.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     int[] category={0,1,2,3,4};
 
-    String password= "1233";
+    String password= "1234";
 
     SharedPreferences pref;
 
@@ -71,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         EditText pw= loginLayout.findViewById(R.id.pw);
         TextView setPw= loginLayout.findViewById(R.id.set_pw);
 
-        // 비밀번호 :1233 [ 잘못 입력한 경우 관리자설정으로 갈 수 없음 ]
+        // 비밀번호 :1234 [ 잘못 입력한 경우 관리자설정으로 갈 수 없음 ]
         AlertDialog.Builder builder= new AlertDialog.Builder(this).setView(loginLayout).setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -79,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 if (pw.getText().toString().equals(password)){
 
                     Toast.makeText(MainActivity.this, "관리자 설정으로 이동", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(MainActivity.this, MenuListActivity.class);
+                    Intent intent = new Intent(MainActivity.this, SetMenuListActivity.class);
                     startActivity(intent);
 
                 }else{ Toast.makeText(MainActivity.this, "비밀번호가 틀립니다.", Toast.LENGTH_SHORT).show();}
