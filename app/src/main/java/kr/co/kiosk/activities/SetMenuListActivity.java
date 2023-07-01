@@ -94,7 +94,7 @@ public class SetMenuListActivity extends AppCompatActivity {
     // 사진업로드 관련
     private void clickedImageSelect(){
 
-        Intent intent= new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        Intent intent= new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityResult.launch(intent);
     }
@@ -102,13 +102,10 @@ public class SetMenuListActivity extends AppCompatActivity {
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         View view = getCurrentFocus(); // 현재 터치 위치
-    Log.e("dispatchTouchEvent", "1 >>>>>>>>>>>>>>>>>>>>> "+ev.getAction()+", "+view+", ");
         if (view != null
                 && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE)
                 && view instanceof EditText
                 && !view.getClass().getName().startsWith("android.webkit.")) {
-
-            Log.e("dispatchTouchEvent", "2 >>>>>>>>>>>>>>>>>>>>>");
 
             // view 의 id 가 명시되어있지 않은 다른 부분을 터치 시
             int[] scrcoords = new int[2];
@@ -124,38 +121,8 @@ public class SetMenuListActivity extends AppCompatActivity {
                     || y < view.getTop() || y > view.getBottom())
                 ((InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
         }
-//        View view = getCurrentFocus();
-//
-//        InputMethodManager imm = (InputMethodManager) mContext.getSystemService(INPUT_METHOD_SERVICE);
-//        if(view == null)
-//            view = new View(mContext);
-//
-//        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-//
         return super.dispatchTouchEvent(ev);
     }
-
-
-//    @Override
-//    public boolean dispatchTouchEvent(MotionEvent ev) {
-//        View focusView = getCurrentFocus();
-//        if (focusView != null) {
-//            Rect rect = new Rect();
-//            focusView.getGlobalVisibleRect(rect);
-//            int x = (int) ev.getX(), y = (int) ev.getY();
-//            if (!rect.contains(x, y)) {
-//                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-//                if (imm != null)
-//                    imm.hideSoftInputFromWindow(focusView.getWindowToken(), 0);
-//                focusView.clearFocus();
-//            }
-//        }
-//        return super.dispatchTouchEvent(ev);
-//    }
-
-
-
-
 
     void insertMenu(){
         LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -231,8 +198,8 @@ public class SetMenuListActivity extends AppCompatActivity {
         dialog.show();
 
         WindowManager.LayoutParams params=dialog.getWindow().getAttributes();
-        params.width= 750;
-        params.height= 950;
+        params.width= WindowManager.LayoutParams.MATCH_PARENT;
+        params.height= WindowManager.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes(params);
 
         // 등록하기 버튼 클릭했을 때

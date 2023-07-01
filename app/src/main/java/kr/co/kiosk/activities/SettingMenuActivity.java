@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import java.text.DecimalFormat;
 
 import kr.co.kiosk.R;
+import kr.co.kiosk.databinding.ActivitySettingMenuBinding;
 import kr.co.kiosk.model.MenuDBHelper;
 
 public class SettingMenuActivity extends AppCompatActivity {

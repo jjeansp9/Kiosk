@@ -239,17 +239,22 @@ public class CoffeeFragment extends Fragment {
     }
 
     private String resultPrice(){
-        String result= "";
-        int num = 0;
-        for (int i=0; i<HomeActivity.priceListItems.size(); i++){
-            String s= HomeActivity.priceListItems.get(i).menuPrice.replaceAll(",","");
-            num+= Integer.parseInt(s);
-        }
-        result= num+"";
-        // 천 단위마다 [,] 추가
-        result= result.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
+        try{
+            String result= "";
+            int num = 0;
+            for (int i=0; i<HomeActivity.priceListItems.size(); i++){
+                String s= HomeActivity.priceListItems.get(i).menuPrice.replaceAll(",","");
+                num+= Integer.parseInt(s);
+            }
+            result= num+"";
+            // 천 단위마다 [,] 추가
+            result= result.replaceAll("\\B(?=(\\d{3})+(?!\\d))", ",");
 
-        return result;
+            return result;
+        }catch (Exception e){
+
+        }
+        return null;
     }
 
 

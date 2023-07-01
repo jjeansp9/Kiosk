@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.WindowManager;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 
 
 import kr.co.kiosk.R;
+import kr.co.kiosk.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -155,7 +157,8 @@ public class MainActivity extends AppCompatActivity {
     // 외부저장소 권한요청
     void checkPermission(){
         String[] permissions= new String[]{
-                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE};
         if (checkSelfPermission(permissions[0]) == PackageManager.PERMISSION_DENIED){
             requestPermissions(permissions, 100);
         }

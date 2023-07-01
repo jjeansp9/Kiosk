@@ -38,6 +38,7 @@ import java.util.ArrayList;
 
 import kr.co.kiosk.R;
 import kr.co.kiosk.adapters.RecyclerSetMenuListAdapter;
+import kr.co.kiosk.databinding.FragmentCoffeeSetBinding;
 import kr.co.kiosk.model.MenuDBHelper;
 import kr.co.kiosk.model.SetMenuList;
 
@@ -71,12 +72,12 @@ public class SetCoffeeFragment extends Fragment {
         binding.recyclerCoffee.setAdapter(adapter);
 
         clickedItems();
-        clickedListMenu();
+        listMenu();
     }
 
 
     // 등록한 메뉴 모두 보여주기
-    private void clickedListMenu(){
+    private void listMenu(){
         Cursor cursor= dbHelper.getDataAll();
         StringBuffer buffer= new StringBuffer();
 
@@ -203,8 +204,8 @@ public class SetCoffeeFragment extends Fragment {
         dialog.show();
 
         WindowManager.LayoutParams params=dialog.getWindow().getAttributes();
-        params.width= 800;
-        params.height= 950;
+        params.width= WindowManager.LayoutParams.MATCH_PARENT;
+        params.height= WindowManager.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes(params);
 
         // 수정하기 버튼 눌렀을때 반응
@@ -308,7 +309,7 @@ public class SetCoffeeFragment extends Fragment {
     // 사진업로드 관련
     private void clickedImageSelect(){
 
-        Intent intent= new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        Intent intent= new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityResult.launch(intent);
     }

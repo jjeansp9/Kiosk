@@ -14,22 +14,20 @@
         android:scrollbars="horizontal"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/recycler_menu_item"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"/>
+        tools:listitem="@layout/recycler_menu_item"/>
 
     <ImageView
         android:id="@+id/right"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:src="@drawable/ic_baseline_arrow_right_24" />
 
     <ImageView
         android:id="@+id/left"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:src="@drawable/ic_baseline_arrow_left_24" />

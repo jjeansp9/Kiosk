@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="120dp"
+    android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="8dp"
     android:elevation="16dp"
@@ -13,20 +13,18 @@
 
         <ImageView
             android:id="@+id/set_menu_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dp"
-            android:scaleType="centerCrop"
             android:src="@drawable/menu_coffee_01_espresso" />
 
         <RelativeLayout
             android:id="@+id/set_menu_update"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="500dp"
+            android:layout_height="170dp"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/set_menu_delete"
-            android:layout_toEndOf="@id/set_menu_image">
+            android:layout_toRightOf="@id/set_menu_image">
 
             <TextView
                 android:id="@+id/set_menu_name"
@@ -37,6 +35,7 @@
                 android:maxLines="1"
                 android:text="에스프레소"
                 android:textColor="@color/black"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -47,7 +46,8 @@
                 android:gravity="right"
                 android:maxLines="1"
                 android:text="3,000"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/tv"
@@ -56,26 +56,27 @@
                 android:layout_alignParentRight="true"
                 android:text="원"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/set_menu_info"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/set_menu_name"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="30dp"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:textSize="13sp"
-                android:text="이 커피는 향이 진하며 쓴 맛이 난다. 전세계적으로 많은 사람들이 선호하는 그런 맛이다." />
+                android:text="이 커피는 향이 진하며 쓴 맛이 난다. 전세계적으로 많은 사람들이 선호하는 그런 맛이다."
+                android:textSize="24sp" />
 
         </RelativeLayout>
 
+
         <ImageView
             android:id="@+id/set_menu_delete"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:padding="8dp"

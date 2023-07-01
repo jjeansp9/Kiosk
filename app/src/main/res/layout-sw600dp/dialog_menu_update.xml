@@ -7,23 +7,25 @@
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="45dp"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="40dp"
         android:text="메뉴 수정"
         android:textColor="@color/black"
-        android:textSize="20sp"
+        android:textSize="24sp"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/update_image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginBottom="30dp"
         android:background="@drawable/bg_upload_image"
-        android:padding="12dp"
+        android:padding="40dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_upload_image" />
 
@@ -31,34 +33,33 @@
         android:id="@+id/layout_menu_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/update_image"
+        android:orientation="horizontal"
         android:layout_centerHorizontal="true"
+        android:layout_below="@id/update_image"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="16dp"
-        android:orientation="horizontal">
+        android:layout_marginRight="16dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="12dp"
-            android:maxLength="20"
             android:text="메뉴 이름"
-            android:textSize="16sp" />
-
+            android:textSize="36sp"
+            android:layout_marginRight="24dp"
+            android:maxLength="20"
+            android:layout_gravity="center_vertical"/>
         <EditText
             android:id="@+id/et_update_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_box_number"
             android:ems="16"
+            android:inputType="text"
+            android:textSize="24sp"
+            android:hint="수정할 메뉴의 이름을 입력하세요"
+            android:background="@drawable/bg_box_number"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:hint="수정할 메뉴의 이름을 입력하세요"
-            android:inputType="text"
-            android:padding="12dp"
-            android:textSize="14sp" />
+            android:padding="12dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -68,7 +69,7 @@
         android:orientation="horizontal"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/layout_menu_name"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp">
 
@@ -76,17 +77,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="메뉴 가격"
-            android:textSize="16sp"
-            android:layout_marginRight="12dp"
+            android:textSize="36sp"
+            android:layout_marginRight="24dp"
             android:layout_gravity="center_vertical"/>
         <EditText
             android:id="@+id/et_update_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="16"
-            android:maxLength="13"
+            android:maxLength="16"
             android:inputType="number"
-            android:textSize="14sp"
+            android:textSize="24sp"
             android:hint="수정할 메뉴의 가격을 입력하세요"
             android:background="@drawable/bg_box_number"
             android:padding="12dp"/>
@@ -98,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/layout_menu_price"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:orientation="horizontal"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
@@ -107,24 +108,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="12dp"
+            android:layout_marginRight="24dp"
             android:text="메뉴 정보"
-            android:textSize="16sp" />
+            android:textSize="36sp" />
 
         <EditText
             android:id="@+id/et_update_info"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="180dp"
             android:background="@drawable/bg_box_number"
             android:ems="16"
             android:gravity="top|left"
             android:hint="수정할 메뉴에 대한 소개글을 작성하세요"
             android:inputType="textMultiLine"
-            android:maxLength="100"
-            android:minLines="5"
-            android:maxLines="5"
+            android:maxLength="50"
+            android:maxLines="6"
             android:padding="12dp"
-            android:textSize="14sp"/>
+            android:textSize="24sp"/>
     </LinearLayout>
 
 </RelativeLayout>
