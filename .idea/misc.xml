@@ -50,8 +50,28 @@
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/menu/bnv.xml" value="0.30945945945945946" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/menu/bnv_chat.xml" value="0.17432432432432432" />
         <entry key="..\:/JspAndroid/AppProject/Kiosk/app/src/main/res/menu/popup_community.xml" value="0.30945945945945946" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/drawable/bg_box_number.xml" value="0.249" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/drawable/ic_baseline_arrow_left_24.xml" value="0.272" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.2225" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout-sw600dp/activity_home.xml" value="0.27109375" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout-sw600dp/activity_intro.xml" value="0.27109375" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout-sw600dp/activity_main.xml" value="0.155859375" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout-sw600dp/activity_menu_list.xml" value="0.27109375" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout-sw600dp/dialog_menu_update.xml" value="0.27109375" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout-sw600dp/fragment_coffee.xml" value="0.27109375" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout-sw600dp/recycler_menu_item.xml" value="0.27109375" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout-sw600dp/recycler_price_item.xml" value="0.27109375" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout-sw600dp/recycler_set_menu_item.xml" value="0.27109375" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout/activity_home.xml" value="0.31261261261261264" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout/activity_intro.xml" value="0.31261261261261264" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout/activity_main.xml" value="0.30844444444444447" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout/activity_menu_list.xml" value="0.31261261261261264" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout/activity_setting_menu.xml" value="0.31261261261261264" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout/dialog_menu_update.xml" value="0.31261261261261264" />
         <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout/fragment_coffee.xml" value="0.3614583333333333" />
         <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout/fragment_coffee_set.xml" value="0.35462962962962963" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout/recycler_menu_item.xml" value="0.31261261261261264" />
+        <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout/recycler_price_item.xml" value="0.31261261261261264" />
         <entry key="..\:/ProgramFiles/Android/Kiosk/app/src/main/res/layout/recycler_set_menu_item.xml" value="0.3614583333333333" />
       </map>
     </option>
