@@ -533,7 +533,7 @@ public class HomeActivity extends AppCompatActivity {
         else{binding.tabDrink.setBackgroundColor(Color.parseColor("#8A8A8A"));}
     }
 
-    // 주문하기 버튼 클릭했을 때.
+    // 주문하기 버튼 클릭했을 때
     void clickedBuy(){
 
         if(priceListItems.size() == 0){
