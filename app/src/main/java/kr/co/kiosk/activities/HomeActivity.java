@@ -502,7 +502,7 @@ public class HomeActivity extends AppCompatActivity {
         binding.cancel.setOnClickListener(v-> clickedCancel());
     }
 
-    // 클릭한 카테고리 값을 얻어와서 값에 해당하는 카테고리 탭 열기.
+    // 클릭한 카테고리 값을 얻어와서 값에 해당하는 카테고리 탭 열기
     void clickedFragment(String category, int num){
 
         FragmentTransaction tran= fragmentManager.beginTransaction();
